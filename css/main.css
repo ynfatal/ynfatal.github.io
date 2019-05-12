@@ -1819,7 +1819,7 @@ pre .javascript .function {
   width: 4px;
   height: 4px;
   border-radius: 50%;
-  background: #384bb0;
+  background: #3cb8e0;
 }
 .feed-link,
 .chat {
@@ -2994,4 +2994,44 @@ ul.breadcrumb li+li:last-child {
   .pagination {
     margin: 8px 0 0;
   }
+}
+code {
+  overflow-wrap: break-word;
+  overflow-wrap: break-word;
+  word-wrap: break-word;
+  padding: 2px 4px;
+  color: #ef630f;
+  background: #eee;
+  border-radius: 3px;
+  font-size: 14px;
+}
+blockquote {
+  margin: 0;
+  padding: 0 15px;
+  color: #666;
+  border-left: 4px solid #ef630f;
+}
+a,
+span.exturl {
+  overflow-wrap: break-word;
+  overflow-wrap: break-word;
+  word-wrap: break-word;
+  background-color: transparent;
+  color: #42b983;
+  text-decoration: none;
+  outline: none;
+  border-bottom: 1px solid #999;
+  cursor: pointer;
+}
+.menu .menu-item a,
+.menu .menu-item span.exturl {
+  display: block;
+  font-size: 13px;
+  color: #000;
+  line-height: inherit;
+  border-bottom: 1px solid transparent;
+  transition-property: border-color;
+  transition-duration: 0.2s;
+  transition-timing-function: ease-in-out;
+  transition-delay: 0s;
 }
