@@ -1819,7 +1819,7 @@ pre .javascript .function {
   width: 4px;
   height: 4px;
   border-radius: 50%;
-  background: #ffed39;
+  background: #cff2a8;
 }
 .feed-link,
 .chat {
@@ -3035,6 +3035,11 @@ span.exturl {
   transition-timing-function: ease-in-out;
   transition-delay: 0s;
 }
-i.fa.fa-eye {
+.fa-eye:before {
+  margin-right: 4px;
+  content: "\f06e";
+}
+.fa-user-md:before {
+  content: "\f0f0";
   margin-right: 4px;
 }
