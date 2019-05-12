@@ -1819,7 +1819,7 @@ pre .javascript .function {
   width: 4px;
   height: 4px;
   border-radius: 50%;
-  background: #ff183b;
+  background: #c28101;
 }
 .feed-link,
 .chat {
@@ -3047,6 +3047,6 @@ span #busuanzi_value_site_pv,
 #busuanzi_value_site_uv,
 #busuanzi_value_page_pv {
   margin-left: 2px;
-  margin-right: 2px;
+  margin-right: 10px;
   color: #000;
 }
