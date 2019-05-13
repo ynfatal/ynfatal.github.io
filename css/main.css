@@ -970,6 +970,12 @@ pre .javascript .function {
   width: 1.285714285714286em;
   text-align: left;
 }
+.btn {
+  color: #999;
+  background-color: #fff;
+  border-color: #999;
+  border-radius: 15px;
+}
 .btn-bar {
   display: block;
   width: 22px;
@@ -1819,7 +1825,7 @@ pre .javascript .function {
   width: 4px;
   height: 4px;
   border-radius: 50%;
-  background: #d5f4ff;
+  background: #f0ffc2;
 }
 .feed-link,
 .chat {
@@ -3049,10 +3055,4 @@ span.exturl {
   margin-left: 2px;
   margin-right: 10px;
   color: #000;
-}
-.btn {
-  color: #999;
-  background-color: #fff;
-  border-color: #999;
-  border-radius: 15px;
 }
