@@ -20,8 +20,6 @@ copyHtml += '  <i class="fa fa-clipboard"></i><span>copy</span>';
           console.info('Text:', e.text);
           console.info('Trigger:', e.trigger);
           e.clearSelection();
-          var btn = e.trigger;
-          $(btn).tooltip({text: '这是一个Tooltip！'});
       });
     }
     initCopyCode();
