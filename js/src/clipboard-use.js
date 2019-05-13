@@ -1,16 +1,4 @@
 $(function() {
-  function setTooltip(btn, message) {
-    btn.tooltip('hide')
-      .attr('data-original-title', message)
-      .tooltip('show');
-  }
-
-  function hideTooltip(btn) {
-    setTimeout(function() {
-      btn.tooltip('hide');
-    }, 1000);
-  }
-
   /*页面载入完成后，创建复制按钮*/
   !function (e, t, a) { 
     /* code */
@@ -26,24 +14,14 @@ copyHtml += '  <i class="fa fa-clipboard"></i><span>copy</span>';
               return trigger.nextElementSibling;
           }
       });
-
       // 复制成功触发的事件
       clipboard.on('success', function(e) {
-          var btn = $(e.trigger);
           console.info('Action:', e.action);
           console.info('Text:', e.text);
           console.info('Trigger:', e.trigger);
-          // setTooltip(btn, 'Copied');
-          // hideTooltip(btn);
           e.clearSelection();
       });
     }
-
-    /*$('button .btn-copy').tooltip({
-      trigger: 'click',
-      placement: 'bottom'
-    });*/
-
     initCopyCode();
   }(window, document);
 });
