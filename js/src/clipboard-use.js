@@ -1,4 +1,23 @@
 $(function() {
+  // Tooltip
+
+  $('button').tooltip({
+    trigger: 'click',
+    placement: 'bottom'
+  });
+
+  function setTooltip(message) {
+    $('button').tooltip('hide')
+      .attr('data-original-title', message)
+      .tooltip('show');
+  }
+
+  function hideTooltip() {
+    setTimeout(function() {
+      $('button').tooltip('hide');
+    }, 1000);
+  }
+
   /*页面载入完成后，创建复制按钮*/
   !function (e, t, a) { 
     /* code */
@@ -9,12 +28,7 @@ $(function() {
 copyHtml += '  <i class="fa fa-clipboard"></i><span>copy</span>';
       copyHtml += '</button>';
       $(".highlight .code pre").before(copyHtml);
-      /*var clipboard = new ClipboardJS('.btn-copy', {
-          target: function(trigger) {
-              return trigger.nextElementSibling;
-          }
-      });*/
-      var clipboard = new ClipboardJS('.btn', {
+      var clipboard = new ClipboardJS('.btn-copy', {
           target: function(trigger) {
               return trigger.nextElementSibling;
           }
@@ -24,7 +38,13 @@ copyHtml += '  <i class="fa fa-clipboard"></i><span>copy</span>';
           console.info('Action:', e.action);
           console.info('Text:', e.text);
           console.info('Trigger:', e.trigger);
+          setTooltip('Copied!');
           e.clearSelection();
+      });
+      // 复制失败触发的事件
+      clipboard.on('error', function(e) {
+        setTooltip('Failed!');
+        hideTooltip();
       });
     }
     initCopyCode();
