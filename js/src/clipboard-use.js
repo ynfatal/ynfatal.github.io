@@ -21,7 +21,7 @@ $(function() {
 copyHtml += '  <i class="fa fa-clipboard"></i><span>copy</span>';
       copyHtml += '</button>';
       $(".highlight .code pre").before(copyHtml);
-      var clipboard = new ClipboardJS('.btn-copy', {
+      var clipboard = new ClipboardJS('.btn', {
           target: function(trigger) {
               return trigger.nextElementSibling;
           }
