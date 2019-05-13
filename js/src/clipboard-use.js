@@ -10,7 +10,7 @@ copyHtml += '  <i class="fa fa-clipboard"></i><span>copy</span>';
       copyHtml += '</button>';
       $(".highlight .code pre").before(copyHtml);
       var clipboard = new ClipboardJS('.btn-copy', {
-          target: function(trigger) {
+          text: function(trigger) {
               // return trigger.nextElementSibling;
               return trigger.getAttribute('aria-label');
           }
