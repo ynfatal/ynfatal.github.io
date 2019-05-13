@@ -27,11 +27,6 @@ copyHtml += '  <i class="fa fa-clipboard"></i><span>copy</span>';
           }
       });
 
-      $('.btn-copy').tooltip({
-        trigger: 'click',
-        placement: 'bottom'
-      });
-
       // 复制成功触发的事件
       clipboard.on('success', function(e) {
           console.info('Action:', e.action);
@@ -40,6 +35,11 @@ copyHtml += '  <i class="fa fa-clipboard"></i><span>copy</span>';
           setTooltip(btn, 'Copied');
           hideTooltip(btn);
           e.clearSelection();
+      });
+
+      $('.btn-copy').tooltip({
+        trigger: 'click',
+        placement: 'bottom'
       });
     }
     initCopyCode();
