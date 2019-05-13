@@ -11,7 +11,8 @@ copyHtml += '  <i class="fa fa-clipboard"></i><span>copy</span>';
       $(".highlight .code pre").before(copyHtml);
       var clipboard = new ClipboardJS('.btn-copy', {
           target: function(trigger) {
-              return trigger.nextElementSibling;
+              // return trigger.nextElementSibling;
+              return trigger.getAttribute('aria-label');
           }
       });
       // 复制成功触发的事件
