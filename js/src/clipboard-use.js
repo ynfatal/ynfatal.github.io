@@ -1,3 +1,20 @@
+$('.btn-copy').tooltip({
+  trigger: 'click',
+  placement: 'bottom'
+});
+
+function setTooltip(btn, message) {
+  btn.tooltip('hide')
+    .attr('data-original-title', message)
+    .tooltip('show');
+}
+
+function hideTooltip(btn) {
+  setTimeout(function() {
+    btn.tooltip('hide');
+  }, 1000);
+}
+
 $(function() {
   /*页面载入完成后，创建复制按钮*/
   !function (e, t, a) { 
@@ -19,6 +36,8 @@ copyHtml += '  <i class="fa fa-clipboard"></i><span>copy</span>';
           console.info('Action:', e.action);
           console.info('Text:', e.text);
           console.info('Trigger:', e.trigger);
+          setTooltip(btn, 'Copied');
+          hideTooltip(btn);
           e.clearSelection();
       });
     }
