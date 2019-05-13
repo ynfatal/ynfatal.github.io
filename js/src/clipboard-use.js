@@ -33,8 +33,8 @@ copyHtml += '  <i class="fa fa-clipboard"></i><span>copy</span>';
           console.info('Action:', e.action);
           console.info('Text:', e.text);
           console.info('Trigger:', e.trigger);
-          setTooltip(btn, 'Copied');
-          hideTooltip(btn);
+          // setTooltip(btn, 'Copied');
+          // hideTooltip(btn);
           e.clearSelection();
       });
     }
