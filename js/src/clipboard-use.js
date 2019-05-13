@@ -11,11 +11,6 @@ function hideTooltip(btn) {
 }
 
 $(function() {
-  $('.btn-copy').tooltip({
-    trigger: 'click',
-    placement: 'bottom'
-  });
-
   /*页面载入完成后，创建复制按钮*/
   !function (e, t, a) { 
     /* code */
@@ -31,6 +26,12 @@ copyHtml += '  <i class="fa fa-clipboard"></i><span>copy</span>';
               return trigger.nextElementSibling;
           }
       });
+
+      $('.btn-copy').tooltip({
+        trigger: 'click',
+        placement: 'bottom'
+      });
+
       // 复制成功触发的事件
       clipboard.on('success', function(e) {
           console.info('Action:', e.action);
