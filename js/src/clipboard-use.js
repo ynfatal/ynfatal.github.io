@@ -21,7 +21,7 @@ $(function() {
 copyHtml += '  <i class="fa fa-clipboard"></i><span>copy</span>';
       copyHtml += '</button>';
       $(".highlight .code pre").before(copyHtml);
-      var clipboard = new ClipboardJS('.btn', {
+      var clipboard = new ClipboardJS('.btn-copy', {
           target: function(trigger) {
               return trigger.nextElementSibling;
           }
@@ -37,12 +37,13 @@ copyHtml += '  <i class="fa fa-clipboard"></i><span>copy</span>';
           hideTooltip(btn);
           e.clearSelection();
       });
-
-      $('.btn-copy').tooltip({
-        trigger: 'click',
-        placement: 'bottom'
-      });
     }
+
+    $('button .btn-copy').tooltip({
+      trigger: 'click',
+      placement: 'bottom'
+    });
+
     initCopyCode();
   }(window, document);
 });
