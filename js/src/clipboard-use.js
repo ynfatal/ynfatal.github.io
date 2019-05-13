@@ -39,10 +39,10 @@ copyHtml += '  <i class="fa fa-clipboard"></i><span>copy</span>';
       });
     }
 
-    $('button .btn-copy').tooltip({
+    /*$('button .btn-copy').tooltip({
       trigger: 'click',
       placement: 'bottom'
-    });
+    });*/
 
     initCopyCode();
   }(window, document);
