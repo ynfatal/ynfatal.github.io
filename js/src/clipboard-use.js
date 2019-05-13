@@ -15,8 +15,8 @@ copyHtml += '  <i class="fa fa-clipboard"></i><span>copy</span>';
           }
       });*/
       var clipboard = new ClipboardJS('.btn', {
-          text: function(trigger) {
-              return trigger.getAttribute('aria-label');
+          target: function(trigger) {
+              return trigger.nextElementSibling;
           }
       });
       // 复制成功触发的事件
