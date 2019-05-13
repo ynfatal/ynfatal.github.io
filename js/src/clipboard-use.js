@@ -1,8 +1,3 @@
-$('.btn-copy').tooltip({
-  trigger: 'click',
-  placement: 'bottom'
-});
-
 function setTooltip(btn, message) {
   btn.tooltip('hide')
     .attr('data-original-title', message)
@@ -16,6 +11,11 @@ function hideTooltip(btn) {
 }
 
 $(function() {
+  $('.btn-copy').tooltip({
+    trigger: 'click',
+    placement: 'bottom'
+  });
+
   /*页面载入完成后，创建复制按钮*/
   !function (e, t, a) { 
     /* code */
