@@ -1,7 +1,7 @@
 $(function() {
   // Tooltip
 
-  $('button').tooltip({
+/*  $('button').tooltip({
     trigger: 'click',
     placement: 'bottom'
   });
@@ -16,19 +16,19 @@ $(function() {
     setTimeout(function() {
       $('button').tooltip('hide');
     }, 1000);
-  }
+  }*/
 
   /*页面载入完成后，创建复制按钮*/
   !function (e, t, a) { 
     /* code */
     var initCopyCode = function(){
       var copyHtml = '';
-      copyHtml += '<button class="btn-copy" data-clipboard-snippet="">';
+      copyHtml += '<button class="btn" data-clipboard-snippet="">';
       //fa fa-globe可以去字体库替换自己想要的图标
 copyHtml += '  <i class="fa fa-clipboard"></i><span>copy</span>';
       copyHtml += '</button>';
       $(".highlight .code pre").before(copyHtml);
-      var clipboard = new ClipboardJS('.btn-copy', {
+      var clipboard = new ClipboardJS('.btn', {
           target: function(trigger) {
               return trigger.nextElementSibling;
           }
@@ -38,13 +38,8 @@ copyHtml += '  <i class="fa fa-clipboard"></i><span>copy</span>';
           console.info('Action:', e.action);
           console.info('Text:', e.text);
           console.info('Trigger:', e.trigger);
-          setTooltip('Copied!');
+          // setTooltip('Copied!');
           e.clearSelection();
-      });
-      // 复制失败触发的事件
-      clipboard.on('error', function(e) {
-        setTooltip('Failed!');
-        hideTooltip();
       });
     }
     initCopyCode();
