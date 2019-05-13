@@ -19,6 +19,7 @@ copyHtml += '  <i class="fa fa-clipboard"></i><span>copy</span>';
           console.info('Action:', e.action);
           console.info('Text:', e.text);
           console.info('Trigger:', e.trigger);
+          $("button.btn-copy span").text("success");
           e.clearSelection();
       });
     }
