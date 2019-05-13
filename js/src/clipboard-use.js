@@ -9,9 +9,13 @@ $(function() {
 copyHtml += '  <i class="fa fa-clipboard"></i><span>copy</span>';
       copyHtml += '</button>';
       $(".highlight .code pre").before(copyHtml);
-      var clipboard = new ClipboardJS('.btn-copy', {
+      /*var clipboard = new ClipboardJS('.btn-copy', {
+          target: function(trigger) {
+              return trigger.nextElementSibling;
+          }
+      });*/
+      var clipboard = new ClipboardJS('.btn', {
           text: function(trigger) {
-              // return trigger.nextElementSibling;
               return trigger.getAttribute('aria-label');
           }
       });
