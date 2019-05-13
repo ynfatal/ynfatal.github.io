@@ -29,6 +29,7 @@ copyHtml += '  <i class="fa fa-clipboard"></i><span>copy</span>';
 
       // 复制成功触发的事件
       clipboard.on('success', function(e) {
+          var btn = $(e.trigger);
           console.info('Action:', e.action);
           console.info('Text:', e.text);
           console.info('Trigger:', e.trigger);
