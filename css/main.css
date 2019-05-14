@@ -1825,7 +1825,7 @@ pre .javascript .function {
   width: 4px;
   height: 4px;
   border-radius: 50%;
-  background: #0562cd;
+  background: #506c1f;
 }
 .feed-link,
 .chat {
@@ -3089,4 +3089,10 @@ span.exturl {
 }
 .highlight:hover .btn-copy {
   opacity: 1;
+}
+.posts-expand .post-tags a {
+  display: inline-block;
+  margin-right: 10px;
+  font-size: 13px;
+  color: #000;
 }
