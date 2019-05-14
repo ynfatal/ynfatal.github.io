@@ -29,27 +29,6 @@
     
     
     <entry>
-      <title>新文章</title>
-      <link href="/2019/05/11/my-new-post/"/>
-      <url>/2019/05/11/my-new-post/</url>
-      
-        <content type="html"><![CDATA[]]></content>
-      
-      
-      
-        <tags>
-            
-            <tag> blog </tag>
-            
-            <tag> new </tag>
-            
-        </tags>
-      
-    </entry>
-    
-    
-    
-    <entry>
       <title>Hello World</title>
       <link href="/2019/03/17/hello-world/"/>
       <url>/2019/03/17/hello-world/</url>
