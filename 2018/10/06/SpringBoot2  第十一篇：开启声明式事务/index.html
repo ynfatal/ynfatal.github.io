@@ -546,7 +546,7 @@
 <pre><code>今天，是我测试 **@Async 异步事务**的第三天了。在这次测试中最大的收获就是解决了异步方法抛异常，事务方法和它调用的异步方法两个事务都回滚的问题。其中有个知识点很重要，就是 @Transactional 标注的方法中，如何手动回滚事务。
 </code></pre><p>解决方法：一句即可 <strong>TransactionAspectSupport.currentTransactionStatus().setRollbackOnly();</strong>  (一般手动回滚会放在 catch 代码块中来用。)</p>
 <h2 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h2><p>​        <strong>SpringBoot 开启事务</strong> 很简单，只需要加一行注解就可以了，前提你用的是 <strong>jdbctemplate, jpa, mybatis</strong>，这种常见的orm。</p>
-<p><code>SpringBoot</code>的知识已经有前辈在我们之前探索了。比较喜欢的博主有：<a href="https://blog.battcn.com/" target="_blank" rel="noopener">唐亚峰 | Battcn</a>、<a href="https://blog.csdn.net/forezp" target="_blank" rel="noopener">方志朋的专栏</a>、<a href="http://blog.didispace.com/" target="_blank" rel="noopener">程序猿DD</a>。对这门技术感兴趣的可以去他们的博客逛逛。谢谢他们的分享~~</p>
+<p><code>SpringBoot</code>的知识已经有前辈在我们之前探索了。比较喜欢的博主有：<a href="https://blog.battcn.com/" target="_blank" rel="noopener">唐亚峰 | Battcn</a>、<a href="https://blog.csdn.net/forezp" target="_blank" rel="noopener">方志朋的专栏</a>、<a href="http://blog.didispace.com/" target="_blank" rel="noopener">程序猿DD</a>、<a href="http://www.ityouknow.com/" target="_blank" rel="noopener">纯洁的微笑</a>。对这门技术感兴趣的可以去他们的博客逛逛。谢谢他们的分享~~</p>
 <p>以上文章是我用来学习的<code>Demo</code>，都是基于 <code>SpringBoot2.x</code> 版本。</p>
 <p><strong>源码地址:</strong> <a href="https://github.com/ynfatal/springboot2-learning/tree/master/chapter11" target="_blank" rel="noopener">https://github.com/ynfatal/springboot2-learning/tree/master/chapter11</a></p>
 <h4 id="学习-方志朋-前辈的经验"><a href="#学习-方志朋-前辈的经验" class="headerlink" title="学习 方志朋 前辈的经验"></a>学习 <a href="https://blog.csdn.net/forezp" target="_blank" rel="noopener">方志朋</a> 前辈的经验</h4>
@@ -897,7 +897,7 @@
 
 <!-- <div class="theme-info">
   <div class="powered-by"></div>
-  <span class="post-count">博客全站共27.5k字</span>
+  <span class="post-count">博客全站共27.6k字</span>
 </div> --> 
 
         
