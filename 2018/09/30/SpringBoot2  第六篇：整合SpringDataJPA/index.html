@@ -100,18 +100,20 @@
 
 
 
-  <meta name="description" content="Welcome to Hexo! This is your very first post. Check documentation for more info. If you get any problems when using Hexo, you can find the answer in troubleshooting or you can ask me on GitHub. Quick">
-<meta name="keywords" content="html,css,javascript,java,SpringCloud,docer,git,github,java8">
+  <meta name="description" content="上一篇介绍了Spring JdbcTemplate的使用，对比原始的JDBC而言，它更加的简洁。但随着表的增加，重复的CRUD工作让我们苦不堪言，这时候Spring Data Jpa的作用就体现出来了….. [TOC] JPA​        JPA 是 Java Persistence API 的简称，中文名 Java持久层API，是JDK 5.0注解或XML描述对象－关系表的映射关系，并将运行">
+<meta name="keywords" content="SpringBoot2,Jpa">
 <meta property="og:type" content="article">
-<meta property="og:title" content="Hello World">
-<meta property="og:url" content="https://ynfatal.github.io/2019/05/09/hello-world/index.html">
+<meta property="og:title" content="SpringBoot2 | 第六篇：整合SpringDataJPA">
+<meta property="og:url" content="https://ynfatal.github.io/2018/09/30/SpringBoot2  第六篇：整合SpringDataJPA/index.html">
 <meta property="og:site_name" content="Fatal&#39;s Blog">
-<meta property="og:description" content="Welcome to Hexo! This is your very first post. Check documentation for more info. If you get any problems when using Hexo, you can find the answer in troubleshooting or you can ask me on GitHub. Quick">
+<meta property="og:description" content="上一篇介绍了Spring JdbcTemplate的使用，对比原始的JDBC而言，它更加的简洁。但随着表的增加，重复的CRUD工作让我们苦不堪言，这时候Spring Data Jpa的作用就体现出来了….. [TOC] JPA​        JPA 是 Java Persistence API 的简称，中文名 Java持久层API，是JDK 5.0注解或XML描述对象－关系表的映射关系，并将运行">
 <meta property="og:locale" content="en">
-<meta property="og:updated_time" content="2019-05-09T12:33:11.000Z">
+<meta property="og:image" content="g:/专业/修炼/SpringBoot/SpringBoot2.0/6、SpringBoot整合SpringDataJPA/images/1538314105146.png">
+<meta property="og:updated_time" content="2018-09-30T12:33:10.000Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="Hello World">
-<meta name="twitter:description" content="Welcome to Hexo! This is your very first post. Check documentation for more info. If you get any problems when using Hexo, you can find the answer in troubleshooting or you can ask me on GitHub. Quick">
+<meta name="twitter:title" content="SpringBoot2 | 第六篇：整合SpringDataJPA">
+<meta name="twitter:description" content="上一篇介绍了Spring JdbcTemplate的使用，对比原始的JDBC而言，它更加的简洁。但随着表的增加，重复的CRUD工作让我们苦不堪言，这时候Spring Data Jpa的作用就体现出来了….. [TOC] JPA​        JPA 是 Java Persistence API 的简称，中文名 Java持久层API，是JDK 5.0注解或XML描述对象－关系表的映射关系，并将运行">
+<meta name="twitter:image" content="g:/专业/修炼/SpringBoot/SpringBoot2.0/6、SpringBoot整合SpringDataJPA/images/1538314105146.png">
 
 
 
@@ -119,7 +121,7 @@
 
   
   
-  <link rel="canonical" href="https://ynfatal.github.io/2019/05/09/hello-world/">
+  <link rel="canonical" href="https://ynfatal.github.io/2018/09/30/SpringBoot2  第六篇：整合SpringDataJPA/">
 
 
 
@@ -129,7 +131,7 @@
   };
 </script>
 
-  <title>Hello World | Fatal's Blog</title>
+  <title>SpringBoot2 | 第六篇：整合SpringDataJPA | Fatal's Blog</title>
   
 
 
@@ -419,7 +421,7 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="https://ynfatal.github.io/2019/05/09/hello-world/">
+    <link itemprop="mainEntityOfPage" href="https://ynfatal.github.io/2018/09/30/SpringBoot2  第六篇：整合SpringDataJPA/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="Fatal">
@@ -436,7 +438,7 @@
 
         
         
-          <h1 class="post-title" itemprop="name headline">Hello World
+          <h1 class="post-title" itemprop="name headline">SpringBoot2 | 第六篇：整合SpringDataJPA
 
               
             
@@ -465,13 +467,9 @@
                 
               
 
-              <time title="Created: 2019-05-09 20:33:10 / Modified: 20:33:11" itemprop="dateCreated datePublished" datetime="2019-05-09T20:33:10+08:00">2019-05-09</time>
+              <time title="Created: 2018-09-30 20:33:10" itemprop="dateCreated datePublished" datetime="2018-09-30T20:33:10+08:00">2018-09-30</time>
             
 
-            
-              
-
-              
             
           </span>
 
@@ -487,7 +485,7 @@
                 <span class="post-meta-item-text">In</span>
               
               
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing"><a href="/categories/test/" itemprop="url" rel="index"><span itemprop="name">test</span></a></span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing"><a href="/categories/SpringBoot2/" itemprop="url" rel="index"><span itemprop="name">SpringBoot2</span></a></span>
 
                 
                 
@@ -522,17 +520,62 @@
       
 
       
-        <p>Welcome to <a href="https://hexo.io/" target="_blank" rel="noopener">Hexo</a>! This is your very first post. Check <a href="https://hexo.io/docs/" target="_blank" rel="noopener">documentation</a> for more info. If you get any problems when using Hexo, you can find the answer in <a href="https://hexo.io/docs/troubleshooting.html" target="_blank" rel="noopener">troubleshooting</a> or you can ask me on <a href="https://github.com/hexojs/hexo/issues" target="_blank" rel="noopener">GitHub</a>.</p>
-<h2 id="Quick-Start"><a href="#Quick-Start" class="headerlink" title="Quick Start"></a>Quick Start</h2><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">SellException</span> <span class="keyword">extends</span> <span class="title">RuntimeException</span> </span>&#123;</span><br><span class="line">	</span><br><span class="line">	<span class="function"><span class="keyword">public</span> <span class="title">SellException</span><span class="params">()</span> </span>&#123;&#125;</span><br><span class="line"></span><br><span class="line">	<span class="function"><span class="keyword">public</span> <span class="title">SellException</span><span class="params">(String message)</span> </span>&#123;</span><br><span class="line">		<span class="keyword">super</span>(message);</span><br><span class="line">	&#125;</span><br><span class="line"></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<h3 id="Create-a-new-post"><a href="#Create-a-new-post" class="headerlink" title="Create a new post"></a>Create a new post</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo new <span class="string">"My New Post"</span></span><br></pre></td></tr></table></figure>
-<p>More info: <a href="https://hexo.io/docs/writing.html" target="_blank" rel="noopener">Writing</a></p>
-<h3 id="Run-server"><a href="#Run-server" class="headerlink" title="Run server"></a>Run server</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo server</span><br></pre></td></tr></table></figure>
-<p>More info: <a href="https://hexo.io/docs/server.html" target="_blank" rel="noopener">Server</a></p>
-<h3 id="Generate-static-files"><a href="#Generate-static-files" class="headerlink" title="Generate static files"></a>Generate static files</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo generate</span><br></pre></td></tr></table></figure>
-<p>More info: <a href="https://hexo.io/docs/generating.html" target="_blank" rel="noopener">Generating</a></p>
-<h3 id="Deploy-to-remote-sites"><a href="#Deploy-to-remote-sites" class="headerlink" title="Deploy to remote sites"></a>Deploy to remote sites</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo deploy</span><br></pre></td></tr></table></figure>
-<p>More info: <a href="https://hexo.io/docs/deployment.html" target="_blank" rel="noopener">Deployment</a></p>
-
+        <p>上一篇介绍了<code>Spring JdbcTemplate</code>的使用，对比原始的<code>JDBC</code>而言，它更加的简洁。但随着表的增加，重复的CRUD工作让我们苦不堪言，这时候<code>Spring Data Jpa</code>的作用就体现出来了…..</p>
+<p>[TOC]</p>
+<h2 id="JPA"><a href="#JPA" class="headerlink" title="JPA"></a>JPA</h2><p>​        JPA 是 Java Persistence API 的简称，中文名 <strong>Java持久层API</strong>，是JDK 5.0注解或XML描述<code>对象－关系表</code>的映射关系，并将运行期的实体<a href="https://baike.baidu.com/item/%E5%AF%B9%E8%B1%A1%E6%8C%81%E4%B9%85%E5%8C%96/7316192" target="_blank" rel="noopener">对象持久化</a>到数据库中。 </p>
+<p>​        Sun引入新的 <strong>JPA ORM 规范</strong>出于<strong>两个原因</strong>：其一，简化现有 <strong>Java EE</strong> 和 <strong>Java SE</strong> 应用开发工作；其二，Sun希望整合 <strong>ORM</strong> 技术，实现天下归一。</p>
+<p>​        Sun公司在JDK1.5的时候，吸收了<strong>Hibernate</strong>、<strong>TopLink</strong>等 <strong>ORM框架</strong> 的优点，提出了Java持久化规范：JPA；Hibernate在3.2的时候提供了JPA的实现，其余的JPA的供应商还有诸如OpenJPA、Toplink等；</p>
+<h2 id="SpringDataJPA"><a href="#SpringDataJPA" class="headerlink" title="SpringDataJPA"></a>SpringDataJPA</h2><p>​        <strong>Spring Data JPA</strong> 是在JPA规范的基础下提供了Repository层的 <strong>实现</strong>，但是使用哪一款 ORM 需要你自己去决定；相比我们更为熟悉的Hibernate和MyBatis，<strong>Spring Data JPA 可以看做更高层次的抽象</strong>。</p>
+<blockquote>
+<p><strong>优点</strong></p>
+</blockquote>
+<ul>
+<li>丰富的API，简单操作无需编写额外的代码</li>
+<li>丰富的SQL日志输出</li>
+</ul>
+<blockquote>
+<p><strong>缺点</strong></p>
+</blockquote>
+<ul>
+<li>学习成本较大，需要学习<code>HQL</code>，<code>如：@Query(value=&quot;from LogToIndex group by elkIndex&quot;)</code></li>
+<li>配置复杂，虽然<code>SpringBoot</code>简化的大量的配置，但关系映射多表查询配置依旧不容易</li>
+<li>性能较差，对比<code>JdbcTemplate</code>、<code>Mybatis</code>等ORM框架，它的性能无异于是最差的</li>
+</ul>
+<h2 id="环境-版本一览："><a href="#环境-版本一览：" class="headerlink" title="环境/版本一览："></a>环境/版本一览：</h2><ul>
+<li>开发工具：Intellij IDEA 2018.2.2</li>
+<li>springboot： <strong>2.0.5.RELEASE</strong></li>
+<li>jdk：1.8.0_171</li>
+<li>maven：3.3.9</li>
+</ul>
+<h2 id="1、搭建"><a href="#1、搭建" class="headerlink" title="1、搭建"></a>1、搭建</h2><p><img src="G:\专业\修炼\SpringBoot\SpringBoot2.0\6、SpringBoot整合SpringDataJPA\images\1538314105146.png" alt="1538314105146"></p>
+<h2 id="2、pom-xml"><a href="#2、pom-xml" class="headerlink" title="2、pom.xml"></a>2、pom.xml</h2><figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">&lt;!-- spring-data-jpa 携带 jdbc, jdbc 携带 HikariCP --&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">dependencies</span>&gt;</span></span><br><span class="line">	<span class="tag">&lt;<span class="name">dependency</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">groupId</span>&gt;</span>org.springframework.boot<span class="tag">&lt;/<span class="name">groupId</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">artifactId</span>&gt;</span>spring-boot-starter-data-jpa<span class="tag">&lt;/<span class="name">artifactId</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;/<span class="name">dependency</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">dependency</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">groupId</span>&gt;</span>mysql<span class="tag">&lt;/<span class="name">groupId</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">artifactId</span>&gt;</span>mysql-connector-java<span class="tag">&lt;/<span class="name">artifactId</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">scope</span>&gt;</span>runtime<span class="tag">&lt;/<span class="name">scope</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;/<span class="name">dependency</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">dependency</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">groupId</span>&gt;</span>org.projectlombok<span class="tag">&lt;/<span class="name">groupId</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">artifactId</span>&gt;</span>lombok<span class="tag">&lt;/<span class="name">artifactId</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">optional</span>&gt;</span>true<span class="tag">&lt;/<span class="name">optional</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;/<span class="name">dependency</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">dependency</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">groupId</span>&gt;</span>org.springframework.boot<span class="tag">&lt;/<span class="name">groupId</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">artifactId</span>&gt;</span>spring-boot-starter-test<span class="tag">&lt;/<span class="name">artifactId</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">scope</span>&gt;</span>test<span class="tag">&lt;/<span class="name">scope</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;/<span class="name">dependency</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">dependencies</span>&gt;</span></span><br></pre></td></tr></table></figure>
+<h2 id="3、application-yml"><a href="#3、application-yml" class="headerlink" title="3、application.yml"></a>3、application.yml</h2><figure class="highlight yaml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line"><span class="attr">spring:</span></span><br><span class="line"><span class="attr">  datasource:</span></span><br><span class="line"><span class="attr">    driver-class-name:</span> <span class="string">com.mysql.jdbc.Driver</span></span><br><span class="line">    <span class="comment"># 基本属性</span></span><br><span class="line"><span class="attr">    url:</span> <span class="attr">jdbc:mysql://localhost:3306/chapter6?useUnicode=true&amp;characterEncoding=UTF-8&amp;allowMultiQueries=true&amp;serverTimezone=UTC&amp;useSSL=false</span></span><br><span class="line"><span class="attr">    username:</span> <span class="string">root</span></span><br><span class="line"><span class="attr">    password:</span> <span class="number">123456</span></span><br><span class="line"><span class="attr">  jpa:</span></span><br><span class="line">    <span class="comment"># 显示 sql</span></span><br><span class="line"><span class="attr">    show-sql:</span> <span class="literal">true</span></span><br><span class="line">    <span class="comment"># 数据库类型</span></span><br><span class="line"><span class="attr">    database:</span> <span class="string">mysql</span></span><br><span class="line">    <span class="comment"># JPA 配置</span></span><br><span class="line"><span class="attr">    hibernate:</span></span><br><span class="line"><span class="attr">      ddl-auto:</span> <span class="string">update</span></span><br><span class="line">    <span class="comment"># 指定生成的表的引擎为InnoDB类型（默认是MyISAM，MyISAM不支持事务）</span></span><br><span class="line"><span class="attr">    database-platform:</span> <span class="string">org.hibernate.dialect.MySQL57InnoDBDialect</span></span><br></pre></td></tr></table></figure>
+<blockquote>
+<p><strong>JPA 配置 ddl-auto</strong> 几种属性</p>
+</blockquote>
+<ul>
+<li><strong>create：</strong> 每次运行程序时，都会重新创建表，故而数据会丢失</li>
+<li><strong>create-drop：</strong> 每次运行程序时会先创建表结构，然后待程序结束时清空表</li>
+<li><strong>upadte：</strong> 每次运行程序，没有表时会创建表，如果对象发生改变会更新表结构，原有数据不会清空，只会更新（推荐使用）</li>
+<li><strong>validate：</strong> 运行程序会校验数据与数据库的字段类型是否相同，<strong>字段不同会报错</strong></li>
+</ul>
+<h2 id="4、sql"><a href="#4、sql" class="headerlink" title="4、sql"></a>4、sql</h2><p>由于上面我们采用的是<code>spring.jpa.hibernate.ddl-auto=update</code>方式，因此这里可以跳过手动建表的操作</p>
+<h2 id="5、entity"><a href="#5、entity" class="headerlink" title="5、entity"></a>5、entity</h2><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">package</span> com.fatal.entity;</span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> lombok.Data;</span><br><span class="line"><span class="keyword">import</span> lombok.experimental.Accessors;</span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> javax.persistence.Entity;</span><br><span class="line"><span class="keyword">import</span> javax.persistence.GeneratedValue;</span><br><span class="line"><span class="keyword">import</span> javax.persistence.GenerationType;</span><br><span class="line"><span class="keyword">import</span> javax.persistence.Id;</span><br><span class="line"><span class="keyword">import</span> java.io.Serializable;</span><br><span class="line"></span><br><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> * User 实体</span></span><br><span class="line"><span class="comment"> * 自动生成数据表</span></span><br><span class="line"><span class="comment"> * <span class="doctag">@author</span>: Fatal</span></span><br><span class="line"><span class="comment"> * <span class="doctag">@date</span>: 2018/9/30 0030 21:36</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"><span class="meta">@Data</span></span><br><span class="line"><span class="meta">@Accessors</span>(chain = <span class="keyword">true</span>)</span><br><span class="line"><span class="meta">@Entity</span>(name=<span class="string">"user"</span>)</span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">User</span> <span class="keyword">implements</span> <span class="title">Serializable</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@Id</span></span><br><span class="line">    <span class="meta">@GeneratedValue</span>(strategy = GenerationType.IDENTITY) <span class="comment">// 自增，如果没有`@GeneratedValue`，则需我们手动添加 id</span></span><br><span class="line">    <span class="keyword">private</span> Long id;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">private</span> String username;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">private</span> String password;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">private</span> String email;</span><br><span class="line"></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h2 id="6、Repository"><a href="#6、Repository" class="headerlink" title="6、Repository"></a>6、Repository</h2><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">package</span> com.fatal.dao;</span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> com.fatal.entity.User;</span><br><span class="line"><span class="keyword">import</span> org.springframework.data.jpa.repository.JpaRepository;</span><br><span class="line"><span class="keyword">import</span> org.springframework.stereotype.Repository;</span><br><span class="line"></span><br><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> * <span class="doctag">@author</span>: Fatal</span></span><br><span class="line"><span class="comment"> * <span class="doctag">@date</span>: 2018/9/30 0030 21:42</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"><span class="meta">@Repository</span></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">interface</span> <span class="title">UserRepository</span> <span class="keyword">extends</span> <span class="title">JpaRepository</span>&lt;<span class="title">User</span>, <span class="title">Long</span>&gt; </span>&#123;</span><br><span class="line"></span><br><span class="line">    <span class="comment">// 实现`JpaRepository`后有好多方法可以用</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h2 id="7、Test"><a href="#7、Test" class="headerlink" title="7、Test"></a>7、Test</h2><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">package</span> com.fatal;</span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> com.fatal.dao.UserRepository;</span><br><span class="line"><span class="keyword">import</span> com.fatal.entity.User;</span><br><span class="line"><span class="keyword">import</span> lombok.extern.slf4j.Slf4j;</span><br><span class="line"><span class="keyword">import</span> org.junit.Test;</span><br><span class="line"><span class="keyword">import</span> org.junit.runner.RunWith;</span><br><span class="line"><span class="keyword">import</span> org.springframework.beans.factory.annotation.Autowired;</span><br><span class="line"><span class="keyword">import</span> org.springframework.boot.test.context.SpringBootTest;</span><br><span class="line"><span class="keyword">import</span> org.springframework.data.domain.*;</span><br><span class="line"><span class="keyword">import</span> org.springframework.test.context.junit4.SpringRunner;</span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> java.util.List;</span><br><span class="line"></span><br><span class="line"><span class="meta">@RunWith</span>(SpringRunner.class)</span><br><span class="line"><span class="meta">@SpringBootTest</span></span><br><span class="line"><span class="meta">@Slf</span>4j</span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">Chapter6ApplicationTests</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@Autowired</span></span><br><span class="line">    <span class="keyword">private</span> UserRepository repository;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@Test</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">save</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        User user = <span class="keyword">new</span> User().setUsername(<span class="string">"米彩"</span>).setPassword(<span class="string">"123"</span>).setEmail(<span class="string">"123@qq.com"</span>);</span><br><span class="line">        repository.save(user);</span><br><span class="line">        log.info(<span class="string">"[添加成功] - [&#123;&#125;]"</span>,user);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@Test</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">findAll</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        List&lt;User&gt; list = repository.findAll();</span><br><span class="line">        log.info(<span class="string">"[查询所有] - [&#123;&#125;]"</span>, list);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@Test</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">findOne</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        User user = <span class="keyword">new</span> User().setUsername(<span class="string">"张三"</span>);</span><br><span class="line">        User one = repository.findOne(Example.of(user)).orElse(<span class="keyword">null</span>);</span><br><span class="line">        log.info(<span class="string">"[根据用户名查询成功] - [&#123;&#125;]"</span>, one==<span class="keyword">null</span>?<span class="string">"无记录"</span>:one);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@Test</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">findAllWithPage</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        Pageable pageable = PageRequest.of(<span class="number">0</span>, <span class="number">5</span>, Sort.by(Sort.Order.asc(<span class="string">"username"</span>)));</span><br><span class="line">        <span class="keyword">final</span> Page&lt;User&gt; users = repository.findAll(pageable);</span><br><span class="line">        log.info(<span class="string">"[分页+排序+查询所有] - [&#123;&#125;]"</span>, users.getContent());</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h2 id="笔记"><a href="#笔记" class="headerlink" title="笔记"></a>笔记</h2><h3 id="1、GenerationType"><a href="#1、GenerationType" class="headerlink" title="1、GenerationType"></a>1、GenerationType</h3><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="keyword">enum</span> GenerationType &#123;</span><br><span class="line">    TABLE,</span><br><span class="line">    SEQUENCE,</span><br><span class="line">    IDENTITY,</span><br><span class="line">    AUTO;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">private</span> <span class="title">GenerationType</span><span class="params">()</span> </span>&#123;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<ul>
+<li>TABLE：使用一个特定的数据库表格来保存主键。</li>
+<li>SEQUENCE：根据底层数据库的序列来生成主键，条件是数据库支持序列。</li>
+<li>IDENTITY：主键由数据库自动生成（主要是自动增长型）</li>
+<li>AUTO：主键由程序控制。</li>
+</ul>
+<h2 id="参考资料"><a href="#参考资料" class="headerlink" title="参考资料"></a>参考资料</h2><p><a href="https://docs.spring.io/spring-data/jpa/docs/current/reference/html/" target="_blank" rel="noopener">Spring Data JPA 官方文档</a></p>
+<p><a href="https://blog.battcn.com/2018/05/08/springboot/v2-orm-jpa/" target="_blank" rel="noopener">一起来学SpringBoot | 第六篇：整合SpringDataJpa</a></p>
+<h2 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h2><p><code>SpringBoot</code>的知识已经有前辈在我们之前探索了。比较喜欢的博主有：<a href="https://blog.battcn.com/" target="_blank" rel="noopener">唐亚峰 | Battcn</a>、<a href="https://blog.csdn.net/forezp" target="_blank" rel="noopener">方志朋的专栏</a>、<a href="http://blog.didispace.com/" target="_blank" rel="noopener">程序猿DD</a>。对这门技术感兴趣的可以去他们的博客逛逛。谢谢他们的分享~~</p>
+<p>以上文章是我用来学习的<code>Demo</code>，都是基于 <code>SpringBoot2.x</code> 版本。</p>
+<p><strong>源码地址:</strong> <a href="https://github.com/ynfatal/springboot2-learning/tree/master/chapter6" target="_blank" rel="noopener">https://github.com/ynfatal/springboot2-learning/tree/master/chapter6</a></p>
+<h4 id="学习-唐亚峰-前辈的经验"><a href="#学习-唐亚峰-前辈的经验" class="headerlink" title="学习 唐亚峰 前辈的经验"></a>学习 <a href="http://blog.battcn.com/" target="_blank" rel="noopener">唐亚峰</a> 前辈的经验</h4>
       
     </div>
 
@@ -567,23 +610,9 @@
       
         <div class="post-tags">
           
-            <a href="/tags/html/" <i class="fa fa-tag"> html</a>
+            <a href="/tags/SpringBoot2/" <i class="fa fa-tag"> SpringBoot2</a>
           
-            <a href="/tags/css/" <i class="fa fa-tag"> css</a>
-          
-            <a href="/tags/javascript/" <i class="fa fa-tag"> javascript</a>
-          
-            <a href="/tags/java/" <i class="fa fa-tag"> java</a>
-          
-            <a href="/tags/SpringCloud/" <i class="fa fa-tag"> SpringCloud</a>
-          
-            <a href="/tags/docer/" <i class="fa fa-tag"> docer</a>
-          
-            <a href="/tags/git/" <i class="fa fa-tag"> git</a>
-          
-            <a href="/tags/github/" <i class="fa fa-tag"> github</a>
-          
-            <a href="/tags/java8/" <i class="fa fa-tag"> java8</a>
+            <a href="/tags/Jpa/" <i class="fa fa-tag"> Jpa</a>
           
         </div>
       
@@ -596,8 +625,8 @@
         <div class="post-nav">
           <div class="post-nav-next post-nav-item">
             
-              <a href="/2018/09/30/SpringBoot2  第五篇：整合JdbcTemplate/" rel="next" title="SpringBoot2 | 第五篇：整合JdbcTemplate">
-                <i class="fa fa-chevron-left"></i> SpringBoot2 | 第五篇：整合JdbcTemplate
+              <a href="/2018/09/25/SpringBoot2  第四篇：整合Thymeleaf模板引擎/" rel="next" title="SpringBoot2 | 第四篇：整合Thymeleaf模板引擎">
+                <i class="fa fa-chevron-left"></i> SpringBoot2 | 第四篇：整合Thymeleaf模板引擎
               </a>
             
           </div>
@@ -606,8 +635,8 @@
 
           <div class="post-nav-prev post-nav-item">
             
-              <a href="/2019/05/11/Hexo GitHub 搭建个人博客/" rel="prev" title="Hexo GitHub 搭建个人博客">
-                Hexo GitHub 搭建个人博客 <i class="fa fa-chevron-right"></i>
+              <a href="/2018/09/30/SpringBoot2  第五篇：整合JdbcTemplate/" rel="prev" title="SpringBoot2 | 第五篇：整合JdbcTemplate">
+                SpringBoot2 | 第五篇：整合JdbcTemplate <i class="fa fa-chevron-right"></i>
               </a>
             
           </div>
@@ -819,7 +848,7 @@
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#Quick-Start"><span class="nav-text">Quick Start</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#Create-a-new-post"><span class="nav-text">Create a new post</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Run-server"><span class="nav-text">Run server</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Generate-static-files"><span class="nav-text">Generate static files</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Deploy-to-remote-sites"><span class="nav-text">Deploy to remote sites</span></a></li></ol></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#JPA"><span class="nav-text">JPA</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#SpringDataJPA"><span class="nav-text">SpringDataJPA</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#环境-版本一览："><span class="nav-text">环境/版本一览：</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#1、搭建"><span class="nav-text">1、搭建</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#2、pom-xml"><span class="nav-text">2、pom.xml</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#3、application-yml"><span class="nav-text">3、application.yml</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#4、sql"><span class="nav-text">4、sql</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#5、entity"><span class="nav-text">5、entity</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#6、Repository"><span class="nav-text">6、Repository</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#7、Test"><span class="nav-text">7、Test</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#笔记"><span class="nav-text">笔记</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#1、GenerationType"><span class="nav-text">1、GenerationType</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#参考资料"><span class="nav-text">参考资料</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#总结"><span class="nav-text">总结</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#学习-唐亚峰-前辈的经验"><span class="nav-text">学习 唐亚峰 前辈的经验</span></a></li></ol></li></ol></div>
             
 
           </div>
