@@ -100,18 +100,18 @@
 
 
 
-  <meta name="description" content="2018/10/5 ​         SpringBoot 开启事务很简单，只需要一个注解@Transactional 就可以了。因为在 SpringBoot 中已经默认对jpa、jdbc、mybatis 开启了事务，引入它们依赖的时候，事务就默认开启。当然，如果你需要用其他的 orm，比如 beatlsql，就需要自己配置相关的事物管理器。 注意：Spring Boot 2.0使用data J">
+  <meta name="description" content="​         SpringBoot 开启事务很简单，只需要一个注解@Transactional 就可以了。因为在 SpringBoot 中已经默认对jpa、jdbc、mybatis 开启了事务，引入它们依赖的时候，事务就默认开启。当然，如果你需要用其他的 orm，比如 beatlsql，就需要自己配置相关的事物管理器。 注意：Spring Boot 2.0使用data Jpa时。创建表默认使">
 <meta name="keywords" content="SpringBoot2">
 <meta property="og:type" content="article">
 <meta property="og:title" content="SpringBoot2 | 第十一篇：开启声明式事务">
 <meta property="og:url" content="https://ynfatal.github.io/2018/10/06/SpringBoot2  第十一篇：开启声明式事务/index.html">
 <meta property="og:site_name" content="Fatal&#39;s Blog">
-<meta property="og:description" content="2018/10/5 ​         SpringBoot 开启事务很简单，只需要一个注解@Transactional 就可以了。因为在 SpringBoot 中已经默认对jpa、jdbc、mybatis 开启了事务，引入它们依赖的时候，事务就默认开启。当然，如果你需要用其他的 orm，比如 beatlsql，就需要自己配置相关的事物管理器。 注意：Spring Boot 2.0使用data J">
+<meta property="og:description" content="​         SpringBoot 开启事务很简单，只需要一个注解@Transactional 就可以了。因为在 SpringBoot 中已经默认对jpa、jdbc、mybatis 开启了事务，引入它们依赖的时候，事务就默认开启。当然，如果你需要用其他的 orm，比如 beatlsql，就需要自己配置相关的事物管理器。 注意：Spring Boot 2.0使用data Jpa时。创建表默认使">
 <meta property="og:locale" content="en">
 <meta property="og:updated_time" content="2018-10-06T13:43:10.000Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="SpringBoot2 | 第十一篇：开启声明式事务">
-<meta name="twitter:description" content="2018/10/5 ​         SpringBoot 开启事务很简单，只需要一个注解@Transactional 就可以了。因为在 SpringBoot 中已经默认对jpa、jdbc、mybatis 开启了事务，引入它们依赖的时候，事务就默认开启。当然，如果你需要用其他的 orm，比如 beatlsql，就需要自己配置相关的事物管理器。 注意：Spring Boot 2.0使用data J">
+<meta name="twitter:description" content="​         SpringBoot 开启事务很简单，只需要一个注解@Transactional 就可以了。因为在 SpringBoot 中已经默认对jpa、jdbc、mybatis 开启了事务，引入它们依赖的时候，事务就默认开启。当然，如果你需要用其他的 orm，比如 beatlsql，就需要自己配置相关的事物管理器。 注意：Spring Boot 2.0使用data Jpa时。创建表默认使">
 
 
 
@@ -518,8 +518,7 @@
       
 
       
-        <p>2018/10/5</p>
-<p>​         SpringBoot 开启事务很简单，只需要一个注解<code>@Transactional</code> 就可以了。因为在 SpringBoot 中已经默认对jpa、jdbc、mybatis 开启了事务，引入它们依赖的时候，事务就默认开启。当然，如果你需要用其他的 orm，比如 beatlsql，就需要自己配置相关的事物管理器。</p>
+        <p>​         SpringBoot 开启事务很简单，只需要一个注解<code>@Transactional</code> 就可以了。因为在 SpringBoot 中已经默认对jpa、jdbc、mybatis 开启了事务，引入它们依赖的时候，事务就默认开启。当然，如果你需要用其他的 orm，比如 beatlsql，就需要自己配置相关的事物管理器。</p>
 <p><strong>注意</strong>：Spring Boot 2.0使用data Jpa时。创建表默认使用的是 <code>MyISAM</code>引擎，<code>MyISAM</code>引擎是不支持事务的。所以把数据库的表改为 <code>InnoDB</code> 引擎就行了。可以在 <strong>全局配置文件</strong> 中指定引擎</p>
 <h2 id="准备阶段"><a href="#准备阶段" class="headerlink" title="准备阶段"></a>准备阶段</h2><p>以第八篇文章的代码为例子，即 springboot 整合 mybatis ，第八篇文章是基于注解来实现 mybatis 的数据访问层，这篇文章基于 xml 的来实现，并开启声明式事务。</p>
 <h2 id="环境-版本一览："><a href="#环境-版本一览：" class="headerlink" title="环境/版本一览："></a>环境/版本一览：</h2><ul>
