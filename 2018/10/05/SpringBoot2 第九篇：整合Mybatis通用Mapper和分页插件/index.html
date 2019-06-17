@@ -100,13 +100,13 @@
 
 
 
-  <meta name="description" content="​        在上一篇中，我们介绍了Mybatis这款优秀的框架，顺便提及了民间大神开发的两款插件（通用Mapper、PageHelper），从此告别简单CURD代码的编写…. [TOC] 插件介绍 分页插件   GitHub地址： https://github.com/pagehelper/Mybatis-PageHelper 文档地址：https://gitee.com/free/Mapp">
+  <meta name="description" content="​        在上一篇中，我们介绍了Mybatis这款优秀的框架，顺便提及了民间大神开发的两款插件（通用Mapper、PageHelper），从此告别简单CURD代码的编写…. [TOC] 插件介绍分页插件 GitHub地址： https://github.com/pagehelper/Mybatis-PageHelper 文档地址：https://gitee.com/free/Mapper/">
 <meta name="keywords" content="SpringBoot2,Mybatis">
 <meta property="og:type" content="article">
 <meta property="og:title" content="SpringBoot2 |第九篇：整合Mybatis通用Mapper和分页插件">
 <meta property="og:url" content="https://ynfatal.github.io/2018/10/05/SpringBoot2 第九篇：整合Mybatis通用Mapper和分页插件/index.html">
 <meta property="og:site_name" content="Fatal&#39;s Blog">
-<meta property="og:description" content="​        在上一篇中，我们介绍了Mybatis这款优秀的框架，顺便提及了民间大神开发的两款插件（通用Mapper、PageHelper），从此告别简单CURD代码的编写…. [TOC] 插件介绍 分页插件   GitHub地址： https://github.com/pagehelper/Mybatis-PageHelper 文档地址：https://gitee.com/free/Mapp">
+<meta property="og:description" content="​        在上一篇中，我们介绍了Mybatis这款优秀的框架，顺便提及了民间大神开发的两款插件（通用Mapper、PageHelper），从此告别简单CURD代码的编写…. [TOC] 插件介绍分页插件 GitHub地址： https://github.com/pagehelper/Mybatis-PageHelper 文档地址：https://gitee.com/free/Mapper/">
 <meta property="og:locale" content="en">
 <meta property="og:image" content="https://ynfatal.github.io/images/SpringBoot2/SpringBoot整合Mybatis通用Mapper和分页插件/1538720992484.png">
 <meta property="og:image" content="https://ynfatal.github.io/images/SpringBoot2/SpringBoot整合Mybatis通用Mapper和分页插件/1538722443017.png">
@@ -115,7 +115,7 @@
 <meta property="og:updated_time" content="2018-10-05T13:33:10.000Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="SpringBoot2 |第九篇：整合Mybatis通用Mapper和分页插件">
-<meta name="twitter:description" content="​        在上一篇中，我们介绍了Mybatis这款优秀的框架，顺便提及了民间大神开发的两款插件（通用Mapper、PageHelper），从此告别简单CURD代码的编写…. [TOC] 插件介绍 分页插件   GitHub地址： https://github.com/pagehelper/Mybatis-PageHelper 文档地址：https://gitee.com/free/Mapp">
+<meta name="twitter:description" content="​        在上一篇中，我们介绍了Mybatis这款优秀的框架，顺便提及了民间大神开发的两款插件（通用Mapper、PageHelper），从此告别简单CURD代码的编写…. [TOC] 插件介绍分页插件 GitHub地址： https://github.com/pagehelper/Mybatis-PageHelper 文档地址：https://gitee.com/free/Mapper/">
 <meta name="twitter:image" content="https://ynfatal.github.io/images/SpringBoot2/SpringBoot整合Mybatis通用Mapper和分页插件/1538720992484.png">
 
 
@@ -525,22 +525,22 @@
       
         <p>​        在上一篇中，我们介绍了<code>Mybatis</code>这款优秀的框架，顺便提及了民间大神开发的两款插件<strong>（通用Mapper、PageHelper）</strong>，从此告别简单CURD代码的编写….</p>
 <p>[TOC]</p>
-<h2 id="插件介绍"><a href="#插件介绍" class="headerlink" title="插件介绍"></a>插件介绍</h2><blockquote>
-<p>分页插件</p>
-</blockquote>
-<ul>
+<h2 id="插件介绍"><a href="#插件介绍" class="headerlink" title="插件介绍"></a>插件介绍</h2><h3 id="分页插件"><a href="#分页插件" class="headerlink" title="分页插件"></a>分页插件</h3><ul>
 <li><strong>GitHub地址：</strong> <a href="https://github.com/pagehelper/Mybatis-PageHelper" target="_blank" rel="noopener">https://github.com/pagehelper/Mybatis-PageHelper</a></li>
 <li><strong>文档地址：</strong><a href="https://gitee.com/free/Mapper/wikis/Home" target="_blank" rel="noopener">https://gitee.com/free/Mapper/wikis/Home</a></li>
 </ul>
 <p>在没有分页插件之前，写一个分页需要两条SQL语句，一条查询一条统计，然后才能计算出页码，这样的代码冗余而又枯燥，更重要的一点是<strong>数据库迁移</strong>，众所周知不同的数据库分页写法是不同的，而<code>Mybatis</code>不同于<code>Hibernate</code>的是它只提供动态SQL和结果集映射。值得庆幸的是，它虽然没有为分页提供良好的解决方案，但却提供了<code>Interceptor</code>以供开发者自己扩展，这也是这款分页插件的由来….</p>
-<blockquote>
-<p>通用Mapper</p>
-</blockquote>
-<ul>
+<h3 id="通用Mapper"><a href="#通用Mapper" class="headerlink" title="通用Mapper"></a>通用Mapper</h3><ul>
 <li><strong>Gitee地址：</strong> <a href="https://gitee.com/free/Mapper" target="_blank" rel="noopener">https://gitee.com/free/Mapper</a></li>
 <li><strong>文档地址：</strong><a href="https://github.com/pagehelper/Mybatis-PageHelper/blob/master/wikis/zh/HowToUse.md" target="_blank" rel="noopener">https://github.com/pagehelper/Mybatis-PageHelper/blob/master/wikis/zh/HowToUse.md</a></li>
 </ul>
 <p><strong>通用 Mapper 是一个可以实现任意 MyBatis 通用方法的框架</strong>，项目提供了常规的增删改查操作以及 <code>Example</code> 相关的单表操作。通用 Mapper 是为了解决 MyBatis 使用中 90% 的基本操作，使用它可以很方便的进行开发，可以节省开发人员大量的时间，ssm项目一般都会使用它。</p>
+<blockquote>
+<p>mapper-spring-boot-starter</p>
+</blockquote>
+<p><strong>在 starter 的逻辑中，如果你没有使用 @MapperScan 注解，你就需要在你的接口上增加 @Mapper注解，否则 MyBatis 无法判断扫描哪些接口。</strong></p>
+<p>这里的第一种用法没有用 <code>@MapperScan</code> 注解，所以你需要在所有接口上增加 <code>@Mapper</code> 注解。</p>
+<p><strong>注意</strong>：整合<code>通用Mapper</code>的包必须引对。<code>tk.mybatis.spring.annotation.MapperScan</code></p>
 <h2 id="环境-版本一览："><a href="#环境-版本一览：" class="headerlink" title="环境/版本一览："></a>环境/版本一览：</h2><ul>
 <li>开发工具：Intellij IDEA 2018.2.2</li>
 <li>springboot： <strong>2.0.5.RELEASE</strong></li>
@@ -894,7 +894,7 @@
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#插件介绍"><span class="nav-text">插件介绍</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#环境-版本一览："><span class="nav-text">环境/版本一览：</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#1、搭建"><span class="nav-text">1、搭建</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#2、pom-xml"><span class="nav-text">2、pom.xml</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#3、application-yml"><span class="nav-text">3、application.yml</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#4、sql"><span class="nav-text">4、sql</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#5、resources"><span class="nav-text">5、resources</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#6、entity"><span class="nav-text">6、entity</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#7、mapper"><span class="nav-text">7、mapper</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#8、service"><span class="nav-text">8、service</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#IUserService-java"><span class="nav-text">IUserService.java</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#UserServiceImpl-java"><span class="nav-text">UserServiceImpl.java</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#9、controller"><span class="nav-text">9、controller</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#10、Application"><span class="nav-text">10、Application</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#11、Tests"><span class="nav-text">11、Tests</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#注意"><span class="nav-text">注意</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#参考文档"><span class="nav-text">参考文档</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#总结"><span class="nav-text">总结</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#学习-唐亚峰-前辈的经验"><span class="nav-text">学习 唐亚峰  前辈的经验</span></a></li></ol></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#插件介绍"><span class="nav-text">插件介绍</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#分页插件"><span class="nav-text">分页插件</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#通用Mapper"><span class="nav-text">通用Mapper</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#环境-版本一览："><span class="nav-text">环境/版本一览：</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#1、搭建"><span class="nav-text">1、搭建</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#2、pom-xml"><span class="nav-text">2、pom.xml</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#3、application-yml"><span class="nav-text">3、application.yml</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#4、sql"><span class="nav-text">4、sql</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#5、resources"><span class="nav-text">5、resources</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#6、entity"><span class="nav-text">6、entity</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#7、mapper"><span class="nav-text">7、mapper</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#8、service"><span class="nav-text">8、service</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#IUserService-java"><span class="nav-text">IUserService.java</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#UserServiceImpl-java"><span class="nav-text">UserServiceImpl.java</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#9、controller"><span class="nav-text">9、controller</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#10、Application"><span class="nav-text">10、Application</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#11、Tests"><span class="nav-text">11、Tests</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#注意"><span class="nav-text">注意</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#参考文档"><span class="nav-text">参考文档</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#总结"><span class="nav-text">总结</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#学习-唐亚峰-前辈的经验"><span class="nav-text">学习 唐亚峰  前辈的经验</span></a></li></ol></li></ol></div>
             
 
           </div>
@@ -965,7 +965,7 @@
 
 <!-- <div class="theme-info">
   <div class="powered-by"></div>
-  <span class="post-count">博客全站共30.9k字</span>
+  <span class="post-count">博客全站共31k字</span>
 </div> --> 
 
         
