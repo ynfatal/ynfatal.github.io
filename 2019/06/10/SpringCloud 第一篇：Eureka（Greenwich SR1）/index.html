@@ -562,7 +562,7 @@
 <h2 id="Eureka"><a href="#Eureka" class="headerlink" title="Eureka"></a>Eureka</h2><p><code>服务发现</code>是基于微服务的体系结构的关键原则之一。<code>Eureka</code> 是 <code>Netflix 服务发现</code>的服务器和客户端。它支持通过 <code>Eureka 服务器</code> 的配置和部署实现<code>高可用</code>，每个服务器都将注册服务的状态复制到其他服务器。</p>
 <p><code>Eureka Server</code>没有后端存储，所以注册表中的服务实例都<code>必须</code>发送心跳以使其注册信息保持最新（这样的功能可以在内存中完成）；<code>Eureka</code> 则是通过<code>client 心跳</code>来确定 <code>client</code> 是否启动的。<code>client</code>的内存也有一部分是用来存放 <code>Eureka 注册</code> 缓存（因此他们不必每个对服务的请求都去注册表）。</p>
 <h3 id="Eureka-Server"><a href="#Eureka-Server" class="headerlink" title="Eureka Server"></a>Eureka Server</h3><p><code>Eureka Server</code> 提供服务注册与发现，各个 <code>client</code> 启动后，会向 <code>Eureka Server</code> 注册自己的信息，<code>Eureka Server</code>注册表中将会存储所有可用服务节点的信息。</p>
-<h3 id="Eureka-Client"><a href="#Eureka-Client" class="headerlink" title="Eureka Client"></a>Eureka Client</h3><p><code>Eureka Client</code> 分为 服务提供者 和 服务消费者</p>
+<h3 id="Eureka-Client"><a href="#Eureka-Client" class="headerlink" title="Eureka Client"></a>Eureka Client</h3><p><code>Eureka Client</code> 分为 服务供应商 和 服务消费者</p>
 <h3 id="Eureka-High-Availability"><a href="#Eureka-High-Availability" class="headerlink" title="Eureka High Availability"></a>Eureka High Availability</h3><p><code>Eureka Server</code> 通过运行多个相互注册的实例，可以变得<code>更具弹性</code>和<code>可用性</code>的。</p>
 <p>你可以向系统添加多个 <code>peer（对等点）</code>，而且，只要他们通过至少一个边彼此连接，它们就可以在彼此之间同步注册信息。如果<code>peer（对等点）</code>在物理上是分开的，那么，在原则上，这个系统可以在“宕（dàng）机”类型的故障中存活下来。您可以向一个系统中添加多个对等点，只要它们都直接连接在一起，它们就可以在彼此之间同步注册，从而实现<code>高可用</code>。</p>
 <h2 id="环境-版本一览："><a href="#环境-版本一览：" class="headerlink" title="环境/版本一览："></a>环境/版本一览：</h2><ul>
@@ -1035,7 +1035,7 @@
 
 <!-- <div class="theme-info">
   <div class="powered-by"></div>
-  <span class="post-count">博客全站共31k字</span>
+  <span class="post-count">博客全站共31.3k字</span>
 </div> --> 
 
         
