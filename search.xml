@@ -108,6 +108,8 @@
           
           <category> SpringBoot2 </category>
           
+          <category> RabbitMQ </category>
+          
       </categories>
       
       
@@ -134,6 +136,8 @@
       <categories>
           
           <category> SpringBoot2 </category>
+          
+          <category> RabbitMQ </category>
           
       </categories>
       
@@ -162,6 +166,8 @@
           
           <category> SpringBoot2 </category>
           
+          <category> RabbitMQ </category>
+          
       </categories>
       
       
@@ -189,6 +195,8 @@
           
           <category> SpringBoot2 </category>
           
+          <category> RabbitMQ </category>
+          
       </categories>
       
       
@@ -215,6 +223,8 @@
       <categories>
           
           <category> SpringBoot2 </category>
+          
+          <category> RabbitMQ </category>
           
       </categories>
       
