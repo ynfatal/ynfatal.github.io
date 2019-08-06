@@ -560,6 +560,9 @@
 </ul>
 <h2 id="RabbitMQ介绍"><a href="#RabbitMQ介绍" class="headerlink" title="RabbitMQ介绍"></a>RabbitMQ介绍</h2><p>​        <strong>AMQP</strong>，即Advanced Message Queuing Protocol，高级消息队列协议，是应用层协议的一个开放标准，为面向消息的中间件设计。消息中间件主要用于组件之间的解耦，消息的发送者无需知道消息使用者的存在，反之亦然。<strong>AMQP</strong> 的主要特征是 <em>面向消息、队列、路由（包括点对点和发布/订阅）、可靠性、安全</em>。</p>
 <p>​        <strong>RabbitMQ</strong> 是实现 <strong>AMQP</strong>（<strong>高级消息队列协议</strong>）的消息中间件的一种，最初起源于<strong>金融系统</strong>，用于在分布式系统中存储转发消息，在 <em><code>易用性、扩展性、高可用性</code></em> 等方面表现不俗。<strong>RabbitMQ</strong> 服务器端用 <strong>Erlang 语言</strong> 编写，支持多种客户端，如：Python、Ruby、.NET、Java、JMS、C、PHP、ActionScript、XMPP、STOMP等，支持AJAX。支持<code>延迟队列（这是一个非常有用的功能）</code>….</p>
+<blockquote>
+<p>JMS 是指一套规范，它是有 Sun 公司提出来的，实际就是指 JMS API，旨在为 java 应用提供一套统一的 API（类似 JPA 吧）。AMQP 则是一种协议，RabbitMQ 则是基于这种协议产生的消息中间件。RabbitMQ 还能作为 JMS 的实现，因为它支持 JMS 这种客户端（类似 Spring Cache，可以有很多实现，其中之一就是 Spring Data Redis，前面的整合笔记用过呢）。</p>
+</blockquote>
 <h2 id="环境-版本一览："><a href="#环境-版本一览：" class="headerlink" title="环境/版本一览："></a>环境/版本一览：</h2><ul>
 <li>开发工具：Intellij IDEA 2018.2.2</li>
 <li>springboot： <strong>2.0.6.RELEASE</strong></li>
@@ -978,7 +981,7 @@
 
 <!-- <div class="theme-info">
   <div class="powered-by"></div>
-  <span class="post-count">博客全站共65.9k字</span>
+  <span class="post-count">博客全站共66.1k字</span>
 </div> --> 
 
         
