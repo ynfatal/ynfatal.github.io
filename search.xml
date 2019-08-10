@@ -72,6 +72,8 @@
       
         <tags>
             
+            <tag> SpringCloud </tag>
+            
             <tag> html </tag>
             
             <tag> css </tag>
@@ -79,8 +81,6 @@
             <tag> javascript </tag>
             
             <tag> java </tag>
-            
-            <tag> SpringCloud </tag>
             
             <tag> docer </tag>
             
@@ -713,6 +713,8 @@
         <tags>
             
             <tag> SpringBoot2 </tag>
+            
+            <tag> MongoDB </tag>
             
         </tags>
       
