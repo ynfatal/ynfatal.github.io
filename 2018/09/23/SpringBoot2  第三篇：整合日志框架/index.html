@@ -1,0 +1,1601 @@
+<!DOCTYPE html>
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+
+<html class="theme-next gemini use-motion" lang="en">
+<head><meta name="generator" content="Hexo 3.8.0">
+  <meta charset="UTF-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link rel="stylesheet" href="/lib/fancybox/source/jquery.fancybox.css">
+
+
+
+
+
+
+
+<link rel="stylesheet" href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2">
+
+<link rel="stylesheet" href="/css/main.css?v=7.1.1">
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=7.1.1">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon.ico?v=7.1.1">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png?v=7.1.1">
+
+
+  <link rel="mask-icon" href="/images/logo.svg?v=7.1.1" color="#222">
+
+
+
+
+
+
+
+<script id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Gemini',
+    version: '7.1.1',
+    sidebar: {"position":"left","display":"post","offset":12,"onmobile":true,"dimmer":false},
+    back2top: true,
+    back2top_sidebar: true,
+    fancybox: true,
+    fastclick: false,
+    lazyload: false,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+  
+
+
+
+
+  <meta name="description" content="日志框架是一套能实现日志输出的工具包，它可以运行时选择性输出，性能优异，配置灵活。它在开发中也是必不可少的工具，这篇笔记记录 SpringBoot 如何整合日志框架。  [TOC] 日志框架的作用 定制输出目标 一般来说我们都需要把日志输出到文件 某些系统可能还需要定制日志文件的 滚动策略（比如 一天输出一个日志文件） 很多集成系统要输出日志文件到数据库或者是网络的第三方服务     定制输出格">
+<meta name="keywords" content="SpringBoot2,Slf4j">
+<meta property="og:type" content="article">
+<meta property="og:title" content="SpringBoot2 | 第三篇：整合日志框架">
+<meta property="og:url" content="https://ynfatal.github.io/2018/09/23/SpringBoot2  第三篇：整合日志框架/index.html">
+<meta property="og:site_name" content="Fatal&#39;s Blog">
+<meta property="og:description" content="日志框架是一套能实现日志输出的工具包，它可以运行时选择性输出，性能优异，配置灵活。它在开发中也是必不可少的工具，这篇笔记记录 SpringBoot 如何整合日志框架。  [TOC] 日志框架的作用 定制输出目标 一般来说我们都需要把日志输出到文件 某些系统可能还需要定制日志文件的 滚动策略（比如 一天输出一个日志文件） 很多集成系统要输出日志文件到数据库或者是网络的第三方服务     定制输出格">
+<meta property="og:locale" content="en">
+<meta property="og:image" content="https://ynfatal.github.io/images/SpringBoot2/SpringBoot整合日志框架/360截图17860605429642.png">
+<meta property="og:image" content="https://ynfatal.github.io/images/SpringBoot2/SpringBoot整合日志框架/360截图17920826112116132.png">
+<meta property="og:image" content="https://ynfatal.github.io/images/SpringBoot2/SpringBoot整合日志框架/360截图16270824648957.png">
+<meta property="og:image" content="https://ynfatal.github.io/images/SpringBoot2/SpringBoot整合日志框架/360截图1700102010388140.png">
+<meta property="og:image" content="https://ynfatal.github.io/images/SpringBoot2/SpringBoot整合日志框架/360截图1672040284128132.png">
+<meta property="og:image" content="https://ynfatal.github.io/images/SpringBoot2/SpringBoot整合日志框架/360截图17321122366740.png">
+<meta property="og:image" content="https://ynfatal.github.io/images/SpringBoot2/SpringBoot整合日志框架/360截图17290429104127106.png">
+<meta property="og:image" content="https://ynfatal.github.io/images/SpringBoot2/SpringBoot整合日志框架/360截图16720401215444.png">
+<meta property="og:image" content="https://ynfatal.github.io/images/SpringBoot2/SpringBoot整合日志框架/360截图17290504575861.png">
+<meta property="og:image" content="https://ynfatal.github.io/images/SpringBoot2/SpringBoot整合日志框架/360截图17290507485450.png">
+<meta property="og:image" content="https://ynfatal.github.io/images/SpringBoot2/SpringBoot整合日志框架/360截图17860530447977.png">
+<meta property="og:image" content="https://ynfatal.github.io/images/SpringBoot2/SpringBoot整合日志框架/360截图18180712416336.png">
+<meta property="og:image" content="https://ynfatal.github.io/images/SpringBoot2/SpringBoot整合日志框架/360截图17630324534037.png">
+<meta property="og:image" content="https://ynfatal.github.io/images/SpringBoot2/SpringBoot整合日志框架/360截图18141221306775.png">
+<meta property="og:image" content="https://ynfatal.github.io/images/SpringBoot2/SpringBoot整合日志框架/360截图16850813798272.png">
+<meta property="og:updated_time" content="2018-09-23T12:33:10.000Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="SpringBoot2 | 第三篇：整合日志框架">
+<meta name="twitter:description" content="日志框架是一套能实现日志输出的工具包，它可以运行时选择性输出，性能优异，配置灵活。它在开发中也是必不可少的工具，这篇笔记记录 SpringBoot 如何整合日志框架。  [TOC] 日志框架的作用 定制输出目标 一般来说我们都需要把日志输出到文件 某些系统可能还需要定制日志文件的 滚动策略（比如 一天输出一个日志文件） 很多集成系统要输出日志文件到数据库或者是网络的第三方服务     定制输出格">
+<meta name="twitter:image" content="https://ynfatal.github.io/images/SpringBoot2/SpringBoot整合日志框架/360截图17860605429642.png">
+
+
+
+
+
+  
+  
+  <link rel="canonical" href="https://ynfatal.github.io/2018/09/23/SpringBoot2  第三篇：整合日志框架/">
+
+
+
+<script id="page.configurations">
+  CONFIG.page = {
+    sidebar: "",
+  };
+</script>
+
+  <title>SpringBoot2 | 第三篇：整合日志框架 | Fatal's Blog</title>
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  <noscript>
+  <style>
+  .use-motion .motion-element,
+  .use-motion .brand,
+  .use-motion .menu-item,
+  .sidebar-inner,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-title { opacity: initial; }
+
+  .use-motion .logo,
+  .use-motion .site-title,
+  .use-motion .site-subtitle {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line-before i { left: initial; }
+  .use-motion .logo-line-after i { right: initial; }
+  </style>
+</noscript>
+
+
+  <!-- 代码块复制功能 -->
+  <script src="https://code.jquery.com/jquery-3.0.0.min.js"></script>
+  <script type="text/javascript" src="/js/src/clipboard.min.js"></script>  
+  <script type="text/javascript" src="/js/src/clipboard-use.js"></script>
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="en">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/" class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">Fatal's Blog</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+    
+      
+        <p class="site-subtitle">Attitude decides everything</p>
+      
+    
+    
+  </div>
+
+  <div class="site-nav-toggle">
+    <button aria-label="Toggle navigation bar">
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+
+
+<nav class="site-nav">
+  
+    <ul id="menu" class="menu">
+      
+        
+        
+        
+          
+          <li class="menu-item menu-item-home">
+
+    
+    
+    
+      
+    
+
+    
+      
+    
+
+    <a href="/" rel="section"><i class="menu-item-icon fa fa-fw fa-home"></i> <br>Home</a>
+
+  </li>
+        
+        
+        
+          
+          <li class="menu-item menu-item-about">
+
+    
+    
+    
+      
+    
+
+    
+      
+    
+
+    <a href="/about/" rel="section"><i class="menu-item-icon fa fa-fw fa-user"></i> <br>About</a>
+
+  </li>
+        
+        
+        
+          
+          <li class="menu-item menu-item-tags">
+
+    
+    
+    
+      
+    
+
+    
+      
+    
+
+    <a href="/tags/" rel="section"><i class="menu-item-icon fa fa-fw fa-tags"></i> <br>Tags<span class="badge">23</span></a>
+
+  </li>
+        
+        
+        
+          
+          <li class="menu-item menu-item-categories">
+
+    
+    
+    
+      
+    
+
+    
+      
+    
+
+    <a href="/categories/" rel="section"><i class="menu-item-icon fa fa-fw fa-th"></i> <br>Categories<span class="badge">4</span></a>
+
+  </li>
+        
+        
+        
+          
+          <li class="menu-item menu-item-archives">
+
+    
+    
+    
+      
+    
+
+    
+      
+    
+
+    <a href="/archives/" rel="section"><i class="menu-item-icon fa fa-fw fa-archive"></i> <br>Archives<span class="badge">38</span></a>
+
+  </li>
+        
+        
+        
+          
+          <li class="menu-item menu-item-links">
+
+    
+    
+    
+      
+    
+
+    
+      
+    
+
+    <a href="/links/" rel="section"><i class="menu-item-icon fa fa-fw fa-link"></i> <br>Links</a>
+
+  </li>
+
+      
+      
+        <li class="menu-item menu-item-search">
+          
+            <a href="javascript:;" class="popup-trigger">
+          
+            
+              <i class="menu-item-icon fa fa-search fa-fw"></i> <br>Search</a>
+        </li>
+      
+    </ul>
+  
+
+  
+
+  
+    <div class="site-search">
+      
+  <div class="popup search-popup local-search-popup">
+  <div class="local-search-header clearfix">
+    <span class="search-icon">
+      <i class="fa fa-search"></i>
+    </span>
+    <span class="popup-btn-close">
+      <i class="fa fa-times-circle"></i>
+    </span>
+    <div class="local-search-input-wrapper">
+      <input autocomplete="off" placeholder="Searching..." spellcheck="false" type="text" id="local-search-input">
+    </div>
+  </div>
+  <div id="local-search-result"></div>
+</div>
+
+
+
+    </div>
+  
+</nav>
+
+
+
+  
+
+
+
+</div>
+    </header>
+
+    
+  
+  
+
+  
+
+  <a href="https://github.com/ynfatal" class="github-corner" title="Follow me on GitHub" aria-label="Follow me on GitHub" rel="noopener" target="_blank"><svg width="80" height="80" viewbox="0 0 250 250" aria-hidden="true"><path d="M0,0 L115,115 L130,115 L142,142 L250,250 L250,0 Z"/><path d="M128.3,109.0 C113.8,99.7 119.0,89.6 119.0,89.6 C122.0,82.7 120.5,78.6 120.5,78.6 C119.2,72.0 123.4,76.3 123.4,76.3 C127.3,80.9 125.5,87.3 125.5,87.3 C122.9,97.6 130.6,101.9 134.4,103.2" fill="currentColor" style="transform-origin: 130px 106px;" class="octo-arm"/><path d="M115.0,115.0 C114.9,115.1 118.7,116.5 119.8,115.4 L133.7,101.6 C136.9,99.2 139.9,98.4 142.2,98.6 C133.8,88.0 127.5,74.4 143.8,58.0 C148.5,53.4 154.0,51.2 159.7,51.0 C160.3,49.4 163.2,43.6 171.4,40.1 C171.4,40.1 176.1,42.5 178.8,56.2 C183.1,58.6 187.2,61.8 190.9,65.4 C194.5,69.0 197.7,73.2 200.1,77.6 C213.8,80.2 216.3,84.9 216.3,84.9 C212.7,93.1 206.9,96.0 205.4,96.6 C205.1,102.4 203.0,107.8 198.3,112.5 C181.9,128.9 168.3,122.5 157.7,114.1 C157.9,116.9 156.7,120.9 152.7,124.9 L141.0,136.5 C139.8,137.7 141.6,141.9 141.8,141.8 Z" fill="currentColor" class="octo-body"/></svg></a>
+
+
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
+            
+
+          
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="https://ynfatal.github.io/2018/09/23/SpringBoot2  第三篇：整合日志框架/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Fatal">
+      <meta itemprop="description" content>
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Fatal's Blog">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">SpringBoot2 | 第三篇：整合日志框架
+
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+        
+          
+
+          <span class="post-time">
+
+            
+            
+            
+
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">Posted on</span>
+              
+
+              
+                
+              
+
+              <time title="Created: 2018-09-23 20:33:10" itemprop="dateCreated datePublished" datetime="2018-09-23T20:33:10+08:00">2018-09-23</time>
+            
+
+            
+          </span>
+
+          
+            <span class="post-category">
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">In</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing"><a href="/categories/SpringBoot2/" itemprop="url" rel="index"><span itemprop="name">SpringBoot2</span></a></span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <blockquote>
+<p>日志框架是一套能实现日志输出的工具包，它可以运行时选择性输出，性能优异，配置灵活。它在开发中也是必不可少的工具，这篇笔记记录 SpringBoot 如何整合日志框架。</p>
+</blockquote>
+<p>[TOC]</p>
+<h2 id="日志框架的作用"><a href="#日志框架的作用" class="headerlink" title="日志框架的作用"></a>日志框架的作用</h2><ol>
+<li>定制输出目标<ul>
+<li>一般来说我们都需要把日志输出到文件</li>
+<li>某些系统可能还需要定制日志文件的 <strong>滚动策略</strong>（比如 一天输出一个日志文件）</li>
+<li>很多集成系统要输出日志文件到<strong>数据库</strong>或者是网络的<strong>第三方服务</strong></li>
+</ul>
+</li>
+</ol>
+<ol start="2">
+<li>定制输出格式<ul>
+<li>可以在不修改代码的情况下通过配置文件自由的定制输出格式</li>
+</ul>
+</li>
+</ol>
+<ol start="3">
+<li>携带上下文信息<br>如：时间戳、类路径、线程等等</li>
+</ol>
+<h2 id="最佳搭配"><a href="#最佳搭配" class="headerlink" title="最佳搭配"></a>最佳搭配</h2><p><strong>日志门面： <em>SLF4J</em></strong> </p>
+<p><strong>日志实现： <em>Logback</em></strong></p>
+<blockquote>
+<p>==<em>Logback</em> 是默认实现==，所以我们可以不引入依赖</p>
+</blockquote>
+<h2 id="日志级别"><a href="#日志级别" class="headerlink" title="日志级别"></a>日志级别</h2><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="keyword">enum</span> Level &#123;</span><br><span class="line">    ERROR(<span class="number">40</span>, <span class="string">"ERROR"</span>),</span><br><span class="line">    WARN(<span class="number">30</span>, <span class="string">"WARN"</span>),</span><br><span class="line">    INFO(<span class="number">20</span>, <span class="string">"INFO"</span>),   <span class="comment">//默认级别</span></span><br><span class="line">    DEBUG(<span class="number">10</span>, <span class="string">"DEBUG"</span>),</span><br><span class="line">    TRACE(<span class="number">0</span>, <span class="string">"TRACE"</span>);</span><br><span class="line"><span class="comment">// 上面最高，下面最低，日志级别从上往下看 `由高到底`</span></span><br></pre></td></tr></table></figure>
+<h2 id="环境-版本一览："><a href="#环境-版本一览：" class="headerlink" title="环境/版本一览："></a>环境/版本一览：</h2><ul>
+<li>开发工具：Intellij IDEA 2018.2.2</li>
+<li>springboot： <strong>2.0.5.RELEASE</strong></li>
+<li>jdk：1.8.0_171</li>
+<li>maven：3.3.9</li>
+<li>SLF4j + Logback</li>
+</ul>
+<h2 id="使用"><a href="#使用" class="headerlink" title="使用"></a>使用</h2><h3 id="1、HelloWorld"><a href="#1、HelloWorld" class="headerlink" title="1、HelloWorld"></a>1、HelloWorld</h3><h4 id="1-1、传统方式"><a href="#1-1、传统方式" class="headerlink" title="1.1、传统方式"></a>1.1、传统方式</h4><h5 id="代码"><a href="#代码" class="headerlink" title="代码"></a>代码</h5><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">package</span> com.fatal;</span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> lombok.extern.slf4j.Slf4j;</span><br><span class="line"><span class="keyword">import</span> org.junit.Test;</span><br><span class="line"><span class="keyword">import</span> org.junit.runner.RunWith;</span><br><span class="line"><span class="keyword">import</span> org.slf4j.Logger;</span><br><span class="line"><span class="keyword">import</span> org.slf4j.LoggerFactory;</span><br><span class="line"><span class="keyword">import</span> org.springframework.boot.test.context.SpringBootTest;</span><br><span class="line"><span class="keyword">import</span> org.springframework.test.context.junit4.SpringRunner;</span><br><span class="line"></span><br><span class="line"><span class="meta">@RunWith</span>(SpringRunner.class)</span><br><span class="line"><span class="meta">@SpringBootTest</span></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">Chapter3ApplicationTests</span> </span>&#123;</span><br><span class="line">	</span><br><span class="line">    <span class="keyword">private</span> Logger logger = LoggerFactory.getLogger(getClass());</span><br><span class="line"></span><br><span class="line">    <span class="meta">@Test</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">contextLoads</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        logger.info(<span class="string">"Hello World"</span>);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h5 id="控制台"><a href="#控制台" class="headerlink" title="控制台"></a>控制台</h5><p><img src="/images/SpringBoot2/SpringBoot整合日志框架/360截图17860605429642.png" alt="360截图17860605429642"></p>
+<h4 id="1-2、注解方式（推荐）"><a href="#1-2、注解方式（推荐）" class="headerlink" title="1.2、注解方式（推荐）"></a>1.2、注解方式（推荐）</h4><h5 id="步骤"><a href="#步骤" class="headerlink" title="步骤"></a>步骤</h5><ol>
+<li><p>添加依赖</p>
+<figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">dependency</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">groupId</span>&gt;</span>org.projectlombok<span class="tag">&lt;/<span class="name">groupId</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">artifactId</span>&gt;</span>lombok<span class="tag">&lt;/<span class="name">artifactId</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">optional</span>&gt;</span>true<span class="tag">&lt;/<span class="name">optional</span>&gt;</span>	<span class="comment">&lt;!-- true：依赖该项目不会依赖Lombok --&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">dependency</span>&gt;</span></span><br></pre></td></tr></table></figure>
+</li>
+<li><p>加上注解 <strong>@Slf4j</strong></p>
+</li>
+<li><p>方法中直接使用 <strong>log</strong> 即可</p>
+</li>
+</ol>
+<h5 id="代码-1"><a href="#代码-1" class="headerlink" title="代码"></a>代码</h5><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">package</span> com.fatal;</span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> lombok.extern.slf4j.Slf4j;</span><br><span class="line"><span class="keyword">import</span> org.junit.Test;</span><br><span class="line"><span class="keyword">import</span> org.junit.runner.RunWith;</span><br><span class="line"><span class="keyword">import</span> org.slf4j.Logger;</span><br><span class="line"><span class="keyword">import</span> org.slf4j.LoggerFactory;</span><br><span class="line"><span class="keyword">import</span> org.springframework.boot.test.context.SpringBootTest;</span><br><span class="line"><span class="keyword">import</span> org.springframework.test.context.junit4.SpringRunner;</span><br><span class="line"></span><br><span class="line"><span class="meta">@RunWith</span>(SpringRunner.class)</span><br><span class="line"><span class="meta">@SpringBootTest</span></span><br><span class="line"><span class="meta">@Slf</span>4j  <span class="comment">// 它是一个的用于日志管理的注解</span></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">Chapter3ApplicationTests</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@Test</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">contextLoads</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        log.info(<span class="string">"Hello World"</span>);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h5 id="问题"><a href="#问题" class="headerlink" title="问题"></a>问题</h5><blockquote>
+<p>如果 <strong>log</strong> 找不到。报错 <strong>Cannot resolve symbol ‘log’</strong></p>
+</blockquote>
+<h5 id="解决方法"><a href="#解决方法" class="headerlink" title="解决方法"></a>解决方法</h5><ol>
+<li>用快捷键 <strong>Ctrl+Alt+S</strong> 打开：<strong>Settings→Plugins→Browse repositories</strong></li>
+<li>输入<strong>lom</strong> 后选择 <strong>Install</strong>，安装插件</li>
+<li>按照提示重启 <strong>IDEA</strong> 即可</li>
+</ol>
+<h3 id="2、默认级别"><a href="#2、默认级别" class="headerlink" title="2、默认级别"></a>2、默认级别</h3><h4 id="顺序"><a href="#顺序" class="headerlink" title="顺序"></a>顺序</h4><blockquote>
+<p><strong>trace</strong> &lt; <strong>debug</strong> &lt; <strong>info</strong> &lt;  <strong>warn</strong> &lt; <strong>error</strong> （由低到高）</p>
+</blockquote>
+<h4 id="代码-2"><a href="#代码-2" class="headerlink" title="代码"></a>代码</h4><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> * 低于默认级别的不会输出</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"><span class="meta">@Test</span></span><br><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">testDefault</span><span class="params">()</span> </span>&#123;</span><br><span class="line">    log.trace(<span class="string">"trace..."</span>);</span><br><span class="line">    log.debug(<span class="string">"debug..."</span>);</span><br><span class="line">    log.info(<span class="string">"info..."</span>);    <span class="comment">// 默认级别，为root级别</span></span><br><span class="line">    log.warn(<span class="string">"warn..."</span>);</span><br><span class="line">    log.error(<span class="string">"error..."</span>);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h4 id="控制台-1"><a href="#控制台-1" class="headerlink" title="控制台"></a>控制台</h4><p><img src="/images/SpringBoot2/SpringBoot整合日志框架/360截图17920826112116132.png" alt="360截图17920826112116132"></p>
+<h3 id="3、日志中输出变量"><a href="#3、日志中输出变量" class="headerlink" title="3、日志中输出变量"></a>3、日志中输出变量</h3><h4 id="代码-3"><a href="#代码-3" class="headerlink" title="代码"></a>代码</h4><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> * 在日志中输出变量，<span class="doctag">@Slf</span>4j 提供了更加方便的写法</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"><span class="meta">@Test</span></span><br><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">printVariable</span><span class="params">()</span> </span>&#123;</span><br><span class="line">    String username = <span class="string">"fatal"</span>;</span><br><span class="line">    String password = <span class="string">"123456"</span>;</span><br><span class="line"></span><br><span class="line">    <span class="comment">//你可能会这样写，这样子拼接的时候尤其是在变量特别多的时候，你可能会特别的头疼</span></span><br><span class="line">    log.info(<span class="string">"username: "</span> + username + <span class="string">",password: "</span> + password);</span><br><span class="line">    <span class="comment">//Slf4j提供了一种方便的写法</span></span><br><span class="line">    log.info(<span class="string">"username: &#123;&#125; ,password: &#123;&#125; "</span>,username,password);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h4 id="控制台-2"><a href="#控制台-2" class="headerlink" title="控制台"></a>控制台</h4><p><img src="/images/SpringBoot2/SpringBoot整合日志框架/360截图16270824648957.png" alt="360截图16270824648957"></p>
+<h3 id="4、本地输出日志文件"><a href="#4、本地输出日志文件" class="headerlink" title="4、本地输出日志文件"></a>4、本地输出日志文件</h3><h4 id="4-1、方式一：application-yml"><a href="#4-1、方式一：application-yml" class="headerlink" title="4.1、方式一：application.yml"></a>4.1、方式一：application.yml</h4><blockquote>
+<p>只能配置日志文件的路径，日志输出的格式等等一些简单的配置</p>
+</blockquote>
+<ol>
+<li><p><strong>设置控制台日志的输出格式</strong> </p>
+<figure class="highlight yaml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="attr">logging:</span></span><br><span class="line"><span class="attr">  pattern:</span></span><br><span class="line"><span class="attr">    console:</span> <span class="string">"%d - %msg%n"</span></span><br><span class="line"><span class="comment"># "%d&#123;yyyy-MM-dd HH:mm:ss.SSS&#125; [%thread] %-5level %logger&#123;50&#125; - %msg%n"</span></span><br></pre></td></tr></table></figure>
+<p><strong>日志输出格式</strong>：<br>​    <strong>%d</strong>：表示日期时间，<br>​    <strong>%thread</strong>：表示线程名，<br>​    <strong>%-5level</strong>：级别从左显示5个字符宽度，<br>​    <strong>%logger{50}</strong>：表示 logger 名字最长 50 个字符，否则按照句点分割，<br>​    <strong>%msg</strong>：日志消息，<br>​    <strong>%n</strong>：是换行符</p>
+</li>
+<li><p><strong>指定生成配置文件的路径</strong> </p>
+<figure class="highlight yaml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="attr">logging:</span></span><br><span class="line"><span class="attr">  path:</span> <span class="attr">E:/fatal</span></span><br></pre></td></tr></table></figure>
+<p><img src="/images/SpringBoot2/SpringBoot整合日志框架/360截图1700102010388140.png" alt="360截图1700102010388140"></p>
+</li>
+<li><p><strong>指定生成配置文件的路径和文件名</strong> </p>
+<figure class="highlight yaml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="attr">logging:</span></span><br><span class="line"><span class="attr">  file:</span> <span class="attr">E:/fatal/fatal.log</span></span><br></pre></td></tr></table></figure>
+<p><img src="/images/SpringBoot2/SpringBoot整合日志框架/360截图1672040284128132.png" alt="360截图1672040284128132"></p>
+</li>
+<li><p><strong>设置日志级别</strong></p>
+<figure class="highlight yaml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="attr">logging:</span></span><br><span class="line"><span class="attr">  level:</span></span><br><span class="line"><span class="comment">#    com.fatal.Chapter3ApplicationTests: debug # 具体类路径</span></span><br><span class="line">    <span class="string">com.fatal:</span> <span class="string">debug</span>  <span class="comment"># 具体包名</span></span><br></pre></td></tr></table></figure>
+</li>
+</ol>
+<h4 id="4-2、方式二：logback-spring-xml（官方推荐）"><a href="#4-2、方式二：logback-spring-xml（官方推荐）" class="headerlink" title="4.2、方式二：logback-spring.xml（官方推荐）"></a>4.2、方式二：logback-spring.xml（官方推荐）</h4><p>可以配置一些比较复杂的配置，如：</p>
+<ul>
+<li>区分 <strong>info</strong> 和 <strong>error</strong> 的日志</li>
+<li>每天生产一个日志文件</li>
+</ul>
+<ol>
+<li><p><strong>设置控制台日志的输出格式</strong> </p>
+<figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&lt;?xml version="1.0" encoding="utf-8" ?&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">configuration</span>&gt;</span></span><br><span class="line"></span><br><span class="line">    <span class="comment">&lt;!-- 指定控制台日志输出格式de配置项consoleLog --&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">appender</span> <span class="attr">name</span>=<span class="string">"consoleLog"</span> <span class="attr">class</span>=<span class="string">"ch.qos.logback.core.ConsoleAppender"</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">layout</span> <span class="attr">class</span>=<span class="string">"ch.qos.logback.classic.PatternLayout"</span>&gt;</span></span><br><span class="line">            <span class="tag">&lt;<span class="name">pattern</span>&gt;</span></span><br><span class="line">                %d - %msg%n</span><br><span class="line">            <span class="tag">&lt;/<span class="name">pattern</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;/<span class="name">layout</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;/<span class="name">appender</span>&gt;</span></span><br><span class="line"></span><br><span class="line">    <span class="comment">&lt;!-- 使用配置项consoleLog --&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">root</span> <span class="attr">level</span>=<span class="string">"info"</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">appender-ref</span> <span class="attr">ref</span>=<span class="string">"consoleLog"</span>/&gt;</span></span><br><span class="line">    <span class="tag">&lt;/<span class="name">root</span>&gt;</span> </span><br><span class="line"></span><br><span class="line"><span class="tag">&lt;/<span class="name">configuration</span>&gt;</span></span><br></pre></td></tr></table></figure>
+</li>
+<li><p><strong>指定日志文件的输出位置</strong></p>
+<figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&lt;?xml version="1.0" encoding="utf-8" ?&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">configuration</span>&gt;</span></span><br><span class="line"></span><br><span class="line">    <span class="comment">&lt;!-- 指定日志文件的输位置de配置项fileInfoLog --&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">appender</span> <span class="attr">name</span>=<span class="string">"fileInfoLog"</span> <span class="attr">class</span>=<span class="string">"ch.qos.logback.core.rolling.RollingFileAppender"</span>&gt;</span></span><br><span class="line">        <span class="comment">&lt;!-- 指定日志文件的输出格式 --&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">encoder</span>&gt;</span></span><br><span class="line">            <span class="tag">&lt;<span class="name">pattern</span>&gt;</span></span><br><span class="line">                %msg%n</span><br><span class="line">            <span class="tag">&lt;/<span class="name">pattern</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;/<span class="name">encoder</span>&gt;</span></span><br><span class="line">        <span class="comment">&lt;!-- 滚动策略 --&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">rollingPolicy</span> <span class="attr">class</span>=<span class="string">"ch.qos.logback.core.rolling.TimeBasedRollingPolicy"</span>&gt;</span></span><br><span class="line">            <span class="comment">&lt;!-- 路径 --&gt;</span></span><br><span class="line">            <span class="tag">&lt;<span class="name">fileNamePattern</span>&gt;</span>E:/fatal/info/info.%d.log<span class="tag">&lt;/<span class="name">fileNamePattern</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;/<span class="name">rollingPolicy</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;/<span class="name">appender</span>&gt;</span></span><br><span class="line"></span><br><span class="line">    <span class="comment">&lt;!-- 使用配置项 --&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">root</span> <span class="attr">level</span>=<span class="string">"info"</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">appender-ref</span> <span class="attr">ref</span>=<span class="string">"fileInfoLog"</span>/&gt;</span></span><br><span class="line">    <span class="tag">&lt;/<span class="name">root</span>&gt;</span></span><br><span class="line"></span><br><span class="line"><span class="tag">&lt;/<span class="name">configuration</span>&gt;</span></span><br></pre></td></tr></table></figure>
+<p><img src="/images/SpringBoot2/SpringBoot整合日志框架/360截图17321122366740.png" alt="360截图17321122366740"></p>
+<p>一般用的话，我需要将 <strong>info</strong> 和 <strong>error</strong> 两日志文件隔离，而且还需要过滤一些不必要的限制</p>
+</li>
+</ol>
+<ul>
+<li><p><strong>Info日志文件</strong></p>
+<p>加上 <filter> 指定 <strong>LevelFilter</strong> 过滤级别</filter></p>
+<figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&lt;?xml version="1.0" encoding="utf-8" ?&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">configuration</span>&gt;</span></span><br><span class="line"></span><br><span class="line">    <span class="comment">&lt;!-- 指定日志文件的输位置de配置项fileInfoLog --&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">appender</span> <span class="attr">name</span>=<span class="string">"fileInfoLog"</span> <span class="attr">class</span>=<span class="string">"ch.qos.logback.core.rolling.RollingFileAppender"</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">filter</span> <span class="attr">class</span>=<span class="string">"ch.qos.logback.classic.filter.LevelFilter"</span>&gt;</span></span><br><span class="line">            <span class="tag">&lt;<span class="name">level</span>&gt;</span>INFO<span class="tag">&lt;/<span class="name">level</span>&gt;</span>     <span class="comment">&lt;!-- 设置过滤级别 --&gt;</span></span><br><span class="line">            <span class="tag">&lt;<span class="name">onMatch</span>&gt;</span>ACCEPT<span class="tag">&lt;/<span class="name">onMatch</span>&gt;</span>     <span class="comment">&lt;!-- 用于配置符合过滤条件的日志的操作 --&gt;</span></span><br><span class="line">            <span class="tag">&lt;<span class="name">onMismatch</span>&gt;</span>DENY<span class="tag">&lt;/<span class="name">onMismatch</span>&gt;</span>     <span class="comment">&lt;!-- 用于配置不符合过滤条件的日志的操作 --&gt;</span></span><br><span class="line">        <span class="tag">&lt;/<span class="name">filter</span>&gt;</span></span><br><span class="line">        <span class="comment">&lt;!-- 指定日志文件的输出格式 --&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">encoder</span>&gt;</span></span><br><span class="line">            <span class="tag">&lt;<span class="name">pattern</span>&gt;</span></span><br><span class="line">                %msg%n</span><br><span class="line">            <span class="tag">&lt;/<span class="name">pattern</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;/<span class="name">encoder</span>&gt;</span></span><br><span class="line">        <span class="comment">&lt;!-- 滚动策略 --&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">rollingPolicy</span> <span class="attr">class</span>=<span class="string">"ch.qos.logback.core.rolling.TimeBasedRollingPolicy"</span>&gt;</span></span><br><span class="line">            <span class="comment">&lt;!-- 路径 --&gt;</span></span><br><span class="line">            <span class="tag">&lt;<span class="name">fileNamePattern</span>&gt;</span>E:/fatal/info/info.%d.log<span class="tag">&lt;/<span class="name">fileNamePattern</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;/<span class="name">rollingPolicy</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;/<span class="name">appender</span>&gt;</span></span><br><span class="line"></span><br><span class="line">    <span class="comment">&lt;!-- 使用配置项--&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">root</span> <span class="attr">level</span>=<span class="string">"info"</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">appender-ref</span> <span class="attr">ref</span>=<span class="string">"fileInfoLog"</span>/&gt;</span></span><br><span class="line">    <span class="tag">&lt;/<span class="name">root</span>&gt;</span></span><br><span class="line"></span><br><span class="line"><span class="tag">&lt;/<span class="name">configuration</span>&gt;</span></span><br></pre></td></tr></table></figure>
+<p><strong>FilterReply</strong></p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="keyword">enum</span> FilterReply &#123;</span><br><span class="line">    DENY,		<span class="comment">// 拒绝</span></span><br><span class="line">    NEUTRAL,	<span class="comment">// 中立</span></span><br><span class="line">    ACCEPT;		<span class="comment">// 接受</span></span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">private</span> <span class="title">FilterReply</span><span class="params">()</span> </span>&#123;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+</li>
+<li><p><strong>Error日志文件</strong> （两种方式）</p>
+<p>加上 <filter> 指定  <strong><code>ThresholdFilter</code></strong> 过滤级别</filter></p>
+<p><strong><code>ThresholdFilter</code></strong> ：不能排除，只能选定某个日志级别。和在 spring 配置文件中设置日志级别差不多，区别是作用范围不同</p>
+<p><strong>作用</strong>：输出日志级别为所选的<strong>及</strong>更高的</p>
+<figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">&lt;!-- 指定日志文件的输位置de配置项fileErrorLog --&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">appender</span> <span class="attr">name</span>=<span class="string">"fileErrorLog"</span> <span class="attr">class</span>=<span class="string">"ch.qos.logback.core.rolling.RollingFileAppender"</span>&gt;</span></span><br><span class="line">    <span class="comment">&lt;!--&lt;filter class="ch.qos.logback.classic.filter.LevelFilter"&gt;</span></span><br><span class="line"><span class="comment">            &lt;level&gt;ERROR&lt;/level&gt;</span></span><br><span class="line"><span class="comment">            &lt;onMatch&gt;ACCEPT&lt;/onMatch&gt;</span></span><br><span class="line"><span class="comment">            &lt;onMismatch&gt;DENY&lt;/onMismatch&gt;</span></span><br><span class="line"><span class="comment">        &lt;/filter&gt;--&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">filter</span> <span class="attr">class</span>=<span class="string">"ch.qos.logback.classic.filter.ThresholdFilter"</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">level</span>&gt;</span>ERROR<span class="tag">&lt;/<span class="name">level</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;/<span class="name">filter</span>&gt;</span></span><br><span class="line">    <span class="comment">&lt;!-- 指定日志文件的输出格式 --&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">encoder</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">pattern</span>&gt;</span></span><br><span class="line">            %msg%n</span><br><span class="line">        <span class="tag">&lt;/<span class="name">pattern</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;/<span class="name">encoder</span>&gt;</span></span><br><span class="line">    <span class="comment">&lt;!-- 滚动策略 --&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">rollingPolicy</span> <span class="attr">class</span>=<span class="string">"ch.qos.logback.core.rolling.TimeBasedRollingPolicy"</span>&gt;</span></span><br><span class="line">        <span class="comment">&lt;!-- 路径 --&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">fileNamePattern</span>&gt;</span>E:/fatal/error/error.%d.log<span class="tag">&lt;/<span class="name">fileNamePattern</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;/<span class="name">rollingPolicy</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">appender</span>&gt;</span></span><br></pre></td></tr></table></figure>
+</li>
+</ul>
+<h3 id="5、指定配置"><a href="#5、指定配置" class="headerlink" title="5、指定配置"></a>5、指定配置</h3><p>如果不使用 <strong>SpringBoot</strong> 的默认配置的话，可以在 <strong>resources</strong> 放上每个日志框架的配置文件</p>
+<table>
+<thead>
+<tr>
+<th>Logging System</th>
+<th>Customization</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Logback</td>
+<td><code>logback-spring.xml</code>, <code>logback-spring.groovy</code>, <code>logback.xml</code> or <code>logback.groovy</code></td>
+</tr>
+<tr>
+<td>Log4j2</td>
+<td><code>log4j2-spring.xml</code> or <code>log4j2.xml</code></td>
+</tr>
+<tr>
+<td>JDK (Java Util Logging)</td>
+<td><code>logging.properties</code></td>
+</tr>
+</tbody>
+</table>
+<p><strong>logback.xml</strong>：直接就被日志框架识别了；</p>
+<p><strong>==logback-spring.xml==</strong>（官方推荐）：<strong>日志框架</strong> 就不直接加载日志的 <strong>默认</strong> 配置项，由 <strong>SpringBoot</strong> 解析 <strong>日志配置</strong>，可以使用 <strong>SpringBoot</strong> 的高级 <strong>profile</strong> 功能</p>
+<figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">springProfile</span> <span class="attr">name</span>=<span class="string">"staging"</span>&gt;</span></span><br><span class="line">    <span class="comment">&lt;!-- configuration to be enabled when the "staging" profile is active --&gt;</span></span><br><span class="line">  	可以指定某段配置只在某个环境下生效</span><br><span class="line"><span class="tag">&lt;/<span class="name">springProfile</span>&gt;</span></span><br></pre></td></tr></table></figure>
+<p>如：</p>
+<figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">appender</span> <span class="attr">name</span>=<span class="string">"stdout"</span> <span class="attr">class</span>=<span class="string">"ch.qos.logback.core.ConsoleAppender"</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">layout</span> <span class="attr">class</span>=<span class="string">"ch.qos.logback.classic.PatternLayout"</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">springProfile</span> <span class="attr">name</span>=<span class="string">"dev"</span>&gt;</span></span><br><span class="line">            <span class="tag">&lt;<span class="name">pattern</span>&gt;</span>%d&#123;yyyy-MM-dd HH:mm:ss.SSS&#125; ----&gt; [%thread] ---&gt; %-5level %logger&#123;50&#125; - %msg%n<span class="tag">&lt;/<span class="name">pattern</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;/<span class="name">springProfile</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">springProfile</span> <span class="attr">name</span>=<span class="string">"!dev"</span>&gt;</span></span><br><span class="line">            <span class="tag">&lt;<span class="name">pattern</span>&gt;</span>%d&#123;yyyy-MM-dd HH:mm:ss.SSS&#125; ==== [%thread] ==== %-5level %logger&#123;50&#125; - %msg%n<span class="tag">&lt;/<span class="name">pattern</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;/<span class="name">springProfile</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;/<span class="name">layout</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">appender</span>&gt;</span></span><br><span class="line"></span><br><span class="line"><span class="tag">&lt;<span class="name">root</span> <span class="attr">level</span>=<span class="string">"info"</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">appender-ref</span> <span class="attr">ref</span>=<span class="string">"stdout"</span>/&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">root</span>&gt;</span></span><br></pre></td></tr></table></figure>
+<p><strong>科普</strong>：<code>logback.xml</code> 和 <code>logback-spring.xml</code>都可以用来配置 <code>logback</code>，但是两者的加载顺序是不一样的。加载优先级为：<code>logback.xml --&gt; application.properties --&gt; logback-spring.xml.</code></p>
+<p><code>logback.xml</code>加载早于<code>application.properties</code>，所以如果你在<code>logback.xml</code>使用了变量时（怎么用？<code>${}</code>也就是<code>SpEL</code>取值），而恰好这个变量是写在<code>application.properties</code>时，那么就会获取不到，只要改成<code>logback-spring.xml</code>就可以解决。</p>
+<h4 id="5-1、测试-logback-spring-xml-的功能-profile"><a href="#5-1、测试-logback-spring-xml-的功能-profile" class="headerlink" title="5.1、测试 logback-spring.xml 的功能 profile"></a>5.1、测试 <em>logback-spring.xml</em> 的功能 <em>profile</em></h4><h5 id="5-1-1、default-环境"><a href="#5-1-1、default-环境" class="headerlink" title="5.1.1、default 环境"></a>5.1.1、default 环境</h5><blockquote>
+<p>默认是 <strong>default</strong> 环境</p>
+</blockquote>
+<h6 id="两种方式"><a href="#两种方式" class="headerlink" title="两种方式"></a>两种方式</h6><p><strong>一是</strong>：直接运行，运行一个测试方法的话，显示的是 ====</p>
+<p><strong>二是</strong>：使用命令行运行</p>
+<ol>
+<li>打包<code>mvn package</code></li>
+</ol>
+<p><img src="/images/SpringBoot2/SpringBoot整合日志框架/360截图17290429104127106.png" alt="360截图17290429104127106"></p>
+<ol>
+<li>进入 <strong>target</strong> 目录，输入命令<code>java -jar chapter2-0.0.1-SNAPSHOT.jar</code></li>
+</ol>
+<p><img src="/images/SpringBoot2/SpringBoot整合日志框架/360截图16720401215444.png" alt="360截图16720401215444"></p>
+<h5 id="5-1-2、dev-环境"><a href="#5-1-2、dev-环境" class="headerlink" title="5.1.2、dev 环境"></a>5.1.2、dev 环境</h5><h6 id="三种方式"><a href="#三种方式" class="headerlink" title="三种方式"></a>三种方式</h6><p><strong>一是</strong>：在 application.yml 文件中添加上 </p>
+<figure class="highlight yaml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="attr">spring:</span></span><br><span class="line"><span class="attr">  profiles:</span></span><br><span class="line"><span class="attr">    active:</span> <span class="string">dev</span></span><br></pre></td></tr></table></figure>
+<p>点击运行即可</p>
+<p><strong>二是</strong>：命令行上</p>
+<p>打包后，进入 <strong>target</strong> 目录，输入命令<code>java -jar chapter2-0.0.1-SNAPSHOT.jar --spring.profiles.active=dev</code></p>
+<p><img src="/images/SpringBoot2/SpringBoot整合日志框架/360截图17290504575861.png" alt="360截图17290504575861"></p>
+<p><strong>三是</strong>：修改启动配置项    <strong>Edit Configurations…</strong></p>
+<p><img src="/images/SpringBoot2/SpringBoot整合日志框架/360截图17290507485450.png" alt="360截图17290507485450"></p>
+<p><img src="/images/SpringBoot2/SpringBoot整合日志框架/360截图17860530447977.png" alt="360截图17860530447977"></p>
+<p>最后点击启动即可</p>
+<p><strong>控制台</strong></p>
+<p><img src="/images/SpringBoot2/SpringBoot整合日志框架/360截图18180712416336.png" alt="360截图18180712416336"></p>
+<h3 id="6、切换日志框架"><a href="#6、切换日志框架" class="headerlink" title="6、切换日志框架"></a>6、切换日志框架</h3><p><strong>切换到 log4j2</strong></p>
+<p>排除依赖 <strong>spring-boot-starter-logging</strong> 后，加上依赖 <strong>spring-boot-starter-log4j2</strong></p>
+<h4 id="步骤-1"><a href="#步骤-1" class="headerlink" title="步骤"></a>步骤</h4><ol>
+<li><p>打开 <strong>pom.xml</strong> 文件，快捷键 <strong>Shift + Ctrl + Alt + U</strong>  –&gt; 生成 <strong>依赖图表</strong></p>
+</li>
+<li><p>找到 <strong>spring-boot-starter-logging</strong> 后，右键单击选择 <strong>Exclude</strong> 排除（或用快捷键 <strong>Shift + Delete</strong> 排除）</p>
+<blockquote>
+<p>当然也可以自己手动在 xml 文件上排除依赖，但我比较喜欢 <strong>图表</strong> 这种</p>
+</blockquote>
+<p><img src="/images/SpringBoot2/SpringBoot整合日志框架/360截图17630324534037.png" alt="360截图17630324534037"></p>
+</li>
+<li><p>引入依赖  <strong>spring-boot-starter-log4j2</strong>  </p>
+<figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">dependency</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">groupId</span>&gt;</span>org.springframework.boot<span class="tag">&lt;/<span class="name">groupId</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">artifactId</span>&gt;</span>spring-boot-starter-log4j2<span class="tag">&lt;/<span class="name">artifactId</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">dependency</span>&gt;</span></span><br></pre></td></tr></table></figure>
+</li>
+<li><p>把 <strong>log4j2.xml</strong> 放在 <strong>resources</strong> 下</p>
+</li>
+</ol>
+<p><strong>log4j2.xml</strong></p>
+<figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&lt;?xml version="1.0" encoding="UTF-8"?&gt;</span></span><br><span class="line"><span class="comment">&lt;!-- 日志级别以及优先级排序: OFF &gt; FATAL &gt; ERROR &gt; WARN &gt; INFO &gt; DEBUG &gt; TRACE &gt; ALL --&gt;</span></span><br><span class="line"><span class="comment">&lt;!-- Configuration后面的status，这个用于设置log4j2自身内部的信息输出，可以不设置，当设置成trace时，你会看到log4j2内部各种详细输出 --&gt;</span></span><br><span class="line"><span class="comment">&lt;!-- monitorInterval：Log4j能够自动检测修改配置 文件和重新配置本身，设置间隔秒数 --&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">configuration</span> <span class="attr">status</span>=<span class="string">"WARN"</span> <span class="attr">monitorInterval</span>=<span class="string">"30"</span>&gt;</span></span><br><span class="line">    <span class="comment">&lt;!--先定义所有的appender--&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">appenders</span>&gt;</span></span><br><span class="line">        <span class="comment">&lt;!--这个输出控制台的配置--&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">console</span> <span class="attr">name</span>=<span class="string">"Console"</span> <span class="attr">target</span>=<span class="string">"SYSTEM_OUT"</span>&gt;</span></span><br><span class="line">            <span class="comment">&lt;!--输出日志的格式--&gt;</span></span><br><span class="line">            <span class="tag">&lt;<span class="name">PatternLayout</span> <span class="attr">pattern</span>=<span class="string">"[%d&#123;HH:mm:ss:SSS&#125;] ==log4j2== [%p] - %l - %m%n"</span>/&gt;</span></span><br><span class="line">        <span class="tag">&lt;/<span class="name">console</span>&gt;</span></span><br><span class="line">        <span class="comment">&lt;!--文件会打印出所有信息，这个log每次运行程序会自动清空，由append属性决定，这个也挺有用的，适合临时测试用--&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">File</span> <span class="attr">name</span>=<span class="string">"log"</span> <span class="attr">fileName</span>=<span class="string">"log/test.log"</span> <span class="attr">append</span>=<span class="string">"false"</span>&gt;</span></span><br><span class="line">            <span class="tag">&lt;<span class="name">PatternLayout</span> <span class="attr">pattern</span>=<span class="string">"%d&#123;HH:mm:ss.SSS&#125; %-5level %class&#123;36&#125; %L %M - %msg%xEx%n"</span>/&gt;</span></span><br><span class="line">        <span class="tag">&lt;/<span class="name">File</span>&gt;</span></span><br><span class="line">        <span class="comment">&lt;!-- 这个会打印出所有的info及以下级别的信息，每次大小超过size，则这size大小的日志会自动存入按年份-月份建立的文件夹下面并进行压缩，作为存档--&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">RollingFile</span> <span class="attr">name</span>=<span class="string">"RollingFileInfo"</span> <span class="attr">fileName</span>=<span class="string">"$&#123;sys:user.home&#125;/logs/info.log"</span></span></span><br><span class="line"><span class="tag">                     <span class="attr">filePattern</span>=<span class="string">"$&#123;sys:user.home&#125;/logs/$$&#123;date:yyyy-MM&#125;/info-%d&#123;yyyy-MM-dd&#125;-%i.log"</span>&gt;</span></span><br><span class="line">            <span class="comment">&lt;!--控制台只输出level及以上级别的信息（onMatch），其他的直接拒绝（onMismatch）--&gt;</span></span><br><span class="line">            <span class="tag">&lt;<span class="name">ThresholdFilter</span> <span class="attr">level</span>=<span class="string">"info"</span> <span class="attr">onMatch</span>=<span class="string">"ACCEPT"</span> <span class="attr">onMismatch</span>=<span class="string">"DENY"</span>/&gt;</span></span><br><span class="line">            <span class="tag">&lt;<span class="name">PatternLayout</span> <span class="attr">pattern</span>=<span class="string">"[%d&#123;HH:mm:ss:SSS&#125;] [%p] - %l - %m%n"</span>/&gt;</span></span><br><span class="line">            <span class="tag">&lt;<span class="name">Policies</span>&gt;</span></span><br><span class="line">                <span class="tag">&lt;<span class="name">TimeBasedTriggeringPolicy</span>/&gt;</span></span><br><span class="line">                <span class="tag">&lt;<span class="name">SizeBasedTriggeringPolicy</span> <span class="attr">size</span>=<span class="string">"100 MB"</span>/&gt;</span></span><br><span class="line">            <span class="tag">&lt;/<span class="name">Policies</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;/<span class="name">RollingFile</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">RollingFile</span> <span class="attr">name</span>=<span class="string">"RollingFileWarn"</span> <span class="attr">fileName</span>=<span class="string">"$&#123;sys:user.home&#125;/logs/warn.log"</span></span></span><br><span class="line"><span class="tag">                     <span class="attr">filePattern</span>=<span class="string">"$&#123;sys:user.home&#125;/logs/$$&#123;date:yyyy-MM&#125;/warn-%d&#123;yyyy-MM-dd&#125;-%i.log"</span>&gt;</span></span><br><span class="line">            <span class="tag">&lt;<span class="name">ThresholdFilter</span> <span class="attr">level</span>=<span class="string">"warn"</span> <span class="attr">onMatch</span>=<span class="string">"ACCEPT"</span> <span class="attr">onMismatch</span>=<span class="string">"DENY"</span>/&gt;</span></span><br><span class="line">            <span class="tag">&lt;<span class="name">PatternLayout</span> <span class="attr">pattern</span>=<span class="string">"[%d&#123;HH:mm:ss:SSS&#125;] [%p] - %l - %m%n"</span>/&gt;</span></span><br><span class="line">            <span class="tag">&lt;<span class="name">Policies</span>&gt;</span></span><br><span class="line">                <span class="tag">&lt;<span class="name">TimeBasedTriggeringPolicy</span>/&gt;</span></span><br><span class="line">                <span class="tag">&lt;<span class="name">SizeBasedTriggeringPolicy</span> <span class="attr">size</span>=<span class="string">"100 MB"</span>/&gt;</span></span><br><span class="line">            <span class="tag">&lt;/<span class="name">Policies</span>&gt;</span></span><br><span class="line">            <span class="comment">&lt;!-- DefaultRolloverStrategy属性如不设置，则默认为最多同一文件夹下7个文件，这里设置了20 --&gt;</span></span><br><span class="line">            <span class="tag">&lt;<span class="name">DefaultRolloverStrategy</span> <span class="attr">max</span>=<span class="string">"20"</span>/&gt;</span></span><br><span class="line">        <span class="tag">&lt;/<span class="name">RollingFile</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">RollingFile</span> <span class="attr">name</span>=<span class="string">"RollingFileError"</span> <span class="attr">fileName</span>=<span class="string">"$&#123;sys:user.home&#125;/logs/error.log"</span></span></span><br><span class="line"><span class="tag">                     <span class="attr">filePattern</span>=<span class="string">"$&#123;sys:user.home&#125;/logs/$$&#123;date:yyyy-MM&#125;/error-%d&#123;yyyy-MM-dd&#125;-%i.log"</span>&gt;</span></span><br><span class="line">            <span class="tag">&lt;<span class="name">ThresholdFilter</span> <span class="attr">level</span>=<span class="string">"error"</span> <span class="attr">onMatch</span>=<span class="string">"ACCEPT"</span> <span class="attr">onMismatch</span>=<span class="string">"DENY"</span>/&gt;</span></span><br><span class="line">            <span class="tag">&lt;<span class="name">PatternLayout</span> <span class="attr">pattern</span>=<span class="string">"[%d&#123;HH:mm:ss:SSS&#125;] [%p] - %l - %m%n"</span>/&gt;</span></span><br><span class="line">            <span class="tag">&lt;<span class="name">Policies</span>&gt;</span></span><br><span class="line">                <span class="tag">&lt;<span class="name">TimeBasedTriggeringPolicy</span>/&gt;</span></span><br><span class="line">                <span class="tag">&lt;<span class="name">SizeBasedTriggeringPolicy</span> <span class="attr">size</span>=<span class="string">"100 MB"</span>/&gt;</span></span><br><span class="line">            <span class="tag">&lt;/<span class="name">Policies</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;/<span class="name">RollingFile</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;/<span class="name">appenders</span>&gt;</span></span><br><span class="line">    <span class="comment">&lt;!--然后定义logger，只有定义了logger并引入的appender，appender才会生效--&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">loggers</span>&gt;</span></span><br><span class="line">        <span class="comment">&lt;!--过滤掉spring和mybatis的一些无用的DEBUG信息--&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">logger</span> <span class="attr">name</span>=<span class="string">"org.springframework"</span> <span class="attr">level</span>=<span class="string">"INFO"</span>&gt;</span><span class="tag">&lt;/<span class="name">logger</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">logger</span> <span class="attr">name</span>=<span class="string">"org.mybatis"</span> <span class="attr">level</span>=<span class="string">"INFO"</span>&gt;</span><span class="tag">&lt;/<span class="name">logger</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">root</span> <span class="attr">level</span>=<span class="string">"all"</span>&gt;</span></span><br><span class="line">            <span class="tag">&lt;<span class="name">appender-ref</span> <span class="attr">ref</span>=<span class="string">"Console"</span>/&gt;</span></span><br><span class="line">            <span class="tag">&lt;<span class="name">appender-ref</span> <span class="attr">ref</span>=<span class="string">"RollingFileInfo"</span>/&gt;</span></span><br><span class="line">            <span class="tag">&lt;<span class="name">appender-ref</span> <span class="attr">ref</span>=<span class="string">"RollingFileWarn"</span>/&gt;</span></span><br><span class="line">            <span class="tag">&lt;<span class="name">appender-ref</span> <span class="attr">ref</span>=<span class="string">"RollingFileError"</span>/&gt;</span></span><br><span class="line">        <span class="tag">&lt;/<span class="name">root</span>&gt;</span></span><br><span class="line">        60     </span><br><span class="line">    <span class="tag">&lt;/<span class="name">loggers</span>&gt;</span></span><br><span class="line">    61 </span><br><span class="line"><span class="tag">&lt;/<span class="name">configuration</span>&gt;</span></span><br></pre></td></tr></table></figure>
+<p><img src="/images/SpringBoot2/SpringBoot整合日志框架/360截图18141221306775.png" alt="360截图18141221306775"></p>
+<h3 id="7、日志颜色编码"><a href="#7、日志颜色编码" class="headerlink" title="7、日志颜色编码"></a>7、日志颜色编码</h3><p>如果终端支持 <code>ANSI</code>，默认情况下会给日志上个色，提高可读性，可以在配置文件中设置 <code>spring.output.ansi.enabled</code> 来改变默认值</p>
+<ul>
+<li><strong>ALWAYS：</strong> 启用 <code>ANSI</code> 颜色的输出。</li>
+<li><strong>DETECT：</strong> 尝试检测 <code>ANSI</code> 着色功能是否可用。</li>
+<li><strong>NEVER：</strong> 禁用 <code>ANSI</code> 颜色的输出。</li>
+</ul>
+<h4 id="application-yml"><a href="#application-yml" class="headerlink" title="application.yml"></a>application.yml</h4><figure class="highlight yaml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="attr">spring:</span></span><br><span class="line"><span class="attr">  output:</span></span><br><span class="line"><span class="attr">    ansi:</span></span><br><span class="line"><span class="attr">      enabled:</span> <span class="string">always</span></span><br></pre></td></tr></table></figure>
+<h4 id="logback-spring-xml（或logback-xml-）"><a href="#logback-spring-xml（或logback-xml-）" class="headerlink" title="logback-spring.xml（或logback.xml ）"></a><strong>logback-spring.xml</strong>（或<strong>logback.xml</strong> ）</h4><figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">&lt;!-- 指定控制台日志输出格式de配置项consoleLog --&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">appender</span> <span class="attr">name</span>=<span class="string">"consoleLog"</span> <span class="attr">class</span>=<span class="string">"ch.qos.logback.core.ConsoleAppender"</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">layout</span> <span class="attr">class</span>=<span class="string">"ch.qos.logback.classic.PatternLayout"</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">pattern</span>&gt;</span></span><br><span class="line">            %black(控制台-) %red(%d&#123;yyyy-MM-dd HH:mm:ss&#125;) %green([%thread]) %highlight(%-5level) %boldMagenta(%logger) - %cyan(%msg%n)</span><br><span class="line">        <span class="tag">&lt;/<span class="name">pattern</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;/<span class="name">layout</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">appender</span>&gt;</span></span><br><span class="line"></span><br><span class="line"><span class="comment">&lt;!-- 使用配置项 --&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">root</span> <span class="attr">level</span>=<span class="string">"info"</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">appender-ref</span> <span class="attr">ref</span>=<span class="string">"consoleLog"</span>/&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">root</span>&gt;</span></span><br></pre></td></tr></table></figure>
+<p>运行一个 HelloWorld 测试方法</p>
+<h4 id="控制台-3"><a href="#控制台-3" class="headerlink" title="控制台"></a>控制台</h4><p><img src="/images/SpringBoot2/SpringBoot整合日志框架/360截图16850813798272.png" alt="360截图16850813798272"></p>
+<h2 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h2><p><code>SpringBoot</code>的知识已经有前辈在我们之前探索了。比较喜欢的博主有：<a href="https://blog.battcn.com/" target="_blank" rel="noopener">唐亚峰 | Battcn</a>、<a href="https://blog.csdn.net/forezp" target="_blank" rel="noopener">方志朋的专栏</a>、<a href="http://blog.didispace.com/" target="_blank" rel="noopener">程序猿DD</a>、<a href="http://www.ityouknow.com/" target="_blank" rel="noopener">纯洁的微笑</a>。对这门技术感兴趣的可以去他们的博客逛逛。谢谢他们的分享~~</p>
+<p>以上文章是我用来学习的<code>Demo</code>，都是基于 <code>SpringBoot2.x</code> 版本。</p>
+<p><strong>源码地址:</strong> <a href="https://github.com/ynfatal/springboot2-learning/tree/master/chapter3" target="_blank" rel="noopener">https://github.com/ynfatal/springboot2-learning/tree/master/chapter3</a></p>
+<h4 id="学习-唐亚峰-，廖师兄-前辈的经验"><a href="#学习-唐亚峰-，廖师兄-前辈的经验" class="headerlink" title="学习 唐亚峰 ，廖师兄 前辈的经验"></a>学习 <a href="http://blog.battcn.com/" target="_blank" rel="noopener">唐亚峰</a> ，<a href="https://www.imooc.com/u/4559066" target="_blank" rel="noopener">廖师兄</a> 前辈的经验</h4>
+      
+    </div>
+
+    
+
+    
+    
+    
+
+    
+
+    
+      
+    
+    
+
+    
+
+    <div>
+      
+        <div>
+    
+        <div style="margin-top: 40px;text-align:center;color: #ccc;font-size:14px;">
+        -------------	end   -------------
+        </div>
+    
+<div>
+      
+    </div>
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/SpringBoot2/" <i class="fa fa-tag"> SpringBoot2</a>
+          
+            <a href="/tags/Slf4j/" <i class="fa fa-tag"> Slf4j</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2018/09/20/SpringBoot2  第二篇：SpringBoot配置详解/" rel="next" title="SpringBoot2 | 第二篇：SpringBoot配置详解">
+                <i class="fa fa-chevron-left"></i> SpringBoot2 | 第二篇：SpringBoot配置详解
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2018/09/25/SpringBoot2  第四篇：整合Thymeleaf模板引擎/" rel="prev" title="SpringBoot2 | 第四篇：整合Thymeleaf模板引擎">
+                SpringBoot2 | 第四篇：整合Thymeleaf模板引擎 <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </div></div></article>
+
+
+  </div>
+
+
+          </div>
+          
+
+  
+    <div class="comments" id="gitalk-container">
+    </div>
+
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            Table of Contents
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            Overview
+          </li>
+        </ul>
+      
+
+      <div class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+            
+              <img class="site-author-image" itemprop="image" src="/images/avatar.gif" alt="Fatal">
+            
+              <p class="site-author-name" itemprop="name">Fatal</p>
+              <div class="site-description motion-element" itemprop="description"></div>
+          </div>
+
+          
+            <nav class="site-state motion-element">
+              
+                <div class="site-state-item site-state-posts">
+                
+                  <a href="/archives/">
+                
+                    <span class="site-state-item-count">38</span>
+                    <span class="site-state-item-name">posts</span>
+                  </a>
+                </div>
+              
+
+              
+                
+                
+                <div class="site-state-item site-state-categories">
+                  
+                    
+                      <a href="/categories/">
+                    
+                  
+                    
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                    <span class="site-state-item-count">4</span>
+                    <span class="site-state-item-name">categories</span>
+                  </a>
+                </div>
+              
+
+              
+                
+                
+                <div class="site-state-item site-state-tags">
+                  
+                    
+                      <a href="/tags/">
+                    
+                  
+                    
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                    <span class="site-state-item-count">23</span>
+                    <span class="site-state-item-name">tags</span>
+                  </a>
+                </div>
+              
+            </nav>
+          
+
+          
+
+          
+
+          
+            <div class="links-of-author motion-element">
+              
+                <span class="links-of-author-item">
+                  
+                  
+                    
+                  
+                  
+                    
+                  
+                  <a href="https://github.com/ynfatal" title="GitHub &rarr; https://github.com/ynfatal" rel="noopener" target="_blank"><i class="fa fa-fw fa-github"></i>GitHub</a>
+                </span>
+              
+                <span class="links-of-author-item">
+                  
+                  
+                    
+                  
+                  
+                    
+                  
+                  <a href="mailto:634137063@qq.com" title="E-Mail &rarr; mailto:634137063@qq.com" rel="noopener" target="_blank"><i class="fa fa-fw fa-envelope"></i>E-Mail</a>
+                </span>
+              
+            </div>
+          
+
+          
+
+          
+          
+
+          
+            
+          
+          
+
+        </div>
+      </div>
+
+      
+      <!--noindex-->
+        <div class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+            
+            
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#日志框架的作用"><span class="nav-text">日志框架的作用</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#最佳搭配"><span class="nav-text">最佳搭配</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#日志级别"><span class="nav-text">日志级别</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#环境-版本一览："><span class="nav-text">环境/版本一览：</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#使用"><span class="nav-text">使用</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#1、HelloWorld"><span class="nav-text">1、HelloWorld</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#1-1、传统方式"><span class="nav-text">1.1、传统方式</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#代码"><span class="nav-text">代码</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#控制台"><span class="nav-text">控制台</span></a></li></ol></li><li class="nav-item nav-level-4"><a class="nav-link" href="#1-2、注解方式（推荐）"><span class="nav-text">1.2、注解方式（推荐）</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#步骤"><span class="nav-text">步骤</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#代码-1"><span class="nav-text">代码</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#问题"><span class="nav-text">问题</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#解决方法"><span class="nav-text">解决方法</span></a></li></ol></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#2、默认级别"><span class="nav-text">2、默认级别</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#顺序"><span class="nav-text">顺序</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#代码-2"><span class="nav-text">代码</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#控制台-1"><span class="nav-text">控制台</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#3、日志中输出变量"><span class="nav-text">3、日志中输出变量</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#代码-3"><span class="nav-text">代码</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#控制台-2"><span class="nav-text">控制台</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#4、本地输出日志文件"><span class="nav-text">4、本地输出日志文件</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#4-1、方式一：application-yml"><span class="nav-text">4.1、方式一：application.yml</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#4-2、方式二：logback-spring-xml（官方推荐）"><span class="nav-text">4.2、方式二：logback-spring.xml（官方推荐）</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#5、指定配置"><span class="nav-text">5、指定配置</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#5-1、测试-logback-spring-xml-的功能-profile"><span class="nav-text">5.1、测试 logback-spring.xml 的功能 profile</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#5-1-1、default-环境"><span class="nav-text">5.1.1、default 环境</span></a><ol class="nav-child"><li class="nav-item nav-level-6"><a class="nav-link" href="#两种方式"><span class="nav-text">两种方式</span></a></li></ol></li><li class="nav-item nav-level-5"><a class="nav-link" href="#5-1-2、dev-环境"><span class="nav-text">5.1.2、dev 环境</span></a><ol class="nav-child"><li class="nav-item nav-level-6"><a class="nav-link" href="#三种方式"><span class="nav-text">三种方式</span></a></li></ol></li></ol></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#6、切换日志框架"><span class="nav-text">6、切换日志框架</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#步骤-1"><span class="nav-text">步骤</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#7、日志颜色编码"><span class="nav-text">7、日志颜色编码</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#application-yml"><span class="nav-text">application.yml</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#logback-spring-xml（或logback-xml-）"><span class="nav-text">logback-spring.xml（或logback.xml ）</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#控制台-3"><span class="nav-text">控制台</span></a></li></ol></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#总结"><span class="nav-text">总结</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#学习-唐亚峰-，廖师兄-前辈的经验"><span class="nav-text">学习 唐亚峰 ，廖师兄 前辈的经验</span></a></li></ol></li></ol></div>
+            
+
+          </div>
+        </div>
+      <!--/noindex-->
+      
+
+      
+        <div class="back-to-top">
+          <i class="fa fa-arrow-up"></i>
+          
+            <span id="scrollpercent"><span>0</span>%</span>
+          
+        </div>
+      
+
+      
+        <script type="text/javascript" charset="utf-8" src="/js/tagcloud.js"></script>
+        <script type="text/javascript" charset="utf-8" src="/js/tagcanvas.js"></script>
+        <div class="widget-wrap">
+          <h3 class="widget-title">Tag Cloud</h3>
+          <div id="myCanvasContainer" class="widget tagcloud">
+            <canvas width="220" height="210" id="resCanvas" style="width=100%">
+              <ul class="tag-list"><li class="tag-list-item"><a class="tag-list-link" href="/tags/BeetlSql/">BeetlSql</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Cache/">Cache</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Eureka/">Eureka</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/JdbcTemplate/">JdbcTemplate</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Jpa/">Jpa</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Mybatis/">Mybatis</a><span class="tag-list-count">3</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/RabbitMQ/">RabbitMQ</a><span class="tag-list-count">5</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Redis/">Redis</a><span class="tag-list-count">4</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Slf4j/">Slf4j</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/SpringBoot2/">SpringBoot2</a><span class="tag-list-count">35</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/SpringCloud/">SpringCloud</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Swagger/">Swagger</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Thymeleaf/">Thymeleaf</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/css/">css</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/docer/">docer</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/git/">git</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/github/">github</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/hexo/">hexo</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/html/">html</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/java/">java</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/java8/">java8</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/javascript/">javascript</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/yaml/">yaml</a><span class="tag-list-count">1</span></li></ul>
+            </canvas>
+          </div>
+        </div>
+      
+
+    </div>
+  </aside>
+  
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+<div class="copyright">&copy; <span itemprop="copyrightYear">2019</span>
+  <span class="with-love" id="animate">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Fatal</span>
+
+  
+
+  
+</div>
+
+
+  <div class="powered-by">
+    Total: <span id="busuanzi_value_site_pv"></span>  <!-- 本站总访问量 -->
+    Visitors: <span id="busuanzi_value_site_uv"></span> <!-- 本站访客数 -->
+    Hits: <span id="busuanzi_value_page_pv"></span> <!-- 本页总阅读量 -->
+  </div>
+
+  <!-- <div class="powered-by">Powered by <a href="https://hexo.io" class="theme-link" rel="noopener" target="_blank">Hexo</a></div> --> 
+
+
+
+
+
+
+
+
+<!-- <div class="theme-info">
+  <div class="powered-by"></div>
+  <span class="post-count">博客全站共86k字</span>
+</div> --> 
+
+        
+
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+
+    
+
+    
+
+    
+  </div>
+
+  
+
+<script>
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+
+
+  
+    
+    
+  
+  <script color="0,0,0" opacity="0.5" zindex="-1" count="99" src="/lib/canvas-nest/canvas-nest.min.js"></script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  <script src="/lib/jquery/index.js?v=2.1.3"></script>
+
+  
+  <script src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+
+  
+  <script src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+
+  
+  <script src="/lib/fancybox/source/jquery.fancybox.pack.js"></script>
+
+
+  
+
+
+  <script src="/js/utils.js?v=7.1.1"></script>
+
+  <script src="/js/motion.js?v=7.1.1"></script>
+
+
+
+  
+  
+
+
+  <script src="/js/affix.js?v=7.1.1"></script>
+
+  <script src="/js/schemes/pisces.js?v=7.1.1"></script>
+
+
+
+
+  
+  <script src="/js/scrollspy.js?v=7.1.1"></script>
+<script src="/js/post-details.js?v=7.1.1"></script>
+
+
+
+  
+
+
+  <script src="/js/next-boot.js?v=7.1.1"></script>
+
+
+  
+
+  
+
+  
+
+  
+
+
+  
+    
+
+<script src="//cdn.jsdelivr.net/npm/gitalk@1/dist/gitalk.min.js"></script>
+
+
+
+<link rel="stylesheet" href="//cdn.jsdelivr.net/npm/gitalk@1/dist/gitalk.min.css">
+
+
+
+<script src="//cdn.jsdelivr.net/npm/js-md5@0.7.3/src/md5.min.js"></script>
+
+<script>
+  var gitalk = new Gitalk({
+    clientID: '4dea51f0a84f2ec5b009',
+    clientSecret: '0f278e2737f8e97d451299b4a91e29b735aa7633',
+    repo: 'ynfatal.github.io',
+    owner: 'ynfatal',
+    admin: ['ynfatal'],
+    id: md5(location.pathname),
+    
+      language: window.navigator.language || window.navigator.userLanguage,
+    
+    distractionFreeMode: 'true'
+  });
+  gitalk.render('gitalk-container');
+</script>
+
+  
+
+
+  
+  <script>
+    // Popup Window;
+    var isfetched = false;
+    var isXml = true;
+    // Search DB path;
+    var search_path = "search.xml";
+    if (search_path.length === 0) {
+      search_path = "search.xml";
+    } else if (/json$/i.test(search_path)) {
+      isXml = false;
+    }
+    var path = "/" + search_path;
+    // monitor main search box;
+
+    var onPopupClose = function (e) {
+      $('.popup').hide();
+      $('#local-search-input').val('');
+      $('.search-result-list').remove();
+      $('#no-result').remove();
+      $(".local-search-pop-overlay").remove();
+      $('body').css('overflow', '');
+    }
+
+    function proceedsearch() {
+      $("body")
+        .append('<div class="search-popup-overlay local-search-pop-overlay"></div>')
+        .css('overflow', 'hidden');
+      $('.search-popup-overlay').click(onPopupClose);
+      $('.popup').toggle();
+      var $localSearchInput = $('#local-search-input');
+      $localSearchInput.attr("autocapitalize", "none");
+      $localSearchInput.attr("autocorrect", "off");
+      $localSearchInput.focus();
+    }
+
+    // search function;
+    var searchFunc = function(path, search_id, content_id) {
+      'use strict';
+
+      // start loading animation
+      $("body")
+        .append('<div class="search-popup-overlay local-search-pop-overlay">' +
+          '<div id="search-loading-icon">' +
+          '<i class="fa fa-spinner fa-pulse fa-5x fa-fw"></i>' +
+          '</div>' +
+          '</div>')
+        .css('overflow', 'hidden');
+      $("#search-loading-icon").css('margin', '20% auto 0 auto').css('text-align', 'center');
+
+      
+
+      $.ajax({
+        url: path,
+        dataType: isXml ? "xml" : "json",
+        async: true,
+        success: function(res) {
+          // get the contents from search data
+          isfetched = true;
+          $('.popup').detach().appendTo('.header-inner');
+          var datas = isXml ? $("entry", res).map(function() {
+            return {
+              title: $("title", this).text(),
+              content: $("content",this).text(),
+              url: $("url" , this).text()
+            };
+          }).get() : res;
+          var input = document.getElementById(search_id);
+          var resultContent = document.getElementById(content_id);
+          var inputEventFunction = function() {
+            var searchText = input.value.trim().toLowerCase();
+            var keywords = searchText.split(/[\s\-]+/);
+            if (keywords.length > 1) {
+              keywords.push(searchText);
+            }
+            var resultItems = [];
+            if (searchText.length > 0) {
+              // perform local searching
+              datas.forEach(function(data) {
+                var isMatch = false;
+                var hitCount = 0;
+                var searchTextCount = 0;
+                var title = data.title.trim();
+                var titleInLowerCase = title.toLowerCase();
+                var content = data.content.trim().replace(/<[^>]+>/g,"");
+                
+                var contentInLowerCase = content.toLowerCase();
+                var articleUrl = decodeURIComponent(data.url).replace(/\/{2,}/g, '/');
+                var indexOfTitle = [];
+                var indexOfContent = [];
+                // only match articles with not empty titles
+                if(title != '') {
+                  keywords.forEach(function(keyword) {
+                    function getIndexByWord(word, text, caseSensitive) {
+                      var wordLen = word.length;
+                      if (wordLen === 0) {
+                        return [];
+                      }
+                      var startPosition = 0, position = [], index = [];
+                      if (!caseSensitive) {
+                        text = text.toLowerCase();
+                        word = word.toLowerCase();
+                      }
+                      while ((position = text.indexOf(word, startPosition)) > -1) {
+                        index.push({position: position, word: word});
+                        startPosition = position + wordLen;
+                      }
+                      return index;
+                    }
+
+                    indexOfTitle = indexOfTitle.concat(getIndexByWord(keyword, titleInLowerCase, false));
+                    indexOfContent = indexOfContent.concat(getIndexByWord(keyword, contentInLowerCase, false));
+                  });
+                  if (indexOfTitle.length > 0 || indexOfContent.length > 0) {
+                    isMatch = true;
+                    hitCount = indexOfTitle.length + indexOfContent.length;
+                  }
+                }
+
+                // show search results
+
+                if (isMatch) {
+                  // sort index by position of keyword
+
+                  [indexOfTitle, indexOfContent].forEach(function (index) {
+                    index.sort(function (itemLeft, itemRight) {
+                      if (itemRight.position !== itemLeft.position) {
+                        return itemRight.position - itemLeft.position;
+                      } else {
+                        return itemLeft.word.length - itemRight.word.length;
+                      }
+                    });
+                  });
+
+                  // merge hits into slices
+
+                  function mergeIntoSlice(text, start, end, index) {
+                    var item = index[index.length - 1];
+                    var position = item.position;
+                    var word = item.word;
+                    var hits = [];
+                    var searchTextCountInSlice = 0;
+                    while (position + word.length <= end && index.length != 0) {
+                      if (word === searchText) {
+                        searchTextCountInSlice++;
+                      }
+                      hits.push({position: position, length: word.length});
+                      var wordEnd = position + word.length;
+
+                      // move to next position of hit
+
+                      index.pop();
+                      while (index.length != 0) {
+                        item = index[index.length - 1];
+                        position = item.position;
+                        word = item.word;
+                        if (wordEnd > position) {
+                          index.pop();
+                        } else {
+                          break;
+                        }
+                      }
+                    }
+                    searchTextCount += searchTextCountInSlice;
+                    return {
+                      hits: hits,
+                      start: start,
+                      end: end,
+                      searchTextCount: searchTextCountInSlice
+                    };
+                  }
+
+                  var slicesOfTitle = [];
+                  if (indexOfTitle.length != 0) {
+                    slicesOfTitle.push(mergeIntoSlice(title, 0, title.length, indexOfTitle));
+                  }
+
+                  var slicesOfContent = [];
+                  while (indexOfContent.length != 0) {
+                    var item = indexOfContent[indexOfContent.length - 1];
+                    var position = item.position;
+                    var word = item.word;
+                    // cut out 100 characters
+                    var start = position - 20;
+                    var end = position + 80;
+                    if(start < 0){
+                      start = 0;
+                    }
+                    if (end < position + word.length) {
+                      end = position + word.length;
+                    }
+                    if(end > content.length){
+                      end = content.length;
+                    }
+                    slicesOfContent.push(mergeIntoSlice(content, start, end, indexOfContent));
+                  }
+
+                  // sort slices in content by search text's count and hits' count
+
+                  slicesOfContent.sort(function (sliceLeft, sliceRight) {
+                    if (sliceLeft.searchTextCount !== sliceRight.searchTextCount) {
+                      return sliceRight.searchTextCount - sliceLeft.searchTextCount;
+                    } else if (sliceLeft.hits.length !== sliceRight.hits.length) {
+                      return sliceRight.hits.length - sliceLeft.hits.length;
+                    } else {
+                      return sliceLeft.start - sliceRight.start;
+                    }
+                  });
+
+                  // select top N slices in content
+
+                  var upperBound = parseInt('1');
+                  if (upperBound >= 0) {
+                    slicesOfContent = slicesOfContent.slice(0, upperBound);
+                  }
+
+                  // highlight title and content
+
+                  function highlightKeyword(text, slice) {
+                    var result = '';
+                    var prevEnd = slice.start;
+                    slice.hits.forEach(function (hit) {
+                      result += text.substring(prevEnd, hit.position);
+                      var end = hit.position + hit.length;
+                      result += '<b class="search-keyword">' + text.substring(hit.position, end) + '</b>';
+                      prevEnd = end;
+                    });
+                    result += text.substring(prevEnd, slice.end);
+                    return result;
+                  }
+
+                  var resultItem = '';
+
+                  if (slicesOfTitle.length != 0) {
+                    resultItem += "<li><a href='" + articleUrl + "' class='search-result-title'>" + highlightKeyword(title, slicesOfTitle[0]) + "</a>";
+                  } else {
+                    resultItem += "<li><a href='" + articleUrl + "' class='search-result-title'>" + title + "</a>";
+                  }
+
+                  slicesOfContent.forEach(function (slice) {
+                    resultItem += "<a href='" + articleUrl + "'>" +
+                      "<p class=\"search-result\">" + highlightKeyword(content, slice) +
+                      "...</p>" + "</a>";
+                  });
+
+                  resultItem += "</li>";
+                  resultItems.push({
+                    item: resultItem,
+                    searchTextCount: searchTextCount,
+                    hitCount: hitCount,
+                    id: resultItems.length
+                  });
+                }
+              })
+            };
+            if (keywords.length === 1 && keywords[0] === "") {
+              resultContent.innerHTML = '<div id="no-result"><i class="fa fa-search fa-5x"></i></div>'
+            } else if (resultItems.length === 0) {
+              resultContent.innerHTML = '<div id="no-result"><i class="fa fa-frown-o fa-5x"></i></div>'
+            } else {
+              resultItems.sort(function (resultLeft, resultRight) {
+                if (resultLeft.searchTextCount !== resultRight.searchTextCount) {
+                  return resultRight.searchTextCount - resultLeft.searchTextCount;
+                } else if (resultLeft.hitCount !== resultRight.hitCount) {
+                  return resultRight.hitCount - resultLeft.hitCount;
+                } else {
+                  return resultRight.id - resultLeft.id;
+                }
+              });
+              var searchResultList = '<ul class=\"search-result-list\">';
+              resultItems.forEach(function (result) {
+                searchResultList += result.item;
+              })
+              searchResultList += "</ul>";
+              resultContent.innerHTML = searchResultList;
+            }
+          }
+
+          if ('auto' === 'auto') {
+            input.addEventListener('input', inputEventFunction);
+          } else {
+            $('.search-icon').click(inputEventFunction);
+            input.addEventListener('keypress', function (event) {
+              if (event.keyCode === 13) {
+                inputEventFunction();
+              }
+            });
+          }
+
+          // remove loading animation
+          $(".local-search-pop-overlay").remove();
+          $('body').css('overflow', '');
+
+          proceedsearch();
+        }
+      });
+    }
+
+    // handle and trigger popup window;
+    $('.popup-trigger').click(function(e) {
+      e.stopPropagation();
+      if (isfetched === false) {
+        searchFunc(path, 'local-search-input', 'local-search-result');
+      } else {
+        proceedsearch();
+      };
+    });
+
+    $('.popup-btn-close').click(onPopupClose);
+    $('.popup').click(function(e){
+      e.stopPropagation();
+    });
+    $(document).on('keyup', function (event) {
+      var shouldDismissSearchPopup = event.which === 27 &&
+        $('.search-popup').is(':visible');
+      if (shouldDismissSearchPopup) {
+        onPopupClose();
+      }
+    });
+  </script>
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+<script src="/live2dw/lib/L2Dwidget.min.js?094cbace49a39548bed64abff5988b05"></script><script>L2Dwidget.init({"pluginRootPath":"live2dw/","pluginJsPath":"lib/","pluginModelPath":"assets/","tagMode":false,"debug":false,"model":{"jsonPath":"/live2dw/assets/koharu.model.json"},"display":{"position":"right","width":150,"height":330},"mobile":{"show":true},"react":{"opacity":0.7},"log":false});</script></body>
+</html>

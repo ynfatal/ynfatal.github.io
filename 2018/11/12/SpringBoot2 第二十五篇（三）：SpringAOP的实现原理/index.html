@@ -1,0 +1,1485 @@
+<!DOCTYPE html>
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+
+<html class="theme-next gemini use-motion" lang="en">
+<head><meta name="generator" content="Hexo 3.8.0">
+  <meta charset="UTF-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link rel="stylesheet" href="/lib/fancybox/source/jquery.fancybox.css">
+
+
+
+
+
+
+
+<link rel="stylesheet" href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2">
+
+<link rel="stylesheet" href="/css/main.css?v=7.1.1">
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=7.1.1">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon.ico?v=7.1.1">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png?v=7.1.1">
+
+
+  <link rel="mask-icon" href="/images/logo.svg?v=7.1.1" color="#222">
+
+
+
+
+
+
+
+<script id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Gemini',
+    version: '7.1.1',
+    sidebar: {"position":"left","display":"post","offset":12,"onmobile":true,"dimmer":false},
+    back2top: true,
+    back2top_sidebar: true,
+    fancybox: true,
+    fastclick: false,
+    lazyload: false,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+  
+
+
+
+
+  <meta name="description" content="​        从上一篇的笔记中，我们可以了解到 SpringAOP 的使用详情。这篇笔记将对 SpringAOP 实现原理的理解做一些记录。 1、织入与织入的时期1.1、何为织入？​        织入是 把切面应用到目标对象并创建新的代理对象的过程。在目标对象的生命周期里有 3 个时期 可以进行织入，这三个时期分别为 编译期，类加载期、运行期。 1.2、织入的时期 编译期——切面在目标类编译">
+<meta name="keywords" content="SpringBoot2">
+<meta property="og:type" content="article">
+<meta property="og:title" content="SpringBoot2 | 第二十五篇（三）：SpringAOP的实现原理">
+<meta property="og:url" content="https://ynfatal.github.io/2018/11/12/SpringBoot2 第二十五篇（三）：SpringAOP的实现原理/index.html">
+<meta property="og:site_name" content="Fatal&#39;s Blog">
+<meta property="og:description" content="​        从上一篇的笔记中，我们可以了解到 SpringAOP 的使用详情。这篇笔记将对 SpringAOP 实现原理的理解做一些记录。 1、织入与织入的时期1.1、何为织入？​        织入是 把切面应用到目标对象并创建新的代理对象的过程。在目标对象的生命周期里有 3 个时期 可以进行织入，这三个时期分别为 编译期，类加载期、运行期。 1.2、织入的时期 编译期——切面在目标类编译">
+<meta property="og:locale" content="en">
+<meta property="og:image" content="https://ynfatal.github.io/images/SpringBoot2/SpringBoot使用SpringAOP/1541989807821.png">
+<meta property="og:image" content="https://ynfatal.github.io/images/SpringBoot2/SpringBoot使用SpringAOP/1542160012381.png">
+<meta property="og:image" content="https://ynfatal.github.io/images/SpringBoot2/SpringBoot使用SpringAOP/1542094527397.png">
+<meta property="og:image" content="https://ynfatal.github.io/images/SpringBoot2/SpringBoot使用SpringAOP/1542094656437.png">
+<meta property="og:image" content="https://ynfatal.github.io/images/SpringBoot2/SpringBoot使用SpringAOP/1542159877810.png">
+<meta property="og:image" content="https://ynfatal.github.io/images/SpringBoot2/SpringBoot使用SpringAOP/1542015151782.png">
+<meta property="og:image" content="https://ynfatal.github.io/images/SpringBoot2/SpringBoot使用SpringAOP/1542102622514.png">
+<meta property="og:image" content="https://ynfatal.github.io/images/SpringBoot2/SpringBoot使用SpringAOP/1542103636147.png">
+<meta property="og:updated_time" content="2019-08-08T02:11:10.000Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="SpringBoot2 | 第二十五篇（三）：SpringAOP的实现原理">
+<meta name="twitter:description" content="​        从上一篇的笔记中，我们可以了解到 SpringAOP 的使用详情。这篇笔记将对 SpringAOP 实现原理的理解做一些记录。 1、织入与织入的时期1.1、何为织入？​        织入是 把切面应用到目标对象并创建新的代理对象的过程。在目标对象的生命周期里有 3 个时期 可以进行织入，这三个时期分别为 编译期，类加载期、运行期。 1.2、织入的时期 编译期——切面在目标类编译">
+<meta name="twitter:image" content="https://ynfatal.github.io/images/SpringBoot2/SpringBoot使用SpringAOP/1541989807821.png">
+
+
+
+
+
+  
+  
+  <link rel="canonical" href="https://ynfatal.github.io/2018/11/12/SpringBoot2 第二十五篇（三）：SpringAOP的实现原理/">
+
+
+
+<script id="page.configurations">
+  CONFIG.page = {
+    sidebar: "",
+  };
+</script>
+
+  <title>SpringBoot2 | 第二十五篇（三）：SpringAOP的实现原理 | Fatal's Blog</title>
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  <noscript>
+  <style>
+  .use-motion .motion-element,
+  .use-motion .brand,
+  .use-motion .menu-item,
+  .sidebar-inner,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-title { opacity: initial; }
+
+  .use-motion .logo,
+  .use-motion .site-title,
+  .use-motion .site-subtitle {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line-before i { left: initial; }
+  .use-motion .logo-line-after i { right: initial; }
+  </style>
+</noscript>
+
+
+  <!-- 代码块复制功能 -->
+  <script src="https://code.jquery.com/jquery-3.0.0.min.js"></script>
+  <script type="text/javascript" src="/js/src/clipboard.min.js"></script>  
+  <script type="text/javascript" src="/js/src/clipboard-use.js"></script>
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="en">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/" class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">Fatal's Blog</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+    
+      
+        <p class="site-subtitle">Attitude decides everything</p>
+      
+    
+    
+  </div>
+
+  <div class="site-nav-toggle">
+    <button aria-label="Toggle navigation bar">
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+
+
+<nav class="site-nav">
+  
+    <ul id="menu" class="menu">
+      
+        
+        
+        
+          
+          <li class="menu-item menu-item-home">
+
+    
+    
+    
+      
+    
+
+    
+      
+    
+
+    <a href="/" rel="section"><i class="menu-item-icon fa fa-fw fa-home"></i> <br>Home</a>
+
+  </li>
+        
+        
+        
+          
+          <li class="menu-item menu-item-about">
+
+    
+    
+    
+      
+    
+
+    
+      
+    
+
+    <a href="/about/" rel="section"><i class="menu-item-icon fa fa-fw fa-user"></i> <br>About</a>
+
+  </li>
+        
+        
+        
+          
+          <li class="menu-item menu-item-tags">
+
+    
+    
+    
+      
+    
+
+    
+      
+    
+
+    <a href="/tags/" rel="section"><i class="menu-item-icon fa fa-fw fa-tags"></i> <br>Tags<span class="badge">23</span></a>
+
+  </li>
+        
+        
+        
+          
+          <li class="menu-item menu-item-categories">
+
+    
+    
+    
+      
+    
+
+    
+      
+    
+
+    <a href="/categories/" rel="section"><i class="menu-item-icon fa fa-fw fa-th"></i> <br>Categories<span class="badge">4</span></a>
+
+  </li>
+        
+        
+        
+          
+          <li class="menu-item menu-item-archives">
+
+    
+    
+    
+      
+    
+
+    
+      
+    
+
+    <a href="/archives/" rel="section"><i class="menu-item-icon fa fa-fw fa-archive"></i> <br>Archives<span class="badge">38</span></a>
+
+  </li>
+        
+        
+        
+          
+          <li class="menu-item menu-item-links">
+
+    
+    
+    
+      
+    
+
+    
+      
+    
+
+    <a href="/links/" rel="section"><i class="menu-item-icon fa fa-fw fa-link"></i> <br>Links</a>
+
+  </li>
+
+      
+      
+        <li class="menu-item menu-item-search">
+          
+            <a href="javascript:;" class="popup-trigger">
+          
+            
+              <i class="menu-item-icon fa fa-search fa-fw"></i> <br>Search</a>
+        </li>
+      
+    </ul>
+  
+
+  
+
+  
+    <div class="site-search">
+      
+  <div class="popup search-popup local-search-popup">
+  <div class="local-search-header clearfix">
+    <span class="search-icon">
+      <i class="fa fa-search"></i>
+    </span>
+    <span class="popup-btn-close">
+      <i class="fa fa-times-circle"></i>
+    </span>
+    <div class="local-search-input-wrapper">
+      <input autocomplete="off" placeholder="Searching..." spellcheck="false" type="text" id="local-search-input">
+    </div>
+  </div>
+  <div id="local-search-result"></div>
+</div>
+
+
+
+    </div>
+  
+</nav>
+
+
+
+  
+
+
+
+</div>
+    </header>
+
+    
+  
+  
+
+  
+
+  <a href="https://github.com/ynfatal" class="github-corner" title="Follow me on GitHub" aria-label="Follow me on GitHub" rel="noopener" target="_blank"><svg width="80" height="80" viewbox="0 0 250 250" aria-hidden="true"><path d="M0,0 L115,115 L130,115 L142,142 L250,250 L250,0 Z"/><path d="M128.3,109.0 C113.8,99.7 119.0,89.6 119.0,89.6 C122.0,82.7 120.5,78.6 120.5,78.6 C119.2,72.0 123.4,76.3 123.4,76.3 C127.3,80.9 125.5,87.3 125.5,87.3 C122.9,97.6 130.6,101.9 134.4,103.2" fill="currentColor" style="transform-origin: 130px 106px;" class="octo-arm"/><path d="M115.0,115.0 C114.9,115.1 118.7,116.5 119.8,115.4 L133.7,101.6 C136.9,99.2 139.9,98.4 142.2,98.6 C133.8,88.0 127.5,74.4 143.8,58.0 C148.5,53.4 154.0,51.2 159.7,51.0 C160.3,49.4 163.2,43.6 171.4,40.1 C171.4,40.1 176.1,42.5 178.8,56.2 C183.1,58.6 187.2,61.8 190.9,65.4 C194.5,69.0 197.7,73.2 200.1,77.6 C213.8,80.2 216.3,84.9 216.3,84.9 C212.7,93.1 206.9,96.0 205.4,96.6 C205.1,102.4 203.0,107.8 198.3,112.5 C181.9,128.9 168.3,122.5 157.7,114.1 C157.9,116.9 156.7,120.9 152.7,124.9 L141.0,136.5 C139.8,137.7 141.6,141.9 141.8,141.8 Z" fill="currentColor" class="octo-body"/></svg></a>
+
+
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
+            
+
+          
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="https://ynfatal.github.io/2018/11/12/SpringBoot2 第二十五篇（三）：SpringAOP的实现原理/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Fatal">
+      <meta itemprop="description" content>
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Fatal's Blog">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">SpringBoot2 | 第二十五篇（三）：SpringAOP的实现原理
+
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+        
+          
+
+          <span class="post-time">
+
+            
+            
+            
+
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">Posted on</span>
+              
+
+              
+                
+              
+
+              <time title="Created: 2018-11-12 10:12:10" itemprop="dateCreated datePublished" datetime="2018-11-12T10:12:10+08:00">2018-11-12</time>
+            
+
+            
+              
+
+              
+                
+                <span class="post-meta-divider">|</span>
+                
+
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-calendar-check-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">Edited on</span>
+                
+                <time title="Modified: 2019-08-08 10:11:10" itemprop="dateModified" datetime="2019-08-08T10:11:10+08:00">2019-08-08</time>
+              
+            
+          </span>
+
+          
+            <span class="post-category">
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">In</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing"><a href="/categories/SpringBoot2/" itemprop="url" rel="index"><span itemprop="name">SpringBoot2</span></a></span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <p>​        从上一篇的笔记中，我们可以了解到 SpringAOP 的使用详情。这篇笔记将对 SpringAOP 实现原理的理解做一些记录。</p>
+<h2 id="1、织入与织入的时期"><a href="#1、织入与织入的时期" class="headerlink" title="1、织入与织入的时期"></a>1、织入与织入的时期</h2><h3 id="1-1、何为织入？"><a href="#1-1、何为织入？" class="headerlink" title="1.1、何为织入？"></a>1.1、何为织入？</h3><p>​        织入是 <strong>把切面应用到目标对象并创建新的代理对象的过程</strong>。在目标对象的生命周期里有 <strong>3 个时期</strong> 可以进行织入，这三个时期分别为 <strong>编译期，类加载期、运行期</strong>。</p>
+<h3 id="1-2、织入的时期"><a href="#1-2、织入的时期" class="headerlink" title="1.2、织入的时期"></a>1.2、织入的时期</h3><ol>
+<li>编译期——切面在目标类编译时期被织入，这种方式需要特殊的编译器。AspectJ 的织入编译器就是以这种方式织入切面。</li>
+<li>类加载期——切面在目标类加载到 JVM 时被织入 ，这种方式需要特殊的类加载器，他可以在目标类被引入应用之前增强该目标类的字节码。AspectJ5 的 加载时织入（load-time weaving，LTW） 就支持这种织入方式</li>
+<li>运行期——切面在应用运行期间的某个时刻被织入。一般情况下，在织入切面的时候，AOP 容器会为目标对象动态的创建代理对象。Spring AOP 就是以这种方式织入切面。（==<strong>√</strong>==）</li>
+</ol>
+<h2 id="2、原理概述：运行时织入"><a href="#2、原理概述：运行时织入" class="headerlink" title="2、原理概述：运行时织入"></a>2、原理概述：运行时织入</h2><ul>
+<li>运行时织入是怎么实现的？    答案是代理对象</li>
+<li>从静态代理到动态代理</li>
+<li>基于接口代理与基于继承代理</li>
+</ul>
+<h2 id="3、代理模式"><a href="#3、代理模式" class="headerlink" title="3、代理模式"></a>3、代理模式</h2><h3 id="3-1、静态代理"><a href="#3-1、静态代理" class="headerlink" title="3.1、静态代理"></a>3.1、静态代理</h3><p>​        在程序运行前，由程序员创建或特定工具自动生成源代码并对其编译生成 <code>.class</code> 文件。代理类和委托类的关系在 <strong>运行前</strong> 就确定了。</p>
+<p><strong>缺点：</strong></p>
+<p>​        不是实现 AOP 的 <strong>don’t repeat yourself</strong>。如果需要被代理的类有很多个方法，那么静态代理需要重复好多次，那不得累死。所以 <strong>动态代理</strong> 出现啦 ~ ~ ~</p>
+<h3 id="3-2、动态代理-（SpringAOP-底层实现机制）"><a href="#3-2、动态代理-（SpringAOP-底层实现机制）" class="headerlink" title="3.2、动态代理 （SpringAOP 底层实现机制）"></a>3.2、动态代理 （SpringAOP 底层实现机制）</h3><p>在实现阶段不用关心代理类，而在 <strong>运行阶段</strong> 才指定哪一个对象</p>
+<p><img src="/images/SpringBoot2/SpringBoot使用SpringAOP/1541989807821.png" alt="1541989807821"></p>
+<ul>
+<li><p>jdk 动态代理（优先）： 针对实现了接口的类产生的代理（基于接口）</p>
+<p>原理：实现目标对象实现的 <strong>所有</strong> 接口</p>
+</li>
+<li><p>cglib 代理：针对没有实现接口的类产生的代理，应用的是底层的 <strong>字节码增强技术</strong>，生成当前类的子类对象（基于继承）</p>
+<p>时序图：</p>
+<p><img src="/images/SpringBoot2/SpringBoot使用SpringAOP/1542160012381.png" alt="1542160012381"></p>
+</li>
+</ul>
+<h4 id="动态代理怎么体现动态？"><a href="#动态代理怎么体现动态？" class="headerlink" title="动态代理怎么体现动态？"></a>动态代理怎么体现动态？</h4><p>以 <strong>jdk 代理</strong>为例子</p>
+<p>这里有一个参数，把它设置为 true 后，运行后会把 jdk 代理生成的 class 文件保存下来</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">System.getProperties().put(<span class="string">"sun.misc.ProxyGenerator.saveGeneratedFiles"</span>, <span class="string">"true"</span>);</span><br></pre></td></tr></table></figure>
+<p>运行后可以看到项目的跟目录多了个文件夹</p>
+<p><img src="/images/SpringBoot2/SpringBoot使用SpringAOP/1542094527397.png" alt="1542094527397"></p>
+<p>打开这个文件，可以看到，该代理类对被代理类的每个方法都进行了增强操作。</p>
+<p><img src="/images/SpringBoot2/SpringBoot使用SpringAOP/1542094656437.png" alt="1542094656437"></p>
+<p>那这怎么体现出<strong>动态</strong>代理呢？</p>
+<p>你可以尝试下，只要你往被代理类的接口添加多少个方法（当然你肯定要实现了这些方法）。并不需要我们手写其他代码就能动态增强被代理类的方法了。</p>
+<p>加完方法后运行，你会发现 被代理类的 class 文件已经帮我们增强了~ ~ ~ </p>
+<h3 id="3-3、jdk-代理和-cglib-代理对比"><a href="#3-3、jdk-代理和-cglib-代理对比" class="headerlink" title="3.3、jdk 代理和 cglib 代理对比"></a>3.3、jdk 代理和 cglib 代理对比</h3><ul>
+<li><strong>jdk</strong> 代理 <strong>只</strong> 能针对实现接口的类的 <strong>实现方法</strong> 进行动态代理</li>
+<li><strong>cglib</strong> 代理基于继承来实现代理，无法对 <strong>static、final 修饰的<code>类</code></strong> 进行代理</li>
+<li><strong>cglib</strong> 代理基于继承来实现代理，无法对 <strong>private、static 修饰的<code>方法</code></strong> 进行代理</li>
+</ul>
+<h3 id="3-4、SpringAOP对两种实现的选择"><a href="#3-4、SpringAOP对两种实现的选择" class="headerlink" title="3.4、SpringAOP对两种实现的选择"></a>3.4、SpringAOP对两种实现的选择</h3><ul>
+<li>如果目标对象<strong>实现了接口</strong>，则默认采用 <strong>jdk 动态代理</strong></li>
+<li>如果目标对象<strong>没有实现接口</strong>，则采用 <strong>cglib 动态代理</strong></li>
+<li>如果目标对象<strong>实现了接口</strong>，且<strong>强制 cglib 动态代理</strong>，则使用 <strong>cglib 动态代理</strong></li>
+</ul>
+<p>那么如何强制使用 cglib 代理呢？</p>
+<p>在配置类（启动类也属于配置类）中加上 <code>@EnableAspectJAutoProxy(proxyTargetClass = true)</code> 即可</p>
+<p><img src="/images/SpringBoot2/SpringBoot使用SpringAOP/1542159877810.png" alt="1542159877810"></p>
+<h2 id="环境-版本一览："><a href="#环境-版本一览：" class="headerlink" title="环境/版本一览："></a>环境/版本一览：</h2><ul>
+<li>开发工具：Intellij IDEA 2018.2.2</li>
+<li>springboot： <strong>2.1.0.RELEASE</strong></li>
+<li>jdk：1.8.0_171</li>
+<li>maven：3.3.9</li>
+<li>spring-boot-starter-aop：<strong>2.1.0.RELEASE</strong></li>
+</ul>
+<h3 id="静态代理"><a href="#静态代理" class="headerlink" title="静态代理"></a>静态代理</h3><h5 id="ISubject-java"><a href="#ISubject-java" class="headerlink" title="ISubject.java"></a><code>ISubject.java</code></h5><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">package</span> com.fatal.static_proxy;</span><br><span class="line"></span><br><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> * <span class="doctag">@author</span>: Fatal</span></span><br><span class="line"><span class="comment"> * <span class="doctag">@date</span>: 2018/11/12 0012 11:10</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">interface</span> <span class="title">ISubject</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">   <span class="comment">/** 增强 */</span></span><br><span class="line">   <span class="function"><span class="keyword">void</span> <span class="title">request</span><span class="params">()</span></span>;</span><br><span class="line"></span><br><span class="line">   <span class="comment">/** 不增强 */</span></span><br><span class="line">   <span class="function"><span class="keyword">void</span> <span class="title">hello</span><span class="params">()</span></span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h5 id="RealSubject-java"><a href="#RealSubject-java" class="headerlink" title="RealSubject.java"></a><code>RealSubject.java</code></h5><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">package</span> com.fatal.static_proxy;</span><br><span class="line"></span><br><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> * 被代理类</span></span><br><span class="line"><span class="comment"> * <span class="doctag">@author</span>: Fatal</span></span><br><span class="line"><span class="comment"> * <span class="doctag">@date</span>: 2018/11/12 0012 11:11</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">RealSubject</span> <span class="keyword">implements</span> <span class="title">ISubject</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">request</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        System.out.println(<span class="string">"被代理类RealSubject被访问了(需要增强)"</span>);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">hello</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        System.out.println(<span class="string">"被代理类RealSubject被访问了(不需要增强)"</span>);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h5 id="Proxy-java"><a href="#Proxy-java" class="headerlink" title="Proxy.java"></a><code>Proxy.java</code></h5><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">package</span> com.fatal.static_proxy;</span><br><span class="line"></span><br><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> * 代理类</span></span><br><span class="line"><span class="comment"> * <span class="doctag">@author</span>: Fatal</span></span><br><span class="line"><span class="comment"> * <span class="doctag">@date</span>: 2018/11/12 0012 11:12</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">Proxy</span> <span class="keyword">implements</span> <span class="title">ISubject</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">    <span class="comment">/** 被代理对象 */</span></span><br><span class="line">    <span class="keyword">private</span> RealSubject realSubject;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="title">Proxy</span><span class="params">(RealSubject realSubject)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">this</span>.realSubject = realSubject;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">request</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        System.out.println(<span class="string">"======  before  ======"</span>);</span><br><span class="line">        <span class="keyword">try</span> &#123;</span><br><span class="line">            realSubject.request();</span><br><span class="line">        &#125; <span class="keyword">catch</span> (Exception e) &#123;</span><br><span class="line">            <span class="comment">// 注意：代理类不会改变被代理类的方法。如果代理类有异常抛出，那么被代理类也要抛出。</span></span><br><span class="line">            <span class="keyword">throw</span> e;</span><br><span class="line">        &#125; <span class="keyword">finally</span> &#123;</span><br><span class="line">            System.out.println(<span class="string">"======  after  ======"</span>);</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">hello</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        realSubject.hello();</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h5 id="Client-java"><a href="#Client-java" class="headerlink" title="Client.java"></a><code>Client.java</code></h5><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">package</span> com.fatal.static_proxy;</span><br><span class="line"></span><br><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> * 测试客户端</span></span><br><span class="line"><span class="comment"> * <span class="doctag">@author</span>: Fatal</span></span><br><span class="line"><span class="comment"> * <span class="doctag">@date</span>: 2018/11/12 0012 11:17</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">Client</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span> </span>&#123;</span><br><span class="line">        ISubject subject = <span class="keyword">new</span> Proxy(<span class="keyword">new</span> RealSubject());</span><br><span class="line">        subject.request();</span><br><span class="line">        System.out.println();</span><br><span class="line">        subject.hello();</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h5 id="显示"><a href="#显示" class="headerlink" title="显示"></a>显示</h5><p>启动 <code>Client.main()</code> ，控制台如下</p>
+<p><img src="/images/SpringBoot2/SpringBoot使用SpringAOP/1542015151782.png" alt="1542015151782"></p>
+<h3 id="jdk-代理"><a href="#jdk-代理" class="headerlink" title="jdk 代理"></a>jdk 代理</h3><h5 id="ISubject-java-1"><a href="#ISubject-java-1" class="headerlink" title="ISubject.java"></a><code>ISubject.java</code></h5><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">package</span> com.fatal.dynamic_proxy;</span><br><span class="line"></span><br><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> * <span class="doctag">@author</span>: Fatal</span></span><br><span class="line"><span class="comment"> * <span class="doctag">@date</span>: 2018/11/12 0012 14:37</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">interface</span> <span class="title">ISubject</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">void</span> <span class="title">action</span><span class="params">()</span></span>;</span><br><span class="line"></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h5 id="RealSubject-java-1"><a href="#RealSubject-java-1" class="headerlink" title="RealSubject.java"></a><code>RealSubject.java</code></h5><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">package</span> com.fatal.dynamic_proxy;</span><br><span class="line"></span><br><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> * 被代理对象</span></span><br><span class="line"><span class="comment"> * <span class="doctag">@author</span>: Fatal</span></span><br><span class="line"><span class="comment"> * <span class="doctag">@date</span>: 2018/11/12 0012 14:38</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">RealSubject</span> <span class="keyword">implements</span> <span class="title">ISubject</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">action</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        System.out.println(<span class="string">"我是被代理类，记得要执行我哦！！么么哒 ~ ~"</span>);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h5 id="MyInvocationHandler-java"><a href="#MyInvocationHandler-java" class="headerlink" title="MyInvocationHandler.java"></a><code>MyInvocationHandler.java</code></h5><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">package</span> com.fatal.jdk_dynamic_proxy;</span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> java.lang.reflect.InvocationHandler;</span><br><span class="line"><span class="keyword">import</span> java.lang.reflect.InvocationTargetException;</span><br><span class="line"><span class="keyword">import</span> java.lang.reflect.Method;</span><br><span class="line"><span class="keyword">import</span> java.lang.reflect.Proxy;</span><br><span class="line"></span><br><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> * 自定义调用处理程序</span></span><br><span class="line"><span class="comment"> * <span class="doctag">@author</span>: Fatal</span></span><br><span class="line"><span class="comment"> * <span class="doctag">@date</span>: 2018/11/12 0012 14:39</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">MyInvocationHandler</span> <span class="keyword">implements</span> <span class="title">InvocationHandler</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">    <span class="comment">/** 声明被代理对象 */</span></span><br><span class="line">    <span class="keyword">private</span> Object obj;</span><br><span class="line"></span><br><span class="line">    <span class="comment">/**</span></span><br><span class="line"><span class="comment">     * 初始化被代理对象</span></span><br><span class="line"><span class="comment">     * 动态创建代理类并返回</span></span><br><span class="line"><span class="comment">     * <span class="doctag">@return</span> 代理类</span></span><br><span class="line"><span class="comment">     */</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> Object <span class="title">binding</span><span class="params">(Object obj)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">this</span>.obj = obj;</span><br><span class="line">        <span class="comment">/**</span></span><br><span class="line"><span class="comment">         * ClassLoader loader: 被代理类的类加载器</span></span><br><span class="line"><span class="comment">         * Class&lt;?&gt;[] interfaces: 被代理类实现的所有方法</span></span><br><span class="line"><span class="comment">         * InvocationHandler h: 调用程序处理器</span></span><br><span class="line"><span class="comment">         */</span></span><br><span class="line">        <span class="keyword">return</span> Proxy.newProxyInstance(<span class="keyword">this</span>.obj.getClass().getClassLoader()</span><br><span class="line">            ,<span class="keyword">this</span>.obj.getClass().getInterfaces(),<span class="keyword">this</span>);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="comment">/**</span></span><br><span class="line"><span class="comment">     * 书写增强逻辑</span></span><br><span class="line"><span class="comment">     * <span class="doctag">@param</span> proxy</span></span><br><span class="line"><span class="comment">     * <span class="doctag">@param</span> method 方法对象</span></span><br><span class="line"><span class="comment">     * <span class="doctag">@param</span> args 实际方法参数</span></span><br><span class="line"><span class="comment">     * <span class="doctag">@return</span> 方法返回值</span></span><br><span class="line"><span class="comment">     * <span class="doctag">@throws</span> Throwable</span></span><br><span class="line"><span class="comment">     */</span></span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> Object <span class="title">invoke</span><span class="params">(Object proxy, Method method, Object[] args)</span> <span class="keyword">throws</span> Throwable </span>&#123;</span><br><span class="line">        <span class="comment">// 对参数`args`进行处理</span></span><br><span class="line">        System.out.println(<span class="string">"========    已对参数进行处理    ========"</span>);</span><br><span class="line"></span><br><span class="line">        Object invoke = <span class="keyword">null</span>;</span><br><span class="line">        <span class="keyword">try</span> &#123;</span><br><span class="line">            System.out.println(<span class="string">"before in jdk proxy"</span>);</span><br><span class="line">            <span class="comment">/**</span></span><br><span class="line"><span class="comment">             * Object invoke(Object obj, Object... args)</span></span><br><span class="line"><span class="comment">             * Object obj:被代理对象</span></span><br><span class="line"><span class="comment">             * Object... args:实际方法参数</span></span><br><span class="line"><span class="comment">             */</span></span><br><span class="line">            invoke = method.invoke(obj, args);</span><br><span class="line">        &#125; <span class="keyword">catch</span> (InvocationTargetException e) &#123;</span><br><span class="line">            <span class="comment">// 注意：代理类不会改变被代理类的方法。如果代理类有异常抛出，那么被代理类也要抛出。</span></span><br><span class="line">            <span class="keyword">throw</span> e;</span><br><span class="line">        &#125; <span class="keyword">finally</span> &#123;</span><br><span class="line">            System.out.println(<span class="string">"after in jdk proxy"</span>);</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="comment">// 对返回结果`invoke`进行处理</span></span><br><span class="line">        System.out.println(<span class="string">"========    已对返回结果进行处理    ========"</span>);</span><br><span class="line">        <span class="keyword">return</span> invoke;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h5 id="Client-java-1"><a href="#Client-java-1" class="headerlink" title="Client.java"></a><code>Client.java</code></h5><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">package</span> com.fatal.dynamic_proxy;</span><br><span class="line"></span><br><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> * <span class="doctag">@author</span>: Fatal</span></span><br><span class="line"><span class="comment"> * <span class="doctag">@date</span>: 2018/11/12 0012 15:20</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">Client</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span> </span>&#123;</span><br><span class="line">        <span class="comment">// 添加这个参数，会保存 jdk 代理生成的 class 文件</span></span><br><span class="line">        System.getProperties().put(<span class="string">"sun.misc.ProxyGenerator.saveGeneratedFiles"</span>, <span class="string">"true"</span>);</span><br><span class="line"></span><br><span class="line">        <span class="comment">/** 创建被代理对象 */</span></span><br><span class="line">        RealSubject realSubject = <span class="keyword">new</span> RealSubject();</span><br><span class="line">        <span class="comment">/** 创建 InvocationHandler 对象 */</span></span><br><span class="line">        MyInvocationHandler handler = <span class="keyword">new</span> MyInvocationHandler();</span><br><span class="line"></span><br><span class="line">        <span class="comment">/** 将被代理对象绑定到 InvocationHandler，并获得一个代理对象 */</span></span><br><span class="line">        Object binding = handler.binding(realSubject);</span><br><span class="line"></span><br><span class="line">        ISubject proxy = (ISubject) binding;</span><br><span class="line"></span><br><span class="line">        <span class="comment">/** 调用被增强的方法 */</span></span><br><span class="line">        proxy.action();</span><br><span class="line"></span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h5 id="显示-1"><a href="#显示-1" class="headerlink" title="显示"></a>显示</h5><p>启动 <code>Client.main()</code> ，控制台如下</p>
+<p><img src="/images/SpringBoot2/SpringBoot使用SpringAOP/1542102622514.png" alt="1542102622514"></p>
+<h3 id="cglib-代理"><a href="#cglib-代理" class="headerlink" title="cglib 代理"></a>cglib 代理</h3><h5 id="MyMethodInterceptor-java"><a href="#MyMethodInterceptor-java" class="headerlink" title="MyMethodInterceptor.java"></a><code>MyMethodInterceptor.java</code></h5><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">package</span> com.fatal.cglib_dynamic_proxy;</span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> org.springframework.cglib.proxy.Enhancer;</span><br><span class="line"><span class="keyword">import</span> org.springframework.cglib.proxy.MethodInterceptor;</span><br><span class="line"><span class="keyword">import</span> org.springframework.cglib.proxy.MethodProxy;</span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> java.lang.reflect.InvocationTargetException;</span><br><span class="line"><span class="keyword">import</span> java.lang.reflect.Method;</span><br><span class="line"></span><br><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> * 自定义方法拦截器</span></span><br><span class="line"><span class="comment"> * 功能与jdk动态代理的InvocationHandler差不多。</span></span><br><span class="line"><span class="comment"> * 都是通过反射增强目标对象的方法</span></span><br><span class="line"><span class="comment"> * <span class="doctag">@author</span>: Fatal</span></span><br><span class="line"><span class="comment"> * <span class="doctag">@date</span>: 2018/11/13 0013 17:41</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">MyMethodInterceptor</span> <span class="keyword">implements</span> <span class="title">MethodInterceptor</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">    <span class="comment">/** 声明被代理对象 */</span></span><br><span class="line">    <span class="keyword">private</span> Object obj;</span><br><span class="line"></span><br><span class="line">    <span class="comment">/**</span></span><br><span class="line"><span class="comment">     * 初始化被代理对象</span></span><br><span class="line"><span class="comment">     * 动态创建代理类并返回</span></span><br><span class="line"><span class="comment">     * <span class="doctag">@return</span> 代理类</span></span><br><span class="line"><span class="comment">     */</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> Object <span class="title">binding</span><span class="params">(Object obj)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">this</span>.obj = obj;</span><br><span class="line">        <span class="comment">/**</span></span><br><span class="line"><span class="comment">         * Class type: 被代理类的字节码对象</span></span><br><span class="line"><span class="comment">         * Callback callback: 自定义的MethodInterceptor实现</span></span><br><span class="line"><span class="comment">         */</span></span><br><span class="line">        <span class="keyword">return</span> Enhancer.create(<span class="keyword">this</span>.obj.getClass(), <span class="keyword">this</span>);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="comment">/**</span></span><br><span class="line"><span class="comment">     * <span class="doctag">@desc</span> 所有生成的代理方法都调用此方法而不是原始方法。原始方法可以通过使用方法对象的普通反射调用，也可以通过使用methodproxy（更快）调用。</span></span><br><span class="line"><span class="comment">     * <span class="doctag">@param</span> obj 增强的对象</span></span><br><span class="line"><span class="comment">     * <span class="doctag">@param</span> method 方法对象</span></span><br><span class="line"><span class="comment">     * <span class="doctag">@param</span> args 参数</span></span><br><span class="line"><span class="comment">     * <span class="doctag">@param</span> methodProxy 用于调用父类（未拦截的）方法，可根据需要多次调用</span></span><br><span class="line"><span class="comment">     * <span class="doctag">@return</span></span></span><br><span class="line"><span class="comment">     * <span class="doctag">@throws</span> Throwable</span></span><br><span class="line"><span class="comment">     */</span></span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> Object <span class="title">intercept</span><span class="params">(Object obj, Method method, Object[] args, MethodProxy methodProxy)</span></span></span><br><span class="line"><span class="function">            <span class="keyword">throws</span> Throwable </span>&#123;</span><br><span class="line"></span><br><span class="line">        <span class="comment">// 对参数`args`进行处理</span></span><br><span class="line">        System.out.println(<span class="string">"========    已对参数进行处理    ========"</span>);</span><br><span class="line"></span><br><span class="line">        Object invoke = <span class="keyword">null</span>;</span><br><span class="line">        <span class="keyword">try</span> &#123;</span><br><span class="line">            System.out.println(<span class="string">"before in cglib proxy"</span>);</span><br><span class="line">            <span class="comment">/**</span></span><br><span class="line"><span class="comment">             * invokeSuper(Object obj, Object[] args)</span></span><br><span class="line"><span class="comment">             * Object obj:被代理对象</span></span><br><span class="line"><span class="comment">             * Object... args:实际方法参数</span></span><br><span class="line"><span class="comment">             */</span></span><br><span class="line">            <span class="comment">// 使用 MethodProxy</span></span><br><span class="line">            invoke = methodProxy.invokeSuper(obj, args);</span><br><span class="line">            <span class="comment">// 使用方法对象的普通反射调用</span></span><br><span class="line"><span class="comment">//            invoke = method.invoke(this.obj, args);</span></span><br><span class="line">        &#125; <span class="keyword">catch</span> (InvocationTargetException e) &#123;</span><br><span class="line">            <span class="comment">// 注意：代理类不会改变被代理类的方法。如果代理类有异常抛出，那么被代理类也要抛出。</span></span><br><span class="line">            <span class="keyword">throw</span> e;</span><br><span class="line">        &#125; <span class="keyword">finally</span> &#123;</span><br><span class="line">            System.out.println(<span class="string">"after in cglib proxy"</span>);</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="comment">// 对返回结果`invoke`进行处理</span></span><br><span class="line">        System.out.println(<span class="string">"========    已对返回结果进行处理    ========"</span>);</span><br><span class="line"></span><br><span class="line">        <span class="keyword">return</span> invoke;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h5 id="Client-java-2"><a href="#Client-java-2" class="headerlink" title="Client.java"></a><code>Client.java</code></h5><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">package</span> com.fatal.cglib_dynamic_proxy;</span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> com.fatal.jdk_dynamic_proxy.ISubject;</span><br><span class="line"><span class="keyword">import</span> com.fatal.jdk_dynamic_proxy.RealSubject;</span><br><span class="line"></span><br><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> * <span class="doctag">@author</span>: Fatal</span></span><br><span class="line"><span class="comment"> * <span class="doctag">@date</span>: 2018/11/12 0012 15:20</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">Client</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">        <span class="comment">/** 创建被代理对象 */</span></span><br><span class="line">        RealSubject realSubject = <span class="keyword">new</span> RealSubject();</span><br><span class="line">        <span class="comment">/** 创建 MethodInterceptor 对象 */</span></span><br><span class="line">        MyMethodInterceptor interceptor = <span class="keyword">new</span> MyMethodInterceptor();</span><br><span class="line"></span><br><span class="line">        <span class="comment">/** 将被代理对象绑定到 InvocationHandler，并获得一个代理对象 */</span></span><br><span class="line">        Object binding = interceptor.binding(realSubject);</span><br><span class="line"></span><br><span class="line">        ISubject proxy = (ISubject) binding;</span><br><span class="line"></span><br><span class="line">        <span class="comment">/** 调用被增强的方法 */</span></span><br><span class="line">        proxy.action();</span><br><span class="line"></span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h5 id="显示-2"><a href="#显示-2" class="headerlink" title="显示"></a>显示</h5><p><img src="/images/SpringBoot2/SpringBoot使用SpringAOP/1542103636147.png" alt="1542103636147"></p>
+<h2 id="参考资料"><a href="#参考资料" class="headerlink" title="参考资料"></a>参考资料</h2><p><a href="https://www.imooc.com/learn/869" target="_blank" rel="noopener">探秘Spring AOP</a></p>
+<h2 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h2><p><code>SpringBoot</code>的知识已经有前辈在我们之前探索了。比较喜欢的博主有：<a href="https://blog.battcn.com/" target="_blank" rel="noopener">唐亚峰 | Battcn</a>、<a href="https://blog.csdn.net/forezp" target="_blank" rel="noopener">方志朋的专栏</a>、<a href="http://blog.didispace.com/" target="_blank" rel="noopener">程序猿DD</a>、<a href="http://www.ityouknow.com/" target="_blank" rel="noopener">纯洁的微笑</a>。对这门技术感兴趣的可以去他们的博客逛逛。谢谢他们的分享~~</p>
+<p>以上文章是我用来学习的<code>Demo</code>，都是基于 <code>SpringBoot2.x</code> 版本。</p>
+<p><strong>源码地址:</strong> <a href="https://github.com/ynfatal/springboot2-learning/tree/master/chapter25_3" target="_blank" rel="noopener">https://github.com/ynfatal/springboot2-learning/tree/master/chapter25_3</a></p>
+<h4 id="学习-apollo-0001-前辈的经验"><a href="#学习-apollo-0001-前辈的经验" class="headerlink" title="学习 apollo_0001 前辈的经验"></a>学习 <a href="https://www.imooc.com/u/239819/courses?sort=publish" target="_blank" rel="noopener">apollo_0001</a> 前辈的经验</h4>
+      
+    </div>
+
+    
+
+    
+    
+    
+
+    
+
+    
+      
+    
+    
+
+    
+
+    <div>
+      
+        <div>
+    
+        <div style="margin-top: 40px;text-align:center;color: #ccc;font-size:14px;">
+        -------------	end   -------------
+        </div>
+    
+<div>
+      
+    </div>
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/SpringBoot2/" <i class="fa fa-tag"> SpringBoot2</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2018/11/10/SpringBoot2 第二十五篇（二）：SpringAOP使用详情 /" rel="next" title="SpringBoot2 | 第二十五篇（二）：SpringAOP使用详情">
+                <i class="fa fa-chevron-left"></i> SpringBoot2 | 第二十五篇（二）：SpringAOP使用详情
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2018/11/14/SpringBoot2 第二十五篇（四）：SpringAOP实战/" rel="prev" title="SpringBoot2 | 第二十五篇（四）：SpringAOP实战">
+                SpringBoot2 | 第二十五篇（四）：SpringAOP实战 <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </div></div></article>
+
+
+  </div>
+
+
+          </div>
+          
+
+  
+    <div class="comments" id="gitalk-container">
+    </div>
+
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            Table of Contents
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            Overview
+          </li>
+        </ul>
+      
+
+      <div class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+            
+              <img class="site-author-image" itemprop="image" src="/images/avatar.gif" alt="Fatal">
+            
+              <p class="site-author-name" itemprop="name">Fatal</p>
+              <div class="site-description motion-element" itemprop="description"></div>
+          </div>
+
+          
+            <nav class="site-state motion-element">
+              
+                <div class="site-state-item site-state-posts">
+                
+                  <a href="/archives/">
+                
+                    <span class="site-state-item-count">38</span>
+                    <span class="site-state-item-name">posts</span>
+                  </a>
+                </div>
+              
+
+              
+                
+                
+                <div class="site-state-item site-state-categories">
+                  
+                    
+                      <a href="/categories/">
+                    
+                  
+                    
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                    <span class="site-state-item-count">4</span>
+                    <span class="site-state-item-name">categories</span>
+                  </a>
+                </div>
+              
+
+              
+                
+                
+                <div class="site-state-item site-state-tags">
+                  
+                    
+                      <a href="/tags/">
+                    
+                  
+                    
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                    <span class="site-state-item-count">23</span>
+                    <span class="site-state-item-name">tags</span>
+                  </a>
+                </div>
+              
+            </nav>
+          
+
+          
+
+          
+
+          
+            <div class="links-of-author motion-element">
+              
+                <span class="links-of-author-item">
+                  
+                  
+                    
+                  
+                  
+                    
+                  
+                  <a href="https://github.com/ynfatal" title="GitHub &rarr; https://github.com/ynfatal" rel="noopener" target="_blank"><i class="fa fa-fw fa-github"></i>GitHub</a>
+                </span>
+              
+                <span class="links-of-author-item">
+                  
+                  
+                    
+                  
+                  
+                    
+                  
+                  <a href="mailto:634137063@qq.com" title="E-Mail &rarr; mailto:634137063@qq.com" rel="noopener" target="_blank"><i class="fa fa-fw fa-envelope"></i>E-Mail</a>
+                </span>
+              
+            </div>
+          
+
+          
+
+          
+          
+
+          
+            
+          
+          
+
+        </div>
+      </div>
+
+      
+      <!--noindex-->
+        <div class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+            
+            
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#1、织入与织入的时期"><span class="nav-text">1、织入与织入的时期</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#1-1、何为织入？"><span class="nav-text">1.1、何为织入？</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#1-2、织入的时期"><span class="nav-text">1.2、织入的时期</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#2、原理概述：运行时织入"><span class="nav-text">2、原理概述：运行时织入</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#3、代理模式"><span class="nav-text">3、代理模式</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#3-1、静态代理"><span class="nav-text">3.1、静态代理</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#3-2、动态代理-（SpringAOP-底层实现机制）"><span class="nav-text">3.2、动态代理 （SpringAOP 底层实现机制）</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#动态代理怎么体现动态？"><span class="nav-text">动态代理怎么体现动态？</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#3-3、jdk-代理和-cglib-代理对比"><span class="nav-text">3.3、jdk 代理和 cglib 代理对比</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#3-4、SpringAOP对两种实现的选择"><span class="nav-text">3.4、SpringAOP对两种实现的选择</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#环境-版本一览："><span class="nav-text">环境/版本一览：</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#静态代理"><span class="nav-text">静态代理</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#ISubject-java"><span class="nav-text">ISubject.java</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#RealSubject-java"><span class="nav-text">RealSubject.java</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#Proxy-java"><span class="nav-text">Proxy.java</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#Client-java"><span class="nav-text">Client.java</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#显示"><span class="nav-text">显示</span></a></li></ol></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#jdk-代理"><span class="nav-text">jdk 代理</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#ISubject-java-1"><span class="nav-text">ISubject.java</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#RealSubject-java-1"><span class="nav-text">RealSubject.java</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#MyInvocationHandler-java"><span class="nav-text">MyInvocationHandler.java</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#Client-java-1"><span class="nav-text">Client.java</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#显示-1"><span class="nav-text">显示</span></a></li></ol></li></ol><li class="nav-item nav-level-3"><a class="nav-link" href="#cglib-代理"><span class="nav-text">cglib 代理</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#MyMethodInterceptor-java"><span class="nav-text">MyMethodInterceptor.java</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#Client-java-2"><span class="nav-text">Client.java</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#显示-2"><span class="nav-text">显示</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#参考资料"><span class="nav-text">参考资料</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#总结"><span class="nav-text">总结</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#学习-apollo-0001-前辈的经验"><span class="nav-text">学习 apollo_0001 前辈的经验</span></a></li></ol></li></div>
+            
+
+          </div>
+        </div>
+      <!--/noindex-->
+      
+
+      
+        <div class="back-to-top">
+          <i class="fa fa-arrow-up"></i>
+          
+            <span id="scrollpercent"><span>0</span>%</span>
+          
+        </div>
+      
+
+      
+        <script type="text/javascript" charset="utf-8" src="/js/tagcloud.js"></script>
+        <script type="text/javascript" charset="utf-8" src="/js/tagcanvas.js"></script>
+        <div class="widget-wrap">
+          <h3 class="widget-title">Tag Cloud</h3>
+          <div id="myCanvasContainer" class="widget tagcloud">
+            <canvas width="220" height="210" id="resCanvas" style="width=100%">
+              <ul class="tag-list"><li class="tag-list-item"><a class="tag-list-link" href="/tags/BeetlSql/">BeetlSql</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Cache/">Cache</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Eureka/">Eureka</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/JdbcTemplate/">JdbcTemplate</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Jpa/">Jpa</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Mybatis/">Mybatis</a><span class="tag-list-count">3</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/RabbitMQ/">RabbitMQ</a><span class="tag-list-count">5</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Redis/">Redis</a><span class="tag-list-count">4</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Slf4j/">Slf4j</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/SpringBoot2/">SpringBoot2</a><span class="tag-list-count">35</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/SpringCloud/">SpringCloud</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Swagger/">Swagger</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Thymeleaf/">Thymeleaf</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/css/">css</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/docer/">docer</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/git/">git</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/github/">github</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/hexo/">hexo</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/html/">html</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/java/">java</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/java8/">java8</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/javascript/">javascript</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/yaml/">yaml</a><span class="tag-list-count">1</span></li></ul>
+            </canvas>
+          </div>
+        </div>
+      
+
+    </div>
+  </aside>
+  
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+<div class="copyright">&copy; <span itemprop="copyrightYear">2019</span>
+  <span class="with-love" id="animate">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Fatal</span>
+
+  
+
+  
+</div>
+
+
+  <div class="powered-by">
+    Total: <span id="busuanzi_value_site_pv"></span>  <!-- 本站总访问量 -->
+    Visitors: <span id="busuanzi_value_site_uv"></span> <!-- 本站访客数 -->
+    Hits: <span id="busuanzi_value_page_pv"></span> <!-- 本页总阅读量 -->
+  </div>
+
+  <!-- <div class="powered-by">Powered by <a href="https://hexo.io" class="theme-link" rel="noopener" target="_blank">Hexo</a></div> --> 
+
+
+
+
+
+
+
+
+<!-- <div class="theme-info">
+  <div class="powered-by"></div>
+  <span class="post-count">博客全站共86k字</span>
+</div> --> 
+
+        
+
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+
+    
+
+    
+
+    
+  </div>
+
+  
+
+<script>
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+
+
+  
+    
+    
+  
+  <script color="0,0,0" opacity="0.5" zindex="-1" count="99" src="/lib/canvas-nest/canvas-nest.min.js"></script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  <script src="/lib/jquery/index.js?v=2.1.3"></script>
+
+  
+  <script src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+
+  
+  <script src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+
+  
+  <script src="/lib/fancybox/source/jquery.fancybox.pack.js"></script>
+
+
+  
+
+
+  <script src="/js/utils.js?v=7.1.1"></script>
+
+  <script src="/js/motion.js?v=7.1.1"></script>
+
+
+
+  
+  
+
+
+  <script src="/js/affix.js?v=7.1.1"></script>
+
+  <script src="/js/schemes/pisces.js?v=7.1.1"></script>
+
+
+
+
+  
+  <script src="/js/scrollspy.js?v=7.1.1"></script>
+<script src="/js/post-details.js?v=7.1.1"></script>
+
+
+
+  
+
+
+  <script src="/js/next-boot.js?v=7.1.1"></script>
+
+
+  
+
+  
+
+  
+
+  
+
+
+  
+    
+
+<script src="//cdn.jsdelivr.net/npm/gitalk@1/dist/gitalk.min.js"></script>
+
+
+
+<link rel="stylesheet" href="//cdn.jsdelivr.net/npm/gitalk@1/dist/gitalk.min.css">
+
+
+
+<script src="//cdn.jsdelivr.net/npm/js-md5@0.7.3/src/md5.min.js"></script>
+
+<script>
+  var gitalk = new Gitalk({
+    clientID: '4dea51f0a84f2ec5b009',
+    clientSecret: '0f278e2737f8e97d451299b4a91e29b735aa7633',
+    repo: 'ynfatal.github.io',
+    owner: 'ynfatal',
+    admin: ['ynfatal'],
+    id: md5(location.pathname),
+    
+      language: window.navigator.language || window.navigator.userLanguage,
+    
+    distractionFreeMode: 'true'
+  });
+  gitalk.render('gitalk-container');
+</script>
+
+  
+
+
+  
+  <script>
+    // Popup Window;
+    var isfetched = false;
+    var isXml = true;
+    // Search DB path;
+    var search_path = "search.xml";
+    if (search_path.length === 0) {
+      search_path = "search.xml";
+    } else if (/json$/i.test(search_path)) {
+      isXml = false;
+    }
+    var path = "/" + search_path;
+    // monitor main search box;
+
+    var onPopupClose = function (e) {
+      $('.popup').hide();
+      $('#local-search-input').val('');
+      $('.search-result-list').remove();
+      $('#no-result').remove();
+      $(".local-search-pop-overlay").remove();
+      $('body').css('overflow', '');
+    }
+
+    function proceedsearch() {
+      $("body")
+        .append('<div class="search-popup-overlay local-search-pop-overlay"></div>')
+        .css('overflow', 'hidden');
+      $('.search-popup-overlay').click(onPopupClose);
+      $('.popup').toggle();
+      var $localSearchInput = $('#local-search-input');
+      $localSearchInput.attr("autocapitalize", "none");
+      $localSearchInput.attr("autocorrect", "off");
+      $localSearchInput.focus();
+    }
+
+    // search function;
+    var searchFunc = function(path, search_id, content_id) {
+      'use strict';
+
+      // start loading animation
+      $("body")
+        .append('<div class="search-popup-overlay local-search-pop-overlay">' +
+          '<div id="search-loading-icon">' +
+          '<i class="fa fa-spinner fa-pulse fa-5x fa-fw"></i>' +
+          '</div>' +
+          '</div>')
+        .css('overflow', 'hidden');
+      $("#search-loading-icon").css('margin', '20% auto 0 auto').css('text-align', 'center');
+
+      
+
+      $.ajax({
+        url: path,
+        dataType: isXml ? "xml" : "json",
+        async: true,
+        success: function(res) {
+          // get the contents from search data
+          isfetched = true;
+          $('.popup').detach().appendTo('.header-inner');
+          var datas = isXml ? $("entry", res).map(function() {
+            return {
+              title: $("title", this).text(),
+              content: $("content",this).text(),
+              url: $("url" , this).text()
+            };
+          }).get() : res;
+          var input = document.getElementById(search_id);
+          var resultContent = document.getElementById(content_id);
+          var inputEventFunction = function() {
+            var searchText = input.value.trim().toLowerCase();
+            var keywords = searchText.split(/[\s\-]+/);
+            if (keywords.length > 1) {
+              keywords.push(searchText);
+            }
+            var resultItems = [];
+            if (searchText.length > 0) {
+              // perform local searching
+              datas.forEach(function(data) {
+                var isMatch = false;
+                var hitCount = 0;
+                var searchTextCount = 0;
+                var title = data.title.trim();
+                var titleInLowerCase = title.toLowerCase();
+                var content = data.content.trim().replace(/<[^>]+>/g,"");
+                
+                var contentInLowerCase = content.toLowerCase();
+                var articleUrl = decodeURIComponent(data.url).replace(/\/{2,}/g, '/');
+                var indexOfTitle = [];
+                var indexOfContent = [];
+                // only match articles with not empty titles
+                if(title != '') {
+                  keywords.forEach(function(keyword) {
+                    function getIndexByWord(word, text, caseSensitive) {
+                      var wordLen = word.length;
+                      if (wordLen === 0) {
+                        return [];
+                      }
+                      var startPosition = 0, position = [], index = [];
+                      if (!caseSensitive) {
+                        text = text.toLowerCase();
+                        word = word.toLowerCase();
+                      }
+                      while ((position = text.indexOf(word, startPosition)) > -1) {
+                        index.push({position: position, word: word});
+                        startPosition = position + wordLen;
+                      }
+                      return index;
+                    }
+
+                    indexOfTitle = indexOfTitle.concat(getIndexByWord(keyword, titleInLowerCase, false));
+                    indexOfContent = indexOfContent.concat(getIndexByWord(keyword, contentInLowerCase, false));
+                  });
+                  if (indexOfTitle.length > 0 || indexOfContent.length > 0) {
+                    isMatch = true;
+                    hitCount = indexOfTitle.length + indexOfContent.length;
+                  }
+                }
+
+                // show search results
+
+                if (isMatch) {
+                  // sort index by position of keyword
+
+                  [indexOfTitle, indexOfContent].forEach(function (index) {
+                    index.sort(function (itemLeft, itemRight) {
+                      if (itemRight.position !== itemLeft.position) {
+                        return itemRight.position - itemLeft.position;
+                      } else {
+                        return itemLeft.word.length - itemRight.word.length;
+                      }
+                    });
+                  });
+
+                  // merge hits into slices
+
+                  function mergeIntoSlice(text, start, end, index) {
+                    var item = index[index.length - 1];
+                    var position = item.position;
+                    var word = item.word;
+                    var hits = [];
+                    var searchTextCountInSlice = 0;
+                    while (position + word.length <= end && index.length != 0) {
+                      if (word === searchText) {
+                        searchTextCountInSlice++;
+                      }
+                      hits.push({position: position, length: word.length});
+                      var wordEnd = position + word.length;
+
+                      // move to next position of hit
+
+                      index.pop();
+                      while (index.length != 0) {
+                        item = index[index.length - 1];
+                        position = item.position;
+                        word = item.word;
+                        if (wordEnd > position) {
+                          index.pop();
+                        } else {
+                          break;
+                        }
+                      }
+                    }
+                    searchTextCount += searchTextCountInSlice;
+                    return {
+                      hits: hits,
+                      start: start,
+                      end: end,
+                      searchTextCount: searchTextCountInSlice
+                    };
+                  }
+
+                  var slicesOfTitle = [];
+                  if (indexOfTitle.length != 0) {
+                    slicesOfTitle.push(mergeIntoSlice(title, 0, title.length, indexOfTitle));
+                  }
+
+                  var slicesOfContent = [];
+                  while (indexOfContent.length != 0) {
+                    var item = indexOfContent[indexOfContent.length - 1];
+                    var position = item.position;
+                    var word = item.word;
+                    // cut out 100 characters
+                    var start = position - 20;
+                    var end = position + 80;
+                    if(start < 0){
+                      start = 0;
+                    }
+                    if (end < position + word.length) {
+                      end = position + word.length;
+                    }
+                    if(end > content.length){
+                      end = content.length;
+                    }
+                    slicesOfContent.push(mergeIntoSlice(content, start, end, indexOfContent));
+                  }
+
+                  // sort slices in content by search text's count and hits' count
+
+                  slicesOfContent.sort(function (sliceLeft, sliceRight) {
+                    if (sliceLeft.searchTextCount !== sliceRight.searchTextCount) {
+                      return sliceRight.searchTextCount - sliceLeft.searchTextCount;
+                    } else if (sliceLeft.hits.length !== sliceRight.hits.length) {
+                      return sliceRight.hits.length - sliceLeft.hits.length;
+                    } else {
+                      return sliceLeft.start - sliceRight.start;
+                    }
+                  });
+
+                  // select top N slices in content
+
+                  var upperBound = parseInt('1');
+                  if (upperBound >= 0) {
+                    slicesOfContent = slicesOfContent.slice(0, upperBound);
+                  }
+
+                  // highlight title and content
+
+                  function highlightKeyword(text, slice) {
+                    var result = '';
+                    var prevEnd = slice.start;
+                    slice.hits.forEach(function (hit) {
+                      result += text.substring(prevEnd, hit.position);
+                      var end = hit.position + hit.length;
+                      result += '<b class="search-keyword">' + text.substring(hit.position, end) + '</b>';
+                      prevEnd = end;
+                    });
+                    result += text.substring(prevEnd, slice.end);
+                    return result;
+                  }
+
+                  var resultItem = '';
+
+                  if (slicesOfTitle.length != 0) {
+                    resultItem += "<li><a href='" + articleUrl + "' class='search-result-title'>" + highlightKeyword(title, slicesOfTitle[0]) + "</a>";
+                  } else {
+                    resultItem += "<li><a href='" + articleUrl + "' class='search-result-title'>" + title + "</a>";
+                  }
+
+                  slicesOfContent.forEach(function (slice) {
+                    resultItem += "<a href='" + articleUrl + "'>" +
+                      "<p class=\"search-result\">" + highlightKeyword(content, slice) +
+                      "...</p>" + "</a>";
+                  });
+
+                  resultItem += "</li>";
+                  resultItems.push({
+                    item: resultItem,
+                    searchTextCount: searchTextCount,
+                    hitCount: hitCount,
+                    id: resultItems.length
+                  });
+                }
+              })
+            };
+            if (keywords.length === 1 && keywords[0] === "") {
+              resultContent.innerHTML = '<div id="no-result"><i class="fa fa-search fa-5x"></i></div>'
+            } else if (resultItems.length === 0) {
+              resultContent.innerHTML = '<div id="no-result"><i class="fa fa-frown-o fa-5x"></i></div>'
+            } else {
+              resultItems.sort(function (resultLeft, resultRight) {
+                if (resultLeft.searchTextCount !== resultRight.searchTextCount) {
+                  return resultRight.searchTextCount - resultLeft.searchTextCount;
+                } else if (resultLeft.hitCount !== resultRight.hitCount) {
+                  return resultRight.hitCount - resultLeft.hitCount;
+                } else {
+                  return resultRight.id - resultLeft.id;
+                }
+              });
+              var searchResultList = '<ul class=\"search-result-list\">';
+              resultItems.forEach(function (result) {
+                searchResultList += result.item;
+              })
+              searchResultList += "</ul>";
+              resultContent.innerHTML = searchResultList;
+            }
+          }
+
+          if ('auto' === 'auto') {
+            input.addEventListener('input', inputEventFunction);
+          } else {
+            $('.search-icon').click(inputEventFunction);
+            input.addEventListener('keypress', function (event) {
+              if (event.keyCode === 13) {
+                inputEventFunction();
+              }
+            });
+          }
+
+          // remove loading animation
+          $(".local-search-pop-overlay").remove();
+          $('body').css('overflow', '');
+
+          proceedsearch();
+        }
+      });
+    }
+
+    // handle and trigger popup window;
+    $('.popup-trigger').click(function(e) {
+      e.stopPropagation();
+      if (isfetched === false) {
+        searchFunc(path, 'local-search-input', 'local-search-result');
+      } else {
+        proceedsearch();
+      };
+    });
+
+    $('.popup-btn-close').click(onPopupClose);
+    $('.popup').click(function(e){
+      e.stopPropagation();
+    });
+    $(document).on('keyup', function (event) {
+      var shouldDismissSearchPopup = event.which === 27 &&
+        $('.search-popup').is(':visible');
+      if (shouldDismissSearchPopup) {
+        onPopupClose();
+      }
+    });
+  </script>
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+<script src="/live2dw/lib/L2Dwidget.min.js?094cbace49a39548bed64abff5988b05"></script><script>L2Dwidget.init({"pluginRootPath":"live2dw/","pluginJsPath":"lib/","pluginModelPath":"assets/","tagMode":false,"debug":false,"model":{"jsonPath":"/live2dw/assets/koharu.model.json"},"display":{"position":"right","width":150,"height":330},"mobile":{"show":true},"react":{"opacity":0.7},"log":false});</script></body>
+</html>
