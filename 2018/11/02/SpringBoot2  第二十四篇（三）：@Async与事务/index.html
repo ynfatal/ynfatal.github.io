@@ -108,16 +108,16 @@
 <meta property="og:site_name" content="Fatal&#39;s Blog">
 <meta property="og:description" content="​        前面两篇，聊到了使用 @Async实现异步调用，@Async与异步线程池、异步异常处理；这篇笔记将记录使用 @Transactional方法中如何解决调用异步方法实现异步，@Async如何解决异步事务 问题。 [TOC] 问题场景场景一​        Spring 的异步执行注解 @Async，在 @Transactional 的方法中调用这个方法的时候发现，不对劲，耗时的逻辑">
 <meta property="og:locale" content="en">
-<meta property="og:image" content="https://ynfatal.github.io/images/SpringBoot2/SpringBoot2整合Async/1541469082331.png">
-<meta property="og:image" content="https://ynfatal.github.io/images/SpringBoot2/SpringBoot2整合Async/1541468943333.png">
-<meta property="og:image" content="https://ynfatal.github.io/images/SpringBoot2/SpringBoot2整合Async/@Async事务.png">
-<meta property="og:image" content="https://ynfatal.github.io/images/SpringBoot2/SpringBoot2整合Async/1541469423120.png">
-<meta property="og:image" content="https://ynfatal.github.io/images/SpringBoot2/SpringBoot2整合Async/@Async事务2.png">
+<meta property="og:image" content="https://ynfatal.github.io/images/SpringBoot/SpringBoot2整合Async/1541469082331.png">
+<meta property="og:image" content="https://ynfatal.github.io/images/SpringBoot/SpringBoot2整合Async/1541468943333.png">
+<meta property="og:image" content="https://ynfatal.github.io/images/SpringBoot/SpringBoot2整合Async/@Async事务.png">
+<meta property="og:image" content="https://ynfatal.github.io/images/SpringBoot/SpringBoot2整合Async/1541469423120.png">
+<meta property="og:image" content="https://ynfatal.github.io/images/SpringBoot/SpringBoot2整合Async/@Async事务2.png">
 <meta property="og:updated_time" content="2019-08-08T12:11:10.000Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="SpringBoot2 | 第二十四篇（三）：@Async与事务">
 <meta name="twitter:description" content="​        前面两篇，聊到了使用 @Async实现异步调用，@Async与异步线程池、异步异常处理；这篇笔记将记录使用 @Transactional方法中如何解决调用异步方法实现异步，@Async如何解决异步事务 问题。 [TOC] 问题场景场景一​        Spring 的异步执行注解 @Async，在 @Transactional 的方法中调用这个方法的时候发现，不对劲，耗时的逻辑">
-<meta name="twitter:image" content="https://ynfatal.github.io/images/SpringBoot2/SpringBoot2整合Async/1541469082331.png">
+<meta name="twitter:image" content="https://ynfatal.github.io/images/SpringBoot/SpringBoot2整合Async/1541469082331.png">
 
 
 
@@ -318,7 +318,7 @@
       
     
 
-    <a href="/archives/" rel="section"><i class="menu-item-icon fa fa-fw fa-archive"></i> <br>Archives<span class="badge">37</span></a>
+    <a href="/archives/" rel="section"><i class="menu-item-icon fa fa-fw fa-archive"></i> <br>Archives<span class="badge">38</span></a>
 
   </li>
         
@@ -606,30 +606,30 @@
 <h2 id="显示"><a href="#显示" class="headerlink" title="显示"></a>显示</h2><h3 id="测试一"><a href="#测试一" class="headerlink" title="测试一"></a>测试一</h3><p><strong>测试内容</strong>：事务方法内直接调用同一类中的异步方法（异步失效）。要求注掉 sendMessage() 中的 <code>int i = 1/0;</code></p>
 <p>运行 <code>TransactionalTests.saveAndAsyncNoWithProxy();</code></p>
 <p><strong>显示</strong></p>
-<p><img src="/images/SpringBoot2/SpringBoot2整合Async/1541469082331.png" alt="1541469082331"></p>
+<p><img src="/images/SpringBoot/SpringBoot2整合Async/1541469082331.png" alt="1541469082331"></p>
 <h3 id="测试二"><a href="#测试二" class="headerlink" title="测试二"></a>测试二</h3><p><strong>测试内容</strong>：事务方法内通过代理类调用同一类中的异步方法（异步生效）</p>
 <p>运行 <code>TransactionalTests.saveAndIdenticalClassAsyncWithProxy();</code></p>
 <ol>
 <li><p>不打开 int i = 1/0; 测试 @Async是否起作用</p>
 <p><strong>显示</strong></p>
-<p><img src="/images/SpringBoot2/SpringBoot2整合Async/1541468943333.png" alt="1541468943333"></p>
+<p><img src="/images/SpringBoot/SpringBoot2整合Async/1541468943333.png" alt="1541468943333"></p>
 </li>
 <li><p>打开 int i = 1/0; 测试 @Transactionl + @Async 异步事务</p>
 <p><strong>显示</strong></p>
 </li>
 </ol>
-<p><img src="/images/SpringBoot2/SpringBoot2整合Async/@Async事务.png" alt="1541470294795"></p>
+<p><img src="/images/SpringBoot/SpringBoot2整合Async/@Async事务.png" alt="1541470294795"></p>
 <p>   打开数据库，可以发现数据都回滚了</p>
 <h3 id="测试三"><a href="#测试三" class="headerlink" title="测试三"></a>测试三</h3><p><strong>测试内容</strong>：事务方法内直接调用不同类中的异步方法（异步生效）</p>
 <p>运行 <code>TransactionalTests.saveAndDifferentClassAsyncWithProxy();</code></p>
 <ol>
 <li><p>不打开 int i = 1/0; 测试 @Async是否起作用</p>
 <p><strong>显示</strong></p>
-<p><img src="/images/SpringBoot2/SpringBoot2整合Async/1541469423120.png" alt="1541469423120"></p>
+<p><img src="/images/SpringBoot/SpringBoot2整合Async/1541469423120.png" alt="1541469423120"></p>
 </li>
 <li><p>打开 int i = 1/0; 测试 @Transactionl + @Async 异步事务</p>
 <p><strong>显示</strong></p>
-<p><img src="/images/SpringBoot2/SpringBoot2整合Async/@Async事务2.png" alt="1541470950731"></p>
+<p><img src="/images/SpringBoot/SpringBoot2整合Async/@Async事务2.png" alt="1541470950731"></p>
 <p>打开数据库，可以发现数据都回滚了</p>
 </li>
 </ol>
@@ -783,7 +783,7 @@
                 
                   <a href="/archives/">
                 
-                    <span class="site-state-item-count">37</span>
+                    <span class="site-state-item-count">38</span>
                     <span class="site-state-item-name">posts</span>
                   </a>
                 </div>
@@ -959,7 +959,7 @@
           <h3 class="widget-title">Tag Cloud</h3>
           <div id="myCanvasContainer" class="widget tagcloud">
             <canvas width="220" height="210" id="resCanvas" style="width=100%">
-              <ul class="tag-list"><li class="tag-list-item"><a class="tag-list-link" href="/tags/BeetlSql/">BeetlSql</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Cache/">Cache</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Eureka/">Eureka</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/JdbcTemplate/">JdbcTemplate</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Jpa/">Jpa</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Mybatis/">Mybatis</a><span class="tag-list-count">3</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/RabbitMQ/">RabbitMQ</a><span class="tag-list-count">5</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Redis/">Redis</a><span class="tag-list-count">4</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Slf4j/">Slf4j</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/SpringBoot2/">SpringBoot2</a><span class="tag-list-count">34</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/SpringCloud/">SpringCloud</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Swagger/">Swagger</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Thymeleaf/">Thymeleaf</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/css/">css</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/docer/">docer</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/git/">git</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/github/">github</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/hexo/">hexo</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/html/">html</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/java/">java</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/java8/">java8</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/javascript/">javascript</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/yaml/">yaml</a><span class="tag-list-count">1</span></li></ul>
+              <ul class="tag-list"><li class="tag-list-item"><a class="tag-list-link" href="/tags/BeetlSql/">BeetlSql</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Cache/">Cache</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Eureka/">Eureka</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/JdbcTemplate/">JdbcTemplate</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Jpa/">Jpa</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Mybatis/">Mybatis</a><span class="tag-list-count">3</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/RabbitMQ/">RabbitMQ</a><span class="tag-list-count">5</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Redis/">Redis</a><span class="tag-list-count">4</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Slf4j/">Slf4j</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/SpringBoot2/">SpringBoot2</a><span class="tag-list-count">35</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/SpringCloud/">SpringCloud</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Swagger/">Swagger</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Thymeleaf/">Thymeleaf</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/css/">css</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/docer/">docer</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/git/">git</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/github/">github</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/hexo/">hexo</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/html/">html</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/java/">java</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/java8/">java8</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/javascript/">javascript</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/yaml/">yaml</a><span class="tag-list-count">1</span></li></ul>
             </canvas>
           </div>
         </div>
@@ -1006,7 +1006,7 @@
 
 <!-- <div class="theme-info">
   <div class="powered-by"></div>
-  <span class="post-count">博客全站共83.5k字</span>
+  <span class="post-count">博客全站共86k字</span>
 </div> --> 
 
         

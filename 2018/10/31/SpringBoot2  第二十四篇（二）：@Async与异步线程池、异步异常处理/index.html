@@ -108,15 +108,15 @@
 <meta property="og:site_name" content="Fatal&#39;s Blog">
 <meta property="og:description" content="本片文章对异步线程池、异步异常处理做了个Demo [TOC] @Async​       在Spring中，基于@Async 标注的方法，称之为 异步方法；这些方法将在执行的时候，将会在独立的线程中被执行，调用者无需等待它的完成，即可继续其他的操作。在Spring Boot中，我们只需要通过使用@Async注解就能简单的将原来的同步函数变为异步函数。 异步方法分为两种： 返回值为void 返回值为">
 <meta property="og:locale" content="en">
-<meta property="og:image" content="https://ynfatal.github.io/images/SpringBoot2/SpringBoot2整合Async/1540985504829.png">
-<meta property="og:image" content="https://ynfatal.github.io/images/SpringBoot2/SpringBoot2整合Async/1540985626587.png">
-<meta property="og:image" content="https://ynfatal.github.io/images/SpringBoot2/SpringBoot2整合Async/1540985751141.png">
-<meta property="og:image" content="https://ynfatal.github.io/images/SpringBoot2/SpringBoot2整合Async/1540988965666.png">
+<meta property="og:image" content="https://ynfatal.github.io/images/SpringBoot/SpringBoot2整合Async/1540985504829.png">
+<meta property="og:image" content="https://ynfatal.github.io/images/SpringBoot/SpringBoot2整合Async/1540985626587.png">
+<meta property="og:image" content="https://ynfatal.github.io/images/SpringBoot/SpringBoot2整合Async/1540985751141.png">
+<meta property="og:image" content="https://ynfatal.github.io/images/SpringBoot/SpringBoot2整合Async/1540988965666.png">
 <meta property="og:updated_time" content="2019-08-07T12:11:10.000Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="SpringBoot2 | 第二十四篇（二）：@Async与异步线程池、异步异常处理">
 <meta name="twitter:description" content="本片文章对异步线程池、异步异常处理做了个Demo [TOC] @Async​       在Spring中，基于@Async 标注的方法，称之为 异步方法；这些方法将在执行的时候，将会在独立的线程中被执行，调用者无需等待它的完成，即可继续其他的操作。在Spring Boot中，我们只需要通过使用@Async注解就能简单的将原来的同步函数变为异步函数。 异步方法分为两种： 返回值为void 返回值为">
-<meta name="twitter:image" content="https://ynfatal.github.io/images/SpringBoot2/SpringBoot2整合Async/1540985504829.png">
+<meta name="twitter:image" content="https://ynfatal.github.io/images/SpringBoot/SpringBoot2整合Async/1540985504829.png">
 
 
 
@@ -317,7 +317,7 @@
       
     
 
-    <a href="/archives/" rel="section"><i class="menu-item-icon fa fa-fw fa-archive"></i> <br>Archives<span class="badge">37</span></a>
+    <a href="/archives/" rel="section"><i class="menu-item-icon fa fa-fw fa-archive"></i> <br>Archives<span class="badge">38</span></a>
 
   </li>
         
@@ -565,17 +565,17 @@
 <h2 id="5、显示"><a href="#5、显示" class="headerlink" title="5、显示"></a>5、显示</h2><ol>
 <li>访问 <code>Chapter242ApplicationTests.testPool()</code> 显示</li>
 </ol>
-<p><img src="/images/SpringBoot2/SpringBoot2整合Async/1540985504829.png" alt="1540985504829"></p>
+<p><img src="/images/SpringBoot/SpringBoot2整合Async/1540985504829.png" alt="1540985504829"></p>
 <ol start="2">
 <li>访问 <code>Chapter242ApplicationTests.testAsyncExceptionReturnVoid()</code> 显示</li>
 </ol>
-<p><img src="/images/SpringBoot2/SpringBoot2整合Async/1540985626587.png" alt="1540985626587"></p>
+<p><img src="/images/SpringBoot/SpringBoot2整合Async/1540985626587.png" alt="1540985626587"></p>
 <ol start="3">
 <li>访问 <code>Chapter242ApplicationTests.testAsyncExceptionReturnFuture()</code> 显示</li>
 </ol>
-<p><img src="/images/SpringBoot2/SpringBoot2整合Async/1540985751141.png" alt="1540985751141"></p>
+<p><img src="/images/SpringBoot/SpringBoot2整合Async/1540985751141.png" alt="1540985751141"></p>
 <p>   打开 <code>Task.asyncReturnFutureWithException</code> 中<code>Thread.sleep(10000);</code>注释</p>
-<p><img src="/images/SpringBoot2/SpringBoot2整合Async/1540988965666.png" alt="1540988965666"></p>
+<p><img src="/images/SpringBoot/SpringBoot2整合Async/1540988965666.png" alt="1540988965666"></p>
 <h2 id="笔记"><a href="#笔记" class="headerlink" title="笔记"></a>笔记</h2><h3 id="异步线程池的配置"><a href="#异步线程池的配置" class="headerlink" title="异步线程池的配置"></a>异步线程池的配置</h3><p>上面我们通过使用<code>ThreadPoolTaskExecutor</code>创建了一个线程池，同时设置了以下这些参数：</p>
 <ul>
 <li><strong>corePoolSize</strong> 核心线程数10：线程池创建时候初始化的线程数</li>
@@ -755,7 +755,7 @@
                 
                   <a href="/archives/">
                 
-                    <span class="site-state-item-count">37</span>
+                    <span class="site-state-item-count">38</span>
                     <span class="site-state-item-name">posts</span>
                   </a>
                 </div>
@@ -931,7 +931,7 @@
           <h3 class="widget-title">Tag Cloud</h3>
           <div id="myCanvasContainer" class="widget tagcloud">
             <canvas width="220" height="210" id="resCanvas" style="width=100%">
-              <ul class="tag-list"><li class="tag-list-item"><a class="tag-list-link" href="/tags/BeetlSql/">BeetlSql</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Cache/">Cache</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Eureka/">Eureka</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/JdbcTemplate/">JdbcTemplate</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Jpa/">Jpa</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Mybatis/">Mybatis</a><span class="tag-list-count">3</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/RabbitMQ/">RabbitMQ</a><span class="tag-list-count">5</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Redis/">Redis</a><span class="tag-list-count">4</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Slf4j/">Slf4j</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/SpringBoot2/">SpringBoot2</a><span class="tag-list-count">34</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/SpringCloud/">SpringCloud</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Swagger/">Swagger</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Thymeleaf/">Thymeleaf</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/css/">css</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/docer/">docer</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/git/">git</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/github/">github</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/hexo/">hexo</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/html/">html</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/java/">java</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/java8/">java8</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/javascript/">javascript</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/yaml/">yaml</a><span class="tag-list-count">1</span></li></ul>
+              <ul class="tag-list"><li class="tag-list-item"><a class="tag-list-link" href="/tags/BeetlSql/">BeetlSql</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Cache/">Cache</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Eureka/">Eureka</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/JdbcTemplate/">JdbcTemplate</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Jpa/">Jpa</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Mybatis/">Mybatis</a><span class="tag-list-count">3</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/RabbitMQ/">RabbitMQ</a><span class="tag-list-count">5</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Redis/">Redis</a><span class="tag-list-count">4</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Slf4j/">Slf4j</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/SpringBoot2/">SpringBoot2</a><span class="tag-list-count">35</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/SpringCloud/">SpringCloud</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Swagger/">Swagger</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Thymeleaf/">Thymeleaf</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/css/">css</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/docer/">docer</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/git/">git</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/github/">github</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/hexo/">hexo</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/html/">html</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/java/">java</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/java8/">java8</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/javascript/">javascript</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/yaml/">yaml</a><span class="tag-list-count">1</span></li></ul>
             </canvas>
           </div>
         </div>
@@ -978,7 +978,7 @@
 
 <!-- <div class="theme-info">
   <div class="powered-by"></div>
-  <span class="post-count">博客全站共83.5k字</span>
+  <span class="post-count">博客全站共86k字</span>
 </div> --> 
 
         
