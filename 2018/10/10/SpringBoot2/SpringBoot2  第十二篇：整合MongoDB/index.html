@@ -539,7 +539,7 @@
       
         <p><code>SpringData</code> 已经集成了很多技术，也包含了 <code>MongoDB</code>，这篇笔记就以整合 <code>SpringData MongoDB</code> 为例。</p>
 <p>[TOC]</p>
-<h2 id="为什么使用NoSQL？"><a href="#为什么使用NoSQL？" class="headerlink" title="为什么使用NoSQL？"></a>为什么使用NoSQL？</h2><p>今天我们可以通过第三方平台（如：<code>Google</code>,<code>Facebook</code>等）可以很容易的访问和抓取数据。用户的个人信息，社交网络，地理位置，用户生成的数据和用户操作日志已经成倍的增加。我们如果要对这些数据进行挖掘，那SQL数据库已经不适合这些应用了, <code>NoSQL</code>数据库的发展也却能很好的处理这些大的数据。</p>
+<h2 id="为什么使用NoSQL？"><a href="#为什么使用NoSQL？" class="headerlink" title="为什么使用NoSQL？"></a>为什么使用NoSQL？</h2><p>今天我们可以通过第三方平台（如：<code>Google</code>,<code>Facebook</code>等）可以很容易的访问和抓取数据。用户的个人信息，社交网络，地理位置，用户生成的数据和用户操作日志已经成倍的增加。我们如果要对这些数据进行挖掘，那<code>SQL</code>数据库已经不适合这些应用了, <code>NoSQL</code>数据库的发展也却能很好的处理这些大的数据。</p>
 <h2 id="MongoDB"><a href="#MongoDB" class="headerlink" title="MongoDB"></a>MongoDB</h2><p><code>MongoDB</code> 是由 <code>C++ 语言</code>编写的，是一个基于分布式文件存储的开源数据库系统。在高负载的情况下，添加更多的节点，可以保证服务器性能。 <code>MongoDB</code> 旨在为 WEB 应用提供可扩展的<strong>高性能数据库解决方案</strong>。<code>MongoDB</code> 将数据存储为一个文档，数据结构由键值对（key =&gt; value）组成。<code>MongoDB</code> 文档类似于 <code>JSON</code> 对象，key 必须为字符串类型，value 可以包含基本类型（string，int，float，timestamp，binary 等），其他文档，基本类型数组以及文档数组。</p>
 <p><img src="/images/SpringBoot2/SpringBoot整合MongoDB/1565426843793.png" alt="1565426843793"></p>
 <h2 id="SpringData-MongoDB"><a href="#SpringData-MongoDB" class="headerlink" title="SpringData MongoDB"></a>SpringData MongoDB</h2><p>由于 <code>SpringData MongoDB</code> 和 <code>SpringData JPA</code> 都属于 <code>SpringData</code> 系列，所以它们实现了 <code>SpringData</code> 同一套规范，在操作上有些非常相似。例如：继承 <code>MongoRepository&lt;T, ID&gt;</code>就会有一套crud 自动生成了。开箱即用~~</p>
