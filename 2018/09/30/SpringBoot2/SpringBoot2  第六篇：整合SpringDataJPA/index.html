@@ -605,6 +605,20 @@
 <li>IDENTITY：主键由数据库自动生成（主要是自动增长型）</li>
 <li>AUTO：主键由程序控制。</li>
 </ul>
+<h3 id="2、JpaRepository-中的-T-getOne-ID-id"><a href="#2、JpaRepository-中的-T-getOne-ID-id" class="headerlink" title="2、JpaRepository 中的 T getOne(ID id)"></a>2、JpaRepository 中的 T getOne(ID id)</h3><p>这个方法使用要特别<code>注意</code>，查询结果自带懒加载效果的。</p>
+<p>如果你在测试类中调用这个方法，那么你讲会遇到下面的错误  <code>No Session</code></p>
+<pre><code>org.hibernate.LazyInitializationException: could not initialize proxy [com.fatal.entity.Goods#1] - no Session
+    at org.hibernate.proxy.AbstractLazyInitializer.initialize(AbstractLazyInitializer.java:169)
+    at org.hibernate.proxy.AbstractLazyInitializer.getImplementation(AbstractLazyInitializer.java:309)
+    at org.hibernate.proxy.pojo.bytebuddy.ByteBuddyInterceptor.intercept(ByteBuddyInterceptor.java:45)
+    at org.hibernate.proxy.ProxyConfiguration$InterceptorDispatcher.intercept(ProxyConfiguration.java:95)
+    at com.fatal.entity.Goods$HibernateProxy$yA5wHloO.toString(Unknown Source)
+    at java.lang.String.valueOf(String.java:2994)
+    at java.io.PrintStream.println(PrintStream.java:821)
+    at com.fatal.repository.GoodsRepositoryTest.findByIdTest(GoodsRepositoryTest.java:37)
+</code></pre><p>即便你在<code>application.yml</code>中加了</p>
+<figure class="highlight yaml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 注册OpenEntityManagerInViewInterceptor。在整个请求处理过程中将JPA EntityManager绑定到线程。</span></span><br><span class="line"><span class="comment"># 作用：扩大了 JPA Session 的范围，至视图。这部分后面jpa关联查询再详细介绍</span></span><br><span class="line"><span class="string">spring.jpa.open-in-view:</span> <span class="literal">true</span></span><br></pre></td></tr></table></figure>
+<p> 也无济于事。因为 junit 根本不需要加载拦截器（这只是我的猜想，因为 junit 不需要web，那需要拦截器干嘛）</p>
 <h2 id="参考资料"><a href="#参考资料" class="headerlink" title="参考资料"></a>参考资料</h2><p><a href="https://docs.spring.io/spring-data/jpa/docs/current/reference/html/" target="_blank" rel="noopener">Spring Data JPA 官方文档</a></p>
 <p><a href="https://blog.battcn.com/2018/05/08/springboot/v2-orm-jpa/" target="_blank" rel="noopener">一起来学SpringBoot | 第六篇：整合SpringDataJpa</a></p>
 <h2 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h2><p><code>SpringBoot</code>的知识已经有前辈在我们之前探索了。比较喜欢的博主有：<a href="https://blog.battcn.com/" target="_blank" rel="noopener">唐亚峰 | Battcn</a>、<a href="https://blog.csdn.net/forezp" target="_blank" rel="noopener">方志朋的专栏</a>、<a href="http://blog.didispace.com/" target="_blank" rel="noopener">程序猿DD</a>、<a href="http://www.ityouknow.com/" target="_blank" rel="noopener">纯洁的微笑</a>。对这门技术感兴趣的可以去他们的博客逛逛。谢谢他们的分享~~</p>
@@ -901,7 +915,7 @@
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#JPA"><span class="nav-text">JPA</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#SpringDataJPA"><span class="nav-text">SpringDataJPA</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#环境-版本一览："><span class="nav-text">环境/版本一览：</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#1、搭建"><span class="nav-text">1、搭建</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#2、pom-xml"><span class="nav-text">2、pom.xml</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#3、application-yml"><span class="nav-text">3、application.yml</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#4、sql"><span class="nav-text">4、sql</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#5、entity"><span class="nav-text">5、entity</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#6、DTO"><span class="nav-text">6、DTO</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#7、ConvertUtil"><span class="nav-text">7、ConvertUtil</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#8、Repository"><span class="nav-text">8、Repository</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#9、Test"><span class="nav-text">9、Test</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#测试"><span class="nav-text">测试</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#笔记"><span class="nav-text">笔记</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#1、GenerationType"><span class="nav-text">1、GenerationType</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#参考资料"><span class="nav-text">参考资料</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#总结"><span class="nav-text">总结</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#学习-唐亚峰-前辈的经验"><span class="nav-text">学习 唐亚峰 前辈的经验</span></a></li></ol></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#JPA"><span class="nav-text">JPA</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#SpringDataJPA"><span class="nav-text">SpringDataJPA</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#环境-版本一览："><span class="nav-text">环境/版本一览：</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#1、搭建"><span class="nav-text">1、搭建</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#2、pom-xml"><span class="nav-text">2、pom.xml</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#3、application-yml"><span class="nav-text">3、application.yml</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#4、sql"><span class="nav-text">4、sql</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#5、entity"><span class="nav-text">5、entity</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#6、DTO"><span class="nav-text">6、DTO</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#7、ConvertUtil"><span class="nav-text">7、ConvertUtil</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#8、Repository"><span class="nav-text">8、Repository</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#9、Test"><span class="nav-text">9、Test</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#测试"><span class="nav-text">测试</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#笔记"><span class="nav-text">笔记</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#1、GenerationType"><span class="nav-text">1、GenerationType</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#2、JpaRepository-中的-T-getOne-ID-id"><span class="nav-text">2、JpaRepository 中的 T getOne(ID id)</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#参考资料"><span class="nav-text">参考资料</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#总结"><span class="nav-text">总结</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#学习-唐亚峰-前辈的经验"><span class="nav-text">学习 唐亚峰 前辈的经验</span></a></li></ol></li></ol></div>
             
 
           </div>
@@ -972,7 +986,7 @@
 
 <!-- <div class="theme-info">
   <div class="powered-by"></div>
-  <span class="post-count">博客全站共93.1k字</span>
+  <span class="post-count">博客全站共93.4k字</span>
 </div> --> 
 
         
