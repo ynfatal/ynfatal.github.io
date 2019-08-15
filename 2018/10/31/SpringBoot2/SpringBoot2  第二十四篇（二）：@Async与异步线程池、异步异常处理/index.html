@@ -601,7 +601,7 @@
 </li>
 <li><p><strong>get()</strong> 方法用来获取执行结果，这个方法会产生<strong>阻塞</strong>，会一直等到任务执行完毕才返回；</p>
 </li>
-<li><p><strong>get(long timeout, TimeUnit unit)</strong> 用来获取执行结果，如果在指定时间内，还没获取到结果，就直接返回 null。</p>
+<li><p><strong>get(long timeout, TimeUnit unit)</strong> 用来获取执行结果，如果在指定时间内，还没获取到结果，就直接抛出 <code>TimeoutException</code> ，或者其他异常（具体看源码）。</p>
 </li>
 </ul>
 <p>也就是说Future提供了三种功能：</p>
