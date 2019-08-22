@@ -594,7 +594,7 @@
 <li><strong>key：</strong> 缓存的 key，可以为空，如果指定要按照 <strong>SpEL</strong> 表达式编写，如果不指定，则缺省按照方法的所有参数进行组合（如：<code>@Cacheable(value=&quot;user&quot;,key=&quot;#userName&quot;)</code>）</li>
 <li><strong>value：</strong> 缓存的名称，必须指定至少一个（如：<code>@Cacheable(value=&quot;user&quot;)</code> 或者 <code>@Cacheable(value={&quot;user1&quot;,&quot;use2&quot;})</code>）</li>
 <li><strong>condition：</strong> 缓存的条件（针对参数），可以为空，使用 <strong>SpEL</strong> 编写，返回 <strong>true</strong> 或者 <strong>false</strong>，只有为 <strong>true</strong> 才进行缓存（如：<code>@Cacheable(value = &quot;user&quot;, key = &quot;#id&quot;,condition = &quot;#id &lt; 10&quot;)</code>）</li>
-<li><strong>unless：</strong>缓存的条件（针对返回结果），可以为空，使用 <strong>SpEL</strong> 编写，返回 <strong>true</strong> 或者 <strong>false</strong>，只有为 <strong>true</strong> 才进行缓存（如：<code>@Cacheable(value = &quot;user&quot;, key = &quot;#id&quot;, unless = &quot;result.getCode() != 0&quot;)</code>。<code>result</code> 指返回的对象，这里指 <code>ResultVO</code>。 因为错误的结果我们不可能缓存进来嘛）</li>
+<li><strong>unless：</strong>缓存的条件（针对返回结果），可以为空，使用 <strong>SpEL</strong> 编写，返回 <strong>true</strong> 或者 <strong>false</strong>，只有为 <strong>true</strong> 才进行缓存（如：<code>@Cacheable(value = &quot;user&quot;, key = &quot;#id&quot;, unless = &quot;#result.getCode() != 0&quot;)</code>。<code>result</code> 指返回的对象，这里指 <code>ResultVO</code>。 因为错误的结果我们不可能缓存进来嘛）</li>
 </ul>
 <blockquote>
 <p><strong>@CachePut</strong> (根据方法的请求参数对其结果进行缓存，和 <code>@Cacheable</code> 不同的是，<strong>它每次都会触发真实方法的调用</strong> )</p>
@@ -612,8 +612,11 @@
 <li><strong>key：</strong> 同上</li>
 <li><strong>value：</strong> 同上</li>
 <li><strong>condition：</strong> 同上</li>
-<li><strong>allEntries：</strong> 是否清空当前 <code>value</code> 下的所有缓存内容，缺省为 false，如果指定为 true，则方法调用后将立即清空所有缓存（如：<code>@CacheEvict(value = &quot;user&quot;, key = &quot;#id&quot;, allEntries = true)</code>）</li>
-<li><strong>beforeInvocation：</strong> 是否在方法执行前就清空，缺省为 false，如果指定为 true，则在方法还没有执行的时候就清空缓存，缺省情况下，如果方法执行抛出异常，则不会清空缓存（如：<code>@CacheEvict(value = &quot;user&quot;, key = &quot;#id&quot;, beforeInvocation = true)</code>）</li>
+<li><p><strong>allEntries：</strong> 是否清空当前 <code>value</code> 下的所有缓存内容，缺省为 false，如果指定为 true，则方法调用后将立即清空所有缓存（如：<code>@CacheEvict(value = &quot;user&quot;, allEntries = true)</code>）</p>
+<p>注意：默认情况下，只删除关联 key下的缓存；需要<strong>特别注意</strong>的是，当 <code>allEntries = true 时</code>，不允许设置 key 值。（二选一）</p>
+</li>
+<li><p><strong>beforeInvocation：</strong> 是否在方法执行前就清空，缺省为 false，如果指定为 true，则在方法还没有执行的时候就清空缓存，缺省情况下，如果方法执行抛出异常，则不会清空缓存（如：<code>@CacheEvict(value = &quot;user&quot;, key = &quot;#id&quot;, beforeInvocation = true)</code>）</p>
+</li>
 </ul>
 <h3 id="CacheEvict-中的-allEntries-与-beforeInvocation-的区别"><a href="#CacheEvict-中的-allEntries-与-beforeInvocation-的区别" class="headerlink" title="@CacheEvict 中的 allEntries 与 beforeInvocation 的区别"></a>@CacheEvict 中的 allEntries 与 beforeInvocation 的区别</h3><p>​        在 <strong>Spring Cache</strong> 中，<strong>@CacheEvict</strong> 是清除缓存的注解。其中注解参数可以只有 <strong>value</strong> 和 <strong>key</strong> ，意思是清除在 <strong>value</strong> 值空间中的 <strong>key</strong> 值数据，此时默认在当前注解方法成功执行之后再清除。这时候就会存在一个问题，也许你的注解方法成功执行了删除操作，但是后续代码 <strong>抛出异常</strong> 导致未能清除缓存，下次查询时依旧从缓存中去读取，这时查询到的结果值是删除操作之前的值。</p>
 <p>​        有一个简单的解决办法，在注解参数里面加上 <strong>beforeInvocation</strong>为 <strong>true</strong>，意思是说当执行这个方法之前执行清除缓存的操作，这样 <strong>不管这个方法执行成功与否，该缓存都将不存在。</strong></p>
@@ -641,6 +644,7 @@
 <p><a href="https://blog.csdn.net/forezp/article/details/71023614" target="_blank" rel="noopener">SpringBoot非官方教程 | 第十三篇：springboot集成spring cache</a></p>
 <p><a href="https://blog.battcn.com/2018/05/13/springboot/v2-cache-redis/" target="_blank" rel="noopener">一起来学SpringBoot | 第十篇：使用Spring Cache集成Redis</a></p>
 <p><a href="https://blog.csdn.net/whatlookingfor/article/details/51833378" target="_blank" rel="noopener">Spring缓存注解@Cacheable,@CachePut , @CacheEvict使用</a></p>
+<p><a href="https://spring.io/guides/gs/caching/" target="_blank" rel="noopener">Caching Data with Spring</a></p>
 <h2 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h2><p><code>SpringBoot</code>的知识已经有前辈在我们之前探索了。比较喜欢的博主有：<a href="https://blog.battcn.com/" target="_blank" rel="noopener">唐亚峰 | Battcn</a>、<a href="https://blog.csdn.net/forezp" target="_blank" rel="noopener">方志朋的专栏</a>、<a href="http://blog.didispace.com/" target="_blank" rel="noopener">程序猿DD</a>、<a href="http://www.ityouknow.com/" target="_blank" rel="noopener">纯洁的微笑</a>。对这门技术感兴趣的可以去他们的博客逛逛。谢谢他们的分享~~</p>
 <p>以上文章是我用来学习的<code>Demo</code>，都是基于 <code>SpringBoot2.x</code> 版本。</p>
 <p><strong>源码地址:</strong> <a href="https://github.com/ynfatal/springboot2-learning/tree/master/chapter15" target="_blank" rel="noopener">https://github.com/ynfatal/springboot2-learning/tree/master/chapter15</a></p>
