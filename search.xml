@@ -4,6 +4,33 @@
   
     
     <entry>
+      <title>VirtualBox Centos7 安装</title>
+      <link href="/2019/06/11/linux/VirtualBox%20Centos7%20%E5%AE%89%E8%A3%85/"/>
+      <url>/2019/06/11/linux/VirtualBox%20Centos7%20%E5%AE%89%E8%A3%85/</url>
+      
+        <content type="html"><![CDATA[<blockquote><p>这几天在测试 Eureka 高可用，本地的没问题了，接着需要测试 linux 上是否正常，所以就想安装三个 linux 自己玩。下面是安装过程的所有笔记。</p></blockquote><h2 id="VirtualBox"><a href="#VirtualBox" class="headerlink" title="VirtualBox"></a>VirtualBox</h2><p>首先当然是虚拟机软件啦，这里我们选择的是 <code>VirtualBox</code>。如果你没有，直接去官网下载就行。<code>VirtualBox</code> 号称是最强的免费虚拟机软件，它不仅具有丰富的特色，而且性能也很优异！当然咯，这些我没体验到，我用这款软件知识因为它的界面相对好看而已。</p><h2 id="IOS"><a href="#IOS" class="headerlink" title="IOS"></a>IOS</h2><p>版本号自己选择，这里以 <strong>7</strong> 为例</p><p>安装 <code>linux</code> 我们的 <code>IOS 镜像文件</code>选择为 <code>CentOS-7-x86_64-Minimal-1810.iso</code>。</p><p>我们选择去<a href="http://mirrors.163.com/" target="_blank" rel="noopener">网易开源镜像站</a>下载。</p><p>直接来这个<a href="http://mirrors.163.com/centos/7/isos/x86_64/" target="_blank" rel="noopener">页面</a>下载吧</p><p><img src="/images/linux/VirtualBox Centos7 安装/1560245008540.png" alt="1560245008540"></p><h2 id="创建虚拟机"><a href="#创建虚拟机" class="headerlink" title="创建虚拟机"></a>创建虚拟机</h2><p>准备就绪之后，就可以开始创建虚拟机了</p><p>打开 <code>VirtualBox</code>，选择新建</p><p>位置自己选，类型为 <code>linux</code>，版本为 <code>Red Hat (64-bit)</code>，内存<code>1GB</code>就够了，当然你可以更多。</p><p><img src="/images/linux/VirtualBox Centos7 安装/1560245486708.png" alt="1560245486708"></p><p>OK 之后就点击创建</p><p>然后文件大小改为 <code>16.00 GB</code></p><p><img src="/images/linux/VirtualBox Centos7 安装/1560245633853.png" alt="1560245633853"></p><p>OK 之后点击创建。然后选中它并<code>启动</code>，你会看到这样的界面</p><p><img src="/images/linux/VirtualBox Centos7 安装/1560245825451.png" alt="1560245825451"></p><p>我们选择启动盘，然后找到刚刚下载的镜像文件</p><p><img src="/images/linux/VirtualBox Centos7 安装/1560245873908.png" alt="1560245873908"></p><p>点击<code>启动</code>，（如果出现 <code>root:</code>，直接<code>Enter</code>键）出现下面的界面</p><p><img src="/images/linux/VirtualBox Centos7 安装/1560245927843.png" alt="1560245927843"></p><p>进入界面后，按 <code>Enter 键</code>即可安装。安装完后如下图</p><p>选择中文，简体中文，然后点击<code>继续</code>。</p><p><img src="/images/linux/VirtualBox Centos7 安装/1560246182707.png" alt="1560246182707"></p><p>这时页面的<code>安装位置</code>出现感叹号，<code>开始安装</code><strong>不可选</strong>。</p><p><img src="/images/linux/VirtualBox Centos7 安装/1560246302964.png" alt="1560246302964"></p><p>我们点击<code>安装位置</code>，点击<code>完成</code>。</p><p><img src="/images/linux/VirtualBox Centos7 安装/1560246411462.png" alt="1560246411462"></p><p>慢着，记得设置网络，选择<code>网络与主机名</code></p><p><img src="/images/linux/VirtualBox Centos7 安装/1560246541089.png" alt="1560246541089"></p><p>以太网的开关<code>打开</code>，然后点击<code>完成</code></p><p><img src="/images/linux/VirtualBox Centos7 安装/1560246638216.png" alt="1560246638216"></p><p>接着可以点击<code>开始安装</code></p><p><img src="/images/linux/VirtualBox Centos7 安装/1560246519508.png" alt="1560246519508"></p><p>这时还需要设置密码，选择<code>ROOT密码</code></p><p><img src="/images/linux/VirtualBox Centos7 安装/1560246803324.png" alt="1560246803324"></p><p>输入两次密码<code>123456</code>，然后双击<code>完成</code>。点击<code>完成配置</code></p><p><img src="/images/linux/VirtualBox Centos7 安装/1560246853352.png" alt="1560246853352"></p><p>接下来需要漫长的等待…</p><p>完成之后，输入账户密码，root和123456即可</p><p>输入 ping <a href="http://www.baidu.com" target="_blank" rel="noopener">www.baidu.com</a> 测试网络是否正常</p><h2 id="ifconfig-不能用"><a href="#ifconfig-不能用" class="headerlink" title="ifconfig 不能用"></a>ifconfig 不能用</h2><p><img src="/images/linux/VirtualBox Centos7 安装/1560247088578.png" alt="1560247088578"></p><p>怎么解决呢？</p><p>安装个网络工具</p><p>输入 <code>yum install net-tools</code></p><p>然后根据提示输入两次 <code>y</code> 即可，看到 Compelet! 就代表安装成功了</p><p><img src="/images/linux/VirtualBox Centos7 安装/1560247834073.png" alt="1560247834073"></p><p>输入 <code>ifconfig</code></p><p><img src="/images/linux/VirtualBox Centos7 安装/1560247887726.png" alt="1560247887726"></p><h2 id="inet4-10-0-2-15-？？我的IP呢？"><a href="#inet4-10-0-2-15-？？我的IP呢？" class="headerlink" title="inet4 10.0.2.15 ？？我的IP呢？"></a>inet4 10.0.2.15 ？？我的IP呢？</h2><p>其实 centos7 默认是不使用 <code>ifconfig</code> 了，所以它才没安装。它用 <code>nmcli</code>来代替了</p><p>但是</p><p>不管是 <code>ifconfig</code> 还是 <code>nmcli</code>，细心的你肯定发现了，<code>inet4</code> 的<code>ip</code>地址为什么是 <code>10.0.2.15</code> 呢？</p><p>别急。</p><p>点击菜单栏上的<code>控制 -&gt; 设置 -&gt; 网络</code>，在网卡1中，将连接方式改为由<code>网络地址转换(NAT)</code>改为<code>桥接网卡</code>，点击ok即可。</p><p><img src="/images/linux/VirtualBox Centos7 安装/1560253497600.png" alt="1560253497600"></p>]]></content>
+      
+      
+      <categories>
+          
+          <category> Linux </category>
+          
+      </categories>
+      
+      
+        <tags>
+            
+            <tag> Linux </tag>
+            
+            <tag> VirtualBox </tag>
+            
+        </tags>
+      
+    </entry>
+    
+    
+    
+    <entry>
       <title>SpringCloud | 第一篇：Eureka（Greenwich SR1）</title>
       <link href="/2019/06/10/SpringCloud/SpringCloud%20%E7%AC%AC%E4%B8%80%E7%AF%87%EF%BC%9AEureka%EF%BC%88Greenwich%20SR1%EF%BC%89/"/>
       <url>/2019/06/10/SpringCloud/SpringCloud%20%E7%AC%AC%E4%B8%80%E7%AF%87%EF%BC%9AEureka%EF%BC%88Greenwich%20SR1%EF%BC%89/</url>
