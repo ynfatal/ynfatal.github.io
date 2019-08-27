@@ -100,13 +100,20 @@
 
 
 
-  <meta property="og:type" content="website">
-<meta property="og:title" content="Fatal&#39;s Blog">
-<meta property="og:url" content="https://ynfatal.github.io/archives/page/5/index.html">
+  <meta name="description" content="Docker 现在已经分为了 Docker Engine - Community(简称：docker ce) 和 Docker EE，即社区免费版和企业版。这篇笔记记录 docker ce 的安装。因为官方推荐 yum 安装，所以下面用的是 yum。 [TOC] 操作系统要求安装 docker ce，Centos 版本要求在 7 以上 安装 docker ee，Centos 版本要求在 7.1 以">
+<meta name="keywords" content="docker">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Centos7.x docker 安装">
+<meta property="og:url" content="https://ynfatal.github.io/2019/08/27/docker/Centos7.x docker 安装/index.html">
 <meta property="og:site_name" content="Fatal&#39;s Blog">
+<meta property="og:description" content="Docker 现在已经分为了 Docker Engine - Community(简称：docker ce) 和 Docker EE，即社区免费版和企业版。这篇笔记记录 docker ce 的安装。因为官方推荐 yum 安装，所以下面用的是 yum。 [TOC] 操作系统要求安装 docker ce，Centos 版本要求在 7 以上 安装 docker ee，Centos 版本要求在 7.1 以">
 <meta property="og:locale" content="en">
+<meta property="og:image" content="https://ynfatal.github.io/images/docker/Centos7.x%20docker%20安装/1566919064807.png">
+<meta property="og:updated_time" content="2019-08-27T15:12:10.000Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="Fatal&#39;s Blog">
+<meta name="twitter:title" content="Centos7.x docker 安装">
+<meta name="twitter:description" content="Docker 现在已经分为了 Docker Engine - Community(简称：docker ce) 和 Docker EE，即社区免费版和企业版。这篇笔记记录 docker ce 的安装。因为官方推荐 yum 安装，所以下面用的是 yum。 [TOC] 操作系统要求安装 docker ce，Centos 版本要求在 7 以上 安装 docker ee，Centos 版本要求在 7.1 以">
+<meta name="twitter:image" content="https://ynfatal.github.io/images/docker/Centos7.x%20docker%20安装/1566919064807.png">
 
 
 
@@ -114,7 +121,7 @@
 
   
   
-  <link rel="canonical" href="https://ynfatal.github.io/archives/page/5/">
+  <link rel="canonical" href="https://ynfatal.github.io/2019/08/27/docker/Centos7.x docker 安装/">
 
 
 
@@ -124,7 +131,7 @@
   };
 </script>
 
-  <title>Archive | Fatal's Blog</title>
+  <title>Centos7.x docker 安装 | Fatal's Blog</title>
   
 
 
@@ -177,7 +184,7 @@
     
   
 
-  <div class="container sidebar-position-left page-archive">
+  <div class="container sidebar-position-left page-post-detail">
     <div class="headband"></div>
 
     <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
@@ -295,7 +302,7 @@
         
         
           
-          <li class="menu-item menu-item-archives menu-item-active">
+          <li class="menu-item menu-item-archives">
 
     
     
@@ -394,285 +401,257 @@
           
             
 
-    
-    
-      
-      
-    
-      
-      
-    
-      
-      
-    
-      
-      
-    
-      
-      
-    
-      
-      
-    
-    
-
-  
-
-
           
           <div id="content" class="content">
             
 
+  <div id="posts" class="posts-expand">
+    
+
+  
+
   
   
   
-  <div class="post-block archive">
-    <div id="posts" class="posts-collapse">
-      <span class="archive-move-on"></span>
 
-      
-      <span class="archive-page-counter">
-        
-        
-         
-        
-        OK! 46 posts in total. Keep on posting.
-      </span>
-      
+  
 
-      
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="https://ynfatal.github.io/2019/08/27/docker/Centos7.x docker 安装/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Fatal">
+      <meta itemprop="description" content>
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Fatal's Blog">
+    </span>
+
+    
+      <header class="post-header">
 
         
         
+          <h1 class="post-title" itemprop="name headline">Centos7.x docker 安装
+
+              
+            
+          </h1>
         
 
+        <div class="post-meta">
         
           
-          <div class="collection-title">
-            <h1 class="archive-year" id="archive-year-2018">2018</h1>
-          </div>
-        
-        
 
-        
+          <span class="post-time">
 
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-    <header class="post-header">
-
-      <h2 class="post-title">
-        
-          <a class="post-title-link" href="/2018/09/30/SpringBoot2/SpringBoot2  第六篇：整合SpringDataJPA/" itemprop="url">
             
-              <span itemprop="name">SpringBoot2 | 第六篇：整合SpringDataJPA</span>
             
-          </a>
-        
-      </h2>
+            
 
-      <div class="post-meta">
-        <time class="post-time" itemprop="dateCreated" datetime="2018-09-30T20:33:10+08:00" content="2018-09-30">
-          09-30
-        </time>
-      </div>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">Posted on</span>
+              
 
-    </header>
-  </article>
+              
+                
+              
 
+              <time title="Created: 2019-08-27 20:42:10 / Modified: 23:12:10" itemprop="dateCreated datePublished" datetime="2019-08-27T20:42:10+08:00">2019-08-27</time>
+            
 
+            
+              
+
+              
+            
+          </span>
+
+          
+            <span class="post-category">
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">In</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing"><a href="/categories/docker/" itemprop="url" rel="index"><span itemprop="name">docker</span></a></span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
 
       
-
-        
-        
-        
-
-        
-        
-
-        
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-    <header class="post-header">
-
-      <h2 class="post-title">
-        
-          <a class="post-title-link" href="/2018/09/29/SpringBoot2/SpringBoot2  第五篇：整合JdbcTemplate/" itemprop="url">
-            
-              <span itemprop="name">SpringBoot2 | 第五篇：整合JdbcTemplate</span>
-            
-          </a>
-        
-      </h2>
-
-      <div class="post-meta">
-        <time class="post-time" itemprop="dateCreated" datetime="2018-09-29T20:33:10+08:00" content="2018-09-29">
-          09-29
-        </time>
-      </div>
-
-    </header>
-  </article>
-
-
-
       
 
-        
-        
-        
-
-        
-        
-
-        
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-    <header class="post-header">
-
-      <h2 class="post-title">
-        
-          <a class="post-title-link" href="/2018/09/25/SpringBoot2/SpringBoot2  第四篇：整合Thymeleaf模板引擎/" itemprop="url">
-            
-              <span itemprop="name">SpringBoot2 | 第四篇：整合Thymeleaf模板引擎</span>
-            
-          </a>
-        
-      </h2>
-
-      <div class="post-meta">
-        <time class="post-time" itemprop="dateCreated" datetime="2018-09-25T20:33:10+08:00" content="2018-09-25">
-          09-25
-        </time>
-      </div>
-
-    </header>
-  </article>
-
-
+      
+        <p>Docker 现在已经分为了 <code>Docker Engine - Community</code>(简称：docker ce) 和 <code>Docker EE</code>，即<strong>社区免费版</strong>和<strong>企业版</strong>。这篇笔记记录 <code>docker ce</code> 的安装。因为官方推荐 <code>yum</code> 安装，所以下面用的是 <code>yum</code>。</p>
+<p>[TOC]</p>
+<h2 id="操作系统要求"><a href="#操作系统要求" class="headerlink" title="操作系统要求"></a>操作系统要求</h2><p>安装 <code>docker ce</code>，<code>Centos</code> 版本要求在 <strong>7</strong> 以上</p>
+<p>安装 <code>docker ee</code>，<code>Centos</code> 版本要求在 <strong>7.1</strong> 以上（x86_），内核建议：<strong>3.10.0-693</strong> 以上</p>
+<p>查看Centos 7的具体版本信息：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ cat /etc/redhat-release</span><br></pre></td></tr></table></figure>
+<p>查看内核信息：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">uname -r</span><br></pre></td></tr></table></figure>
+<h2 id="安装存储库"><a href="#安装存储库" class="headerlink" title="安装存储库"></a>安装存储库</h2><p>在新主机首次安装 <code>docker-ce</code> 之前，需要安装<code>存储库</code>。之后，你可以从<code>存储库</code>上<strong>安装</strong>和<strong>更新</strong> Docker。</p>
+<p>使用 <code>yum</code> 前，更新一下 <code>yum</code></p>
+<figure class="highlight plain"><figcaption><span>yum update</span></figcaption><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ yum update</span><br></pre></td></tr></table></figure>
+<ol>
+<li><p>安装需要的软件包。<code>yum utils</code> 提供了 <code>yum-config-manager</code> 实用程序，和 <code>devicemapper</code> 存储驱动程序需要的 <code>device-mapper-persistent-data</code> 和 <code>lvm2</code> </p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">$ sudo yum install -y yum-utils \</span><br><span class="line">  device-mapper-persistent-data \</span><br><span class="line">  lvm2</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>使用一下命令安装稳定存储库</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">$ sudo yum-config-manager \</span><br><span class="line">    --add-repo \</span><br><span class="line">    https://download.docker.com/linux/centos/docker-ce.repo</span><br></pre></td></tr></table></figure>
+</li>
+</ol>
+<h2 id="安装-docker-ce"><a href="#安装-docker-ce" class="headerlink" title="安装 docker ce"></a>安装 docker ce</h2><ol>
+<li><p>安装最新版的 <code>docker ce</code> 和 <code>containerd</code>，或者转到下一步安装<code>稳定</code>版本：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ sudo yum install docker-ce docker-ce-cli containerd.io</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>要安装稳定版本，执行下面命令，然后在 repo 列出的可用版本中，选择并安装：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line">$ yum list docker-ce --showduplicates | sort -r</span><br><span class="line"></span><br><span class="line">docker-ce.x86_64            3:19.03.1-3.el7                     docker-ce-stable</span><br><span class="line">docker-ce.x86_64            3:19.03.0-3.el7                     docker-ce-stable</span><br><span class="line">docker-ce.x86_64            3:18.09.8-3.el7                     docker-ce-stable</span><br><span class="line">docker-ce.x86_64            3:18.09.7-3.el7                     docker-ce-stable</span><br><span class="line">docker-ce.x86_64            3:18.09.6-3.el7                     docker-ce-stable</span><br><span class="line">docker-ce.x86_64            3:18.09.5-3.el7                     docker-ce-stable</span><br><span class="line">docker-ce.x86_64            3:18.09.4-3.el7                     docker-ce-stable</span><br><span class="line">docker-ce.x86_64            3:18.09.3-3.el7                     docker-ce-stable</span><br><span class="line">docker-ce.x86_64            3:18.09.2-3.el7                     docker-ce-stable</span><br><span class="line">docker-ce.x86_64            3:18.09.1-3.el7                     docker-ce-stable</span><br><span class="line">docker-ce.x86_64            3:18.09.0-3.el7                     docker-ce-stable</span><br></pre></td></tr></table></figure>
+<p>其中，<code>：</code> 和 <code>-3.el7</code>中间即<code>版本号</code>，如：<code>3:19.03.1-3.el7</code> 的版本号是：<code>19.03.1</code></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ sudo yum install docker-ce-&lt;VERSION_STRING&gt; docker-ce-cli-&lt;VERSION_STRING&gt; containerd.io</span><br></pre></td></tr></table></figure>
+<p>我安装的是：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ yum install docker-ce-19.03.1 docker-ce-cli-19.03.1 containerd.io</span><br></pre></td></tr></table></figure>
+<p>经过漫长的等待。。。</p>
+</li>
+<li><p>启动 docker</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ sudo systemctl start docker</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>通过运行<code>hello world</code>映像验证<code>docker ce</code>安装正确</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ sudo docker run hello-world</span><br></pre></td></tr></table></figure>
+<p><img src="/images/docker/Centos7.x docker 安装/1566919064807.png" alt="1566919064807"></p>
+<p>由于本地没有 <code>hello-world</code> 这个镜像，所以会下载一个 <code>hello-world</code> 的镜像，并在容器内运行。</p>
+<p>看到这串，就说明安装成功了~~</p>
+</li>
+</ol>
+<h2 id="参考资料"><a href="#参考资料" class="headerlink" title="参考资料"></a>参考资料</h2><p><a href="https://www.runoob.com/docker/centos-docker-install.html" target="_blank" rel="noopener">CentOS Docker 安装</a></p>
+<p><a href="https://docs.docker.com/install/linux/docker-ce/centos/" target="_blank" rel="noopener">Get Docker Engine - Community for CentOS</a></p>
 
       
-
-        
-        
-        
-
-        
-        
-
-        
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-    <header class="post-header">
-
-      <h2 class="post-title">
-        
-          <a class="post-title-link" href="/2018/09/23/SpringBoot2/SpringBoot2  第三篇：整合日志框架/" itemprop="url">
-            
-              <span itemprop="name">SpringBoot2 | 第三篇：整合日志框架</span>
-            
-          </a>
-        
-      </h2>
-
-      <div class="post-meta">
-        <time class="post-time" itemprop="dateCreated" datetime="2018-09-23T20:33:10+08:00" content="2018-09-23">
-          09-23
-        </time>
-      </div>
-
-    </header>
-  </article>
-
-
-
-      
-
-        
-        
-        
-
-        
-        
-
-        
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-    <header class="post-header">
-
-      <h2 class="post-title">
-        
-          <a class="post-title-link" href="/2018/09/20/SpringBoot2/SpringBoot2  第二篇：SpringBoot配置详解/" itemprop="url">
-            
-              <span itemprop="name">SpringBoot2 | 第二篇：SpringBoot配置详解</span>
-            
-          </a>
-        
-      </h2>
-
-      <div class="post-meta">
-        <time class="post-time" itemprop="dateCreated" datetime="2018-09-20T20:33:10+08:00" content="2018-09-20">
-          09-20
-        </time>
-      </div>
-
-    </header>
-  </article>
-
-
-
-      
-
-        
-        
-        
-
-        
-        
-
-        
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-    <header class="post-header">
-
-      <h2 class="post-title">
-        
-          <a class="post-title-link" href="/2018/08/19/SpringBoot2/SpringBoot2  第一篇：第一个SpringBoot工程/" itemprop="url">
-            
-              <span itemprop="name">SpringBoot2 | 第一篇：第一个SpringBoot工程</span>
-            
-          </a>
-        
-      </h2>
-
-      <div class="post-meta">
-        <time class="post-time" itemprop="dateCreated" datetime="2018-08-19T20:33:10+08:00" content="2018-08-19">
-          08-19
-        </time>
-      </div>
-
-    </header>
-  </article>
-
-
-
-      
-
     </div>
+
+    
+
+    
+    
+    
+
+    
+
+    
+      
+    
+    
+
+    
+
+    <div>
+      
+        <div>
+    
+        <div style="margin-top: 40px;text-align:center;color: #ccc;font-size:14px;">
+        -------------	end   -------------
+        </div>
+    
+<div>
+      
+    </div>
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/docker/" <i class="fa fa-tag"> docker</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2019/08/22/SpringBoot2/SpringBoot2 第三十篇：Redis实现热搜商品/" rel="next" title="SpringBoot2 | 第三十篇：Redis 实现热搜商品">
+                <i class="fa fa-chevron-left"></i> SpringBoot2 | 第三十篇：Redis 实现热搜商品
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
   </div>
   
   
   
-
-  
-  <nav class="pagination">
-    <a class="extend prev" rel="prev" href="/archives/page/4/"><i class="fa fa-angle-left" aria-label="Previous page"></i></a><a class="page-number" href="/archives/">1</a><span class="space">&hellip;</span><a class="page-number" href="/archives/page/4/">4</a><span class="page-number current">5</span>
-  </nav>
+  </div></div></article>
 
 
+  </div>
 
 
           </div>
           
+
+  
+    <div class="comments" id="gitalk-container">
+    </div>
+
+  
+
+
 
         </div>
         
@@ -692,8 +671,17 @@
       
 
       
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            Table of Contents
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            Overview
+          </li>
+        </ul>
+      
 
-      <div class="site-overview-wrap sidebar-panel sidebar-panel-active">
+      <div class="site-overview-wrap sidebar-panel">
         <div class="site-overview">
           <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
             
@@ -864,6 +852,23 @@
       </div>
 
       
+      <!--noindex-->
+        <div class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+            
+            
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#操作系统要求"><span class="nav-text">操作系统要求</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#安装存储库"><span class="nav-text">安装存储库</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#安装-docker-ce"><span class="nav-text">安装 docker ce</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#参考资料"><span class="nav-text">参考资料</span></a></li></ol></div>
+            
+
+          </div>
+        </div>
+      <!--/noindex-->
+      
 
       
         <div class="back-to-top">
@@ -1028,6 +1033,10 @@
 
 
   
+  <script src="/js/scrollspy.js?v=7.1.1"></script>
+<script src="/js/post-details.js?v=7.1.1"></script>
+
+
 
   
 
@@ -1043,6 +1052,37 @@
 
   
 
+
+  
+    
+
+<script src="//cdn.jsdelivr.net/npm/gitalk@1/dist/gitalk.min.js"></script>
+
+
+
+<link rel="stylesheet" href="//cdn.jsdelivr.net/npm/gitalk@1/dist/gitalk.min.css">
+
+
+
+<script src="//cdn.jsdelivr.net/npm/js-md5@0.7.3/src/md5.min.js"></script>
+
+<script>
+  var gitalk = new Gitalk({
+    clientID: '4dea51f0a84f2ec5b009',
+    clientSecret: '0f278e2737f8e97d451299b4a91e29b735aa7633',
+    repo: 'ynfatal.github.io',
+    owner: 'ynfatal',
+    admin: ['ynfatal'],
+    id: md5(location.pathname),
+    
+      language: window.navigator.language || window.navigator.userLanguage,
+    
+    distractionFreeMode: 'true'
+  });
+  gitalk.render('gitalk-container');
+</script>
+
+  
 
 
   
