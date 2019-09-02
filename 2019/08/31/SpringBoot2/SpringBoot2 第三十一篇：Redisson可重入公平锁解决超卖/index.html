@@ -108,17 +108,17 @@
 <meta property="og:site_name" content="Fatal&#39;s Blog">
 <meta property="og:description" content="—— 基于Redis 单节点  库存超卖有很多种解决方案，悲观锁，乐观锁，zookeeper 分布式锁，redis 分布式锁。这篇笔记介绍如何 redis 分布式锁。当然，redlock 实现分布式锁备受争议，就连作者也不推荐使用。Redis 官方推荐了一个 Redis Java Client —— Redisson。 分布式锁什么是分布式锁？ ​        分布式锁是控制分布式系统之间同步访">
 <meta property="og:locale" content="en">
-<meta property="og:image" content="https://ynfatal.github.io/images/SpringBoot使用分布式锁解决超卖问题/1567228248652.png">
-<meta property="og:image" content="https://ynfatal.github.io/images/SpringBoot使用分布式锁解决超卖问题/1567228633820.png">
-<meta property="og:image" content="https://ynfatal.github.io/images/SpringBoot使用分布式锁解决超卖问题/1567228600969.png">
-<meta property="og:image" content="https://ynfatal.github.io/images/SpringBoot使用分布式锁解决超卖问题/1567230817983.png">
-<meta property="og:image" content="https://ynfatal.github.io/images/SpringBoot使用分布式锁解决超卖问题/1567228995335.png">
-<meta property="og:image" content="https://ynfatal.github.io/images/SpringBoot使用分布式锁解决超卖问题/1567238839909.png">
+<meta property="og:image" content="https://ynfatal.github.io/images/SpringBoot2/SpringBoot使用分布式锁解决超卖问题/1567228248652.png">
+<meta property="og:image" content="https://ynfatal.github.io/images/SpringBoot2/SpringBoot使用分布式锁解决超卖问题/1567228633820.png">
+<meta property="og:image" content="https://ynfatal.github.io/images/SpringBoot2/SpringBoot使用分布式锁解决超卖问题/1567228600969.png">
+<meta property="og:image" content="https://ynfatal.github.io/images/SpringBoot2/SpringBoot使用分布式锁解决超卖问题/1567230817983.png">
+<meta property="og:image" content="https://ynfatal.github.io/images/SpringBoot2/SpringBoot使用分布式锁解决超卖问题/1567228995335.png">
+<meta property="og:image" content="https://ynfatal.github.io/images/SpringBoot2/SpringBoot使用分布式锁解决超卖问题/1567238839909.png">
 <meta property="og:updated_time" content="2019-09-02T04:12:10.000Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="SpringBoot2 | 第三十一篇：Redisson可重入公平锁解决超卖">
 <meta name="twitter:description" content="—— 基于Redis 单节点  库存超卖有很多种解决方案，悲观锁，乐观锁，zookeeper 分布式锁，redis 分布式锁。这篇笔记介绍如何 redis 分布式锁。当然，redlock 实现分布式锁备受争议，就连作者也不推荐使用。Redis 官方推荐了一个 Redis Java Client —— Redisson。 分布式锁什么是分布式锁？ ​        分布式锁是控制分布式系统之间同步访">
-<meta name="twitter:image" content="https://ynfatal.github.io/images/SpringBoot使用分布式锁解决超卖问题/1567228248652.png">
+<meta name="twitter:image" content="https://ynfatal.github.io/images/SpringBoot2/SpringBoot使用分布式锁解决超卖问题/1567228248652.png">
 
 
 
@@ -590,29 +590,29 @@
 <p>在测试中，我们还会使用一个工具，就是 <strong>Apach ab</strong> 来进行压测。</p>
 <h3 id="整合-Redisson"><a href="#整合-Redisson" class="headerlink" title="整合 Redisson"></a>整合 Redisson</h3><p>运行 <code>RedissonTests.fairLockTest()</code></p>
 <p>Redis 图形化界面</p>
-<p><img src="/images/SpringBoot使用分布式锁解决超卖问题/1567228248652.png" alt="1567228248652"></p>
+<p><img src="/images/SpringBoot2/SpringBoot使用分布式锁解决超卖问题/1567228248652.png" alt="1567228248652"></p>
 <h3 id="模拟超卖"><a href="#模拟超卖" class="headerlink" title="模拟超卖"></a>模拟超卖</h3><p>启动程序</p>
 <p>使用 ab 压测。来到 bin 目录下，输入以下命令：</p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">ab -n 1000 -c 1000 http://localhost:8080/withoutLock</span><br></pre></td></tr></table></figure>
 <p>-n：总请求数</p>
 <p>-c：并发数</p>
-<p><img src="/images/SpringBoot使用分布式锁解决超卖问题/1567228633820.png" alt="1567228633820"></p>
+<p><img src="/images/SpringBoot2/SpringBoot使用分布式锁解决超卖问题/1567228633820.png" alt="1567228633820"></p>
 <p>访问 <a href="http://localhost:8080/query" target="_blank" rel="noopener">http://localhost:8080/query</a></p>
 <p>你可以发现，超卖了…</p>
-<p><img src="/images/SpringBoot使用分布式锁解决超卖问题/1567228600969.png" alt="1567228600969"></p>
+<p><img src="/images/SpringBoot2/SpringBoot使用分布式锁解决超卖问题/1567228600969.png" alt="1567228600969"></p>
 <h3 id="解决超卖"><a href="#解决超卖" class="headerlink" title="解决超卖"></a>解决超卖</h3><p>启动程序</p>
 <p>使用 ab 压测。来到 bin 目录下，输入以下命令：</p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">ab -n 1000 -c 1000 http://localhost:8080/withLock</span><br></pre></td></tr></table></figure>
-<p><img src="/images/SpringBoot使用分布式锁解决超卖问题/1567230817983.png" alt="1567230817983"></p>
+<p><img src="/images/SpringBoot2/SpringBoot使用分布式锁解决超卖问题/1567230817983.png" alt="1567230817983"></p>
 <p>访问 <a href="http://localhost:8080/query" target="_blank" rel="noopener">http://localhost:8080/query</a></p>
-<p><img src="/images/SpringBoot使用分布式锁解决超卖问题/1567228995335.png" alt="1567228995335"></p>
+<p><img src="/images/SpringBoot2/SpringBoot使用分布式锁解决超卖问题/1567228995335.png" alt="1567228995335"></p>
 <h2 id="坑"><a href="#坑" class="headerlink" title="坑"></a>坑</h2><h3 id="问题"><a href="#问题" class="headerlink" title="问题"></a>问题</h3><p><strong>Windows 下的 Redis 和 Redisson starter 一起用会出现问题。报错如下：</strong></p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line">2019-08-29 14:54:56.755 ERROR 16728 --- [isson-netty-2-9] o.redisson.client.handler.CommandsQueue  : Exception occured. Channel: [id: 0x5b2c40f0, L:/127.0.0.1:65492 - R:localhost/127.0.0.1:6379]</span><br><span class="line"></span><br><span class="line">java.io.IOException: 远程主机强迫关闭了一个现有的连接。</span><br><span class="line">  at sun.nio.ch.SocketDispatcher.read0(Native Method) ~[na:1.8.0_171]</span><br><span class="line">  at sun.nio.ch.SocketDispatcher.read(SocketDispatcher.java:43) ~[na:1.8.0_171]</span><br><span class="line">  at sun.nio.ch.IOUtil.readIntoNativeBuffer(IOUtil.java:223) ~[na:1.8.0_171]</span><br><span class="line">  at sun.nio.ch.IOUtil.read(IOUtil.java:192) ~[na:1.8.0_171]</span><br><span class="line">  at sun.nio.ch.SocketChannelImpl.read(SocketChannelImpl.java:380) ~[na:1.8.0_171]</span><br><span class="line">  at io.netty.buffer.PooledUnsafeDirectByteBuf.setBytes(PooledUnsafeDirectByteBuf.java:288) ~[netty-buffer-4.1.31.Final.jar:4.1.31.Final]</span><br><span class="line">  at io.netty.buffer.AbstractByteBuf.writeBytes(AbstractByteBuf.java:1132) ~[netty-buffer-4.1.31.Final.jar:4.1.31.Final]</span><br><span class="line">  at io.netty.channel.socket.nio.NioSocketChannel.doReadBytes(NioSocketChannel.java:347) ~[netty-transport-4.1.31.Final.jar:4.1.31.Final]</span><br><span class="line">  at io.netty.channel.nio.AbstractNioByteChannel$NioByteUnsafe.read(AbstractNioByteChannel.java:148) ~[netty-transport-4.1.31.Final.jar:4.1.31.Final]</span><br><span class="line">  at io.netty.channel.nio.NioEventLoop.processSelectedKey(NioEventLoop.java:648) [netty-transport-4.1.31.Final.jar:4.1.31.Final]</span><br><span class="line">  at io.netty.channel.nio.NioEventLoop.processSelectedKeysOptimized(NioEventLoop.java:583) [netty-transport-4.1.31.Final.jar:4.1.31.Final]</span><br><span class="line">  at io.netty.channel.nio.NioEventLoop.processSelectedKeys(NioEventLoop.java:500) [netty-transport-4.1.31.Final.jar:4.1.31.Final]</span><br><span class="line">  at io.netty.channel.nio.NioEventLoop.run(NioEventLoop.java:462) [netty-transport-4.1.31.Final.jar:4.1.31.Final]</span><br><span class="line">  at io.netty.util.concurrent.SingleThreadEventExecutor$5.run(SingleThreadEventExecutor.java:897) [netty-common-4.1.31.Final.jar:4.1.31.Final]</span><br><span class="line">  at io.netty.util.concurrent.FastThreadLocalRunnable.run(FastThreadLocalRunnable.java:30) [netty-common-4.1.31.Final.jar:4.1.31.Final]</span><br><span class="line">  at java.lang.Thread.run(Thread.java:748) [na:1.8.0_171]</span><br><span class="line">... 很多个，省略</span><br></pre></td></tr></table></figure>
-<p>应用启动之后，压测后<strong>隔段时间</strong>就出现这些错误，<strong>应用关闭时</strong>也会出现这些错误。😓 </p>
+<p>应用启动之后，压测后<strong>隔段时间</strong>就出现这些错误，<strong>应用关闭时</strong>也会出现这些错误。:sweat:</p>
 <h3 id="解决"><a href="#解决" class="headerlink" title="解决"></a>解决</h3><p>刚刚又重新下载了 <strong>Windows</strong> 版本的 <strong>Redis3.2.100</strong>，只改密码，然后发现还是报错，官网也能看出来很久没维护了，我想问题应该出现在 <strong>Windows</strong> 版本的 <strong>redis</strong> 上。</p>
-<p><strong>建议使用 Linux 版本的。</strong>:smirk:</p>
+<p><strong>建议使用 Linux 版本的。</strong> :smirk:</p>
 <h2 id="笔记"><a href="#笔记" class="headerlink" title="笔记"></a>笔记</h2><p>压测的时候，用 Redis 图形化界面看，如下：</p>
-<p><img src="/images/SpringBoot使用分布式锁解决超卖问题/1567238839909.png" alt="1567238839909"></p>
+<p><img src="/images/SpringBoot2/SpringBoot使用分布式锁解决超卖问题/1567238839909.png" alt="1567238839909"></p>
 <p>A：为什么使用 <strong>hash</strong> 这种结果存储锁呢？</p>
 <p>B：如果直接 <strong>String</strong> 的话， <code>UUID:ThreadId</code> 就不知道是谁的锁，后面还有别的锁的话，   <code>UUID:ThreadId</code> 可能会重复。类似<strong>命名空间</strong>的思想，选择 <strong>hash</strong>，可以避免了 <strong>key</strong> 的碰撞。</p>
 <p>A：那不用 <code>UUID:ThreadId</code>不行吗？</p>
@@ -676,8 +676,8 @@
         <div class="post-nav">
           <div class="post-nav-next post-nav-item">
             
-              <a href="/2019/08/31/docker/docker安装redis/" rel="next" title="docker 安装 redis">
-                <i class="fa fa-chevron-left"></i> docker 安装 redis
+              <a href="/2019/08/27/docker/Centos7.x docker 安装/" rel="next" title="Centos7.x docker 安装">
+                <i class="fa fa-chevron-left"></i> Centos7.x docker 安装
               </a>
             
           </div>
@@ -685,6 +685,10 @@
           <span class="post-nav-divider"></span>
 
           <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2019/08/31/docker/docker安装redis/" rel="prev" title="docker 安装 redis">
+                docker 安装 redis <i class="fa fa-chevron-right"></i>
+              </a>
             
           </div>
         </div>
