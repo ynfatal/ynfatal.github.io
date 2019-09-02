@@ -670,14 +670,26 @@
 
       
       
+        <div class="post-widgets">
+        
+          <div class="wp_rating">
+            <div id="wpac-rating"></div>
+          </div>
+        
+
+        
+
+        
+        </div>
+      
       
 
       
         <div class="post-nav">
           <div class="post-nav-next post-nav-item">
             
-              <a href="/2019/08/27/docker/Centos7.x docker 安装/" rel="next" title="Centos7.x docker 安装">
-                <i class="fa fa-chevron-left"></i> Centos7.x docker 安装
+              <a href="/2019/08/31/docker/docker安装redis/" rel="next" title="docker 安装 redis">
+                <i class="fa fa-chevron-left"></i> docker 安装 redis
               </a>
             
           </div>
@@ -685,10 +697,6 @@
           <span class="post-nav-divider"></span>
 
           <div class="post-nav-prev post-nav-item">
-            
-              <a href="/2019/08/31/docker/docker安装redis/" rel="prev" title="docker 安装 redis">
-                docker 安装 redis <i class="fa fa-chevron-right"></i>
-              </a>
             
           </div>
         </div>
@@ -1496,6 +1504,25 @@
   
 
   
+  <script>
+    wpac_init = window.wpac_init || [];
+    wpac_init.push({
+      widget: 'Rating',
+      id: ,
+      el: 'wpac-rating',
+      color: 'fc6423'
+    });
+    (function() {
+      if ('WIDGETPACK_LOADED' in window) return;
+      WIDGETPACK_LOADED = true;
+      var mc = document.createElement('script');
+      mc.type = 'text/javascript';
+      mc.async = true;
+      mc.src = '//embed.widgetpack.com/widget.js';
+      var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(mc, s.nextSibling);
+    })();
+  </script>
+
 
   
 
