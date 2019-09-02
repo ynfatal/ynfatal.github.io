@@ -42,14 +42,14 @@
           
           <category> docker </category>
           
-          <category> redis </category>
-          
       </categories>
       
       
         <tags>
             
             <tag> docker </tag>
+            
+            <tag> redis </tag>
             
         </tags>
       
