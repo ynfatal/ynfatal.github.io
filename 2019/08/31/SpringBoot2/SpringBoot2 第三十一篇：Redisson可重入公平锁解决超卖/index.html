@@ -100,13 +100,13 @@
 
 
 
-  <meta name="description" content="​                                                                                      —— Redis 单节点 库存超卖有很多种解决方案，悲观锁，乐观锁，zookeeper 分布式锁，redis 分布式锁。这篇笔记介绍如何 redis 分布式锁。当然，redlock 实现分布式锁备受争议，就连作者也不推荐使用。">
+  <meta name="description" content="—— Redis 单节点  库存超卖有很多种解决方案，悲观锁，乐观锁，zookeeper 分布式锁，redis 分布式锁。这篇笔记介绍如何 redis 分布式锁。当然，redlock 实现分布式锁备受争议，就连作者也不推荐使用。Redis 官方推荐了一个 Redis Java Client —— Redisson。 分布式锁什么是分布式锁？ ​        分布式锁是控制分布式系统之间同步访问共">
 <meta name="keywords" content="SpringBoot2,Redisson">
 <meta property="og:type" content="article">
 <meta property="og:title" content="SpringBoot2 | 第三十一篇：Redisson可重入公平锁解决超卖">
 <meta property="og:url" content="https://ynfatal.github.io/2019/08/31/SpringBoot2/SpringBoot2 第三十一篇：Redisson可重入公平锁解决超卖/index.html">
 <meta property="og:site_name" content="Fatal&#39;s Blog">
-<meta property="og:description" content="​                                                                                      —— Redis 单节点 库存超卖有很多种解决方案，悲观锁，乐观锁，zookeeper 分布式锁，redis 分布式锁。这篇笔记介绍如何 redis 分布式锁。当然，redlock 实现分布式锁备受争议，就连作者也不推荐使用。">
+<meta property="og:description" content="—— Redis 单节点  库存超卖有很多种解决方案，悲观锁，乐观锁，zookeeper 分布式锁，redis 分布式锁。这篇笔记介绍如何 redis 分布式锁。当然，redlock 实现分布式锁备受争议，就连作者也不推荐使用。Redis 官方推荐了一个 Redis Java Client —— Redisson。 分布式锁什么是分布式锁？ ​        分布式锁是控制分布式系统之间同步访问共">
 <meta property="og:locale" content="en">
 <meta property="og:image" content="https://ynfatal.github.io/images/SpringBoot使用分布式锁解决超卖问题/1567228248652.png">
 <meta property="og:image" content="https://ynfatal.github.io/images/SpringBoot使用分布式锁解决超卖问题/1567228633820.png">
@@ -117,7 +117,7 @@
 <meta property="og:updated_time" content="2019-09-02T04:12:10.000Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="SpringBoot2 | 第三十一篇：Redisson可重入公平锁解决超卖">
-<meta name="twitter:description" content="​                                                                                      —— Redis 单节点 库存超卖有很多种解决方案，悲观锁，乐观锁，zookeeper 分布式锁，redis 分布式锁。这篇笔记介绍如何 redis 分布式锁。当然，redlock 实现分布式锁备受争议，就连作者也不推荐使用。">
+<meta name="twitter:description" content="—— Redis 单节点  库存超卖有很多种解决方案，悲观锁，乐观锁，zookeeper 分布式锁，redis 分布式锁。这篇笔记介绍如何 redis 分布式锁。当然，redlock 实现分布式锁备受争议，就连作者也不推荐使用。Redis 官方推荐了一个 Redis Java Client —— Redisson。 分布式锁什么是分布式锁？ ​        分布式锁是控制分布式系统之间同步访问共">
 <meta name="twitter:image" content="https://ynfatal.github.io/images/SpringBoot使用分布式锁解决超卖问题/1567228248652.png">
 
 
@@ -541,7 +541,8 @@
       
 
       
-        <p>​                                                                                      </p><p align="right"><strong>—— Redis 单节点</strong></p><p></p>
+        <p align="right"><strong>—— Redis 单节点</strong></p>
+
 <p>库存超卖有很多种解决方案，<strong>悲观锁</strong>，<strong>乐观锁</strong>，<strong>zookeeper 分布式锁</strong>，<strong>redis 分布式锁</strong>。这篇笔记介绍如何 <strong>redis 分布式锁</strong>。当然，<strong>redlock</strong> 实现分布式锁备受争议，就连作者也不推荐使用。<strong>Redis</strong> 官方推荐了一个 <strong>Redis Java Client</strong> —— <code>Redisson</code>。</p>
 <h2 id="分布式锁"><a href="#分布式锁" class="headerlink" title="分布式锁"></a>分布式锁</h2><p><strong>什么是分布式锁？</strong></p>
 <p>​        分布式锁是控制分布式系统之间<strong>同步</strong>访问共享资源的一种方式。不同的系统或者同一个系统的不用主机之间共享同一个或同一组资源，那么访问这些资源的时候，往往需要互斥防止彼此干扰，进而保证了数据一致性。分布式系统下如果想实现<strong>线程同步</strong>，可以使用分布式锁。</p>
