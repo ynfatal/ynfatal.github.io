@@ -100,13 +100,13 @@
 
 
 
-  <meta name="description" content="Spring Cloud 为开发人员提供了快速构建分布式系统中一些常见模式的工具（例如配置管理、服务发现、断路器、智能路由、微代理、控制总线）。分布式系统的协调导致了样板式的模式，使用Spring Cloud 开发人员可以快速地支持实现这些模式的服务和应用程序。  [TOC] Eureka服务发现是基于微服务的体系结构的关键原则之一。Eureka 是 Netflix 服务发现的服务器和客户端。它">
+  <meta name="description" content="Spring Cloud 为开发人员提供了快速构建分布式系统中一些常见模式的工具（例如配置管理、服务发现、断路器、智能路由、微代理、控制总线）。分布式系统的协调导致了样板式的模式，使用Spring Cloud 开发人员可以快速地支持实现这些模式的服务和应用程序。  [TOC] Eureka服务发现是基于微服务的体系结构的关键原则之一。Eureka 是 Netflix 服务发现的服务器 Eurek">
 <meta name="keywords" content="SpringCloud,Eureka">
 <meta property="og:type" content="article">
 <meta property="og:title" content="SpringCloud | 第一篇：Eureka（Greenwich SR1）">
 <meta property="og:url" content="https://ynfatal.github.io/2019/06/10/SpringCloud/SpringCloud 第一篇：Eureka（Greenwich SR1）/index.html">
 <meta property="og:site_name" content="Fatal&#39;s Blog">
-<meta property="og:description" content="Spring Cloud 为开发人员提供了快速构建分布式系统中一些常见模式的工具（例如配置管理、服务发现、断路器、智能路由、微代理、控制总线）。分布式系统的协调导致了样板式的模式，使用Spring Cloud 开发人员可以快速地支持实现这些模式的服务和应用程序。  [TOC] Eureka服务发现是基于微服务的体系结构的关键原则之一。Eureka 是 Netflix 服务发现的服务器和客户端。它">
+<meta property="og:description" content="Spring Cloud 为开发人员提供了快速构建分布式系统中一些常见模式的工具（例如配置管理、服务发现、断路器、智能路由、微代理、控制总线）。分布式系统的协调导致了样板式的模式，使用Spring Cloud 开发人员可以快速地支持实现这些模式的服务和应用程序。  [TOC] Eureka服务发现是基于微服务的体系结构的关键原则之一。Eureka 是 Netflix 服务发现的服务器 Eurek">
 <meta property="og:locale" content="en">
 <meta property="og:image" content="https://ynfatal.github.io/images/SpringCloud/SpringCloud%20第一篇：Eureka/1560160575435.png">
 <meta property="og:image" content="https://ynfatal.github.io/images/SpringCloud/SpringCloud%20第一篇：Eureka/1560161210458.png">
@@ -132,7 +132,7 @@
 <meta property="og:updated_time" content="2019-06-11T15:52:31.000Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="SpringCloud | 第一篇：Eureka（Greenwich SR1）">
-<meta name="twitter:description" content="Spring Cloud 为开发人员提供了快速构建分布式系统中一些常见模式的工具（例如配置管理、服务发现、断路器、智能路由、微代理、控制总线）。分布式系统的协调导致了样板式的模式，使用Spring Cloud 开发人员可以快速地支持实现这些模式的服务和应用程序。  [TOC] Eureka服务发现是基于微服务的体系结构的关键原则之一。Eureka 是 Netflix 服务发现的服务器和客户端。它">
+<meta name="twitter:description" content="Spring Cloud 为开发人员提供了快速构建分布式系统中一些常见模式的工具（例如配置管理、服务发现、断路器、智能路由、微代理、控制总线）。分布式系统的协调导致了样板式的模式，使用Spring Cloud 开发人员可以快速地支持实现这些模式的服务和应用程序。  [TOC] Eureka服务发现是基于微服务的体系结构的关键原则之一。Eureka 是 Netflix 服务发现的服务器 Eurek">
 <meta name="twitter:image" content="https://ynfatal.github.io/images/SpringCloud/SpringCloud%20第一篇：Eureka/1560160575435.png">
 
 
@@ -560,8 +560,8 @@
 <p><code>Spring Cloud</code> 为开发人员提供了快速构建分布式系统中一些常见模式的工具（例如<code>配置管理</code>、<code>服务发现</code>、<code>断路器</code>、<code>智能路由</code>、<code>微代理</code>、<code>控制总线</code>）。分布式系统的协调导致了样板式的模式，使用<code>Spring Cloud</code> 开发人员可以快速地支持实现这些模式的服务和应用程序。</p>
 </blockquote>
 <p>[TOC]</p>
-<h2 id="Eureka"><a href="#Eureka" class="headerlink" title="Eureka"></a>Eureka</h2><p><code>服务发现</code>是基于微服务的体系结构的关键原则之一。<code>Eureka</code> 是 <code>Netflix 服务发现</code>的服务器和客户端。它支持通过 <code>Eureka 服务器</code> 的配置和部署实现<code>高可用</code>，每个服务器都将注册服务的状态复制到其他服务器。</p>
-<p><code>Eureka Server</code>没有后端存储，所以注册表中的服务实例都<code>必须</code>发送心跳以使其注册信息保持最新（这样的功能可以在内存中完成）；<code>Eureka</code> 则是通过<code>client 心跳</code>来确定 <code>client</code> 是否启动的。<code>client</code>的内存也有一部分是用来存放 <code>Eureka 注册</code> 缓存（因此他们不必每个对服务的请求都去注册表）。</p>
+<h2 id="Eureka"><a href="#Eureka" class="headerlink" title="Eureka"></a>Eureka</h2><p><code>服务发现</code>是基于微服务的体系结构的关键原则之一。<code>Eureka</code> 是 <code>Netflix 服务发现</code>的服务器 <code>Eureka Server</code> 和客户端 <code>Eureka Client</code>。它支持通过 <code>Eureka Server</code> 的配置和部署实现<code>高可用</code>，每个 <code>Server</code> 都将注册服务的状态复制到其他 <code>Server</code>。</p>
+<p><code>Eureka Server</code>没有后端存储，所以注册表中的服务实例都<code>必须</code>以发送心跳的方式使其注册信息保持最新（这样的功能可以在内存中完成）；默认情况下，<code>Eureka</code> 通过<code>Client 心跳</code>来确定 <code>Client</code> 是否启动的。<code>Client</code>的内存也有一部分是用来存放 <code>Eureka 注册表</code> 的缓存（因此他们不必每个对服务的请求都去注册中心）。</p>
 <h3 id="Eureka-Server"><a href="#Eureka-Server" class="headerlink" title="Eureka Server"></a>Eureka Server</h3><p><code>Eureka Server</code> 提供服务注册与发现，各个 <code>client</code> 启动后，会向 <code>Eureka Server</code> 注册自己的信息，<code>Eureka Server</code>注册表中将会存储所有可用服务节点的信息。</p>
 <h3 id="Eureka-Client"><a href="#Eureka-Client" class="headerlink" title="Eureka Client"></a>Eureka Client</h3><p><code>Eureka Client</code> 分为 服务供应商 和 服务消费者</p>
 <h3 id="Eureka-High-Availability"><a href="#Eureka-High-Availability" class="headerlink" title="Eureka High Availability"></a>Eureka High Availability</h3><p><code>Eureka Server</code> 通过运行多个相互注册的实例，可以变得<code>更具弹性</code>和<code>可用性</code>的。</p>
