@@ -612,7 +612,7 @@
 <p>缓存在执行更新数据库操作之前正常删除了。</p>
 <h3 id="测试六"><a href="#测试六" class="headerlink" title="测试六"></a>测试六</h3><p>上面那套方案只适用于低流量的情况下，高并发情况下，更新数据用上面那套方案有什么问题呢？</p>
 <p>假设现在有一条请求是更新数据的，在删除缓存的时候，更新操作还没执行完，出现了另一个请求读取数据，从数据库读取未更新前的数据，并写到缓存中，那么这个时候就会出现 <strong>缓存与数据库双写不一致</strong>的问题了。怎么解决呢？</p>
-<p>我自己的思路是：先删除缓存，然后更新数据，更新完数据再删除缓存，以确保更新操作能将缓存正常删除。</p>
+<p>我自己的思路是：先删除缓存，然后更新数据库，更新完数据再删除缓存，以确保更新操作能将缓存正常删除。</p>
 <p>具体实现上边写好了，接下来看看怎么测试，模拟出这种情况吧。</p>
 <p>这个测试方法也会先将数据查出来，放到缓存中；和上边一样，在 <code>highConcurrencyWithUpdate(..)</code> 方法执行之前打个断点，方法里边也加个断点。</p>
 <p>debug 运行 <code>Chapter16ApplicationTests.testHighConcurrencyWithUpdate(..)</code> </p>
@@ -637,7 +637,7 @@
 <p><a href="https://blog.battcn.com/2018/05/13/springboot/v2-cache-redis/" target="_blank" rel="noopener">一起来学SpringBoot | 第十篇：使用Spring Cache集成Redis</a></p>
 <p><a href="https://spring.io/guides/gs/caching/" target="_blank" rel="noopener">Caching Data with Spring</a></p>
 <h2 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h2><p><strong>Cache</strong> 注解用法可参考上一篇</p>
-<p><strong>Redis</strong> 作为缓存实现，保证缓存与数据库双写一致性可以使用上边的方式，当然咯，不管是不是 <strong>Spring Cache</strong> 作为缓存门面，逻辑都一样：<strong>更新前后都执行删除缓存操作</strong>即可。</p>
+<p><strong>Redis</strong> 作为缓存实现，保证缓存与数据库双写一致性可以使用上边的方式，当然咯，不管是不是 <strong>Spring Cache</strong> 作为缓存门面，逻辑都一样：<strong>更新数据库前后都执行删除缓存操作</strong>即可。</p>
 <p><strong>源码地址:</strong> <a href="https://github.com/ynfatal/springboot2-learning/tree/master/chapter16" target="_blank" rel="noopener">https://github.com/ynfatal/springboot2-learning/tree/master/chapter16</a></p>
 <h4 id="学习-唐亚峰、方志朋-前辈的经验"><a href="#学习-唐亚峰、方志朋-前辈的经验" class="headerlink" title="学习  唐亚峰、方志朋 前辈的经验"></a>学习  <a href="https://blog.battcn.com/" target="_blank" rel="noopener">唐亚峰</a>、<a href="https://blog.csdn.net/forezp" target="_blank" rel="noopener">方志朋</a> 前辈的经验</h4>
       
