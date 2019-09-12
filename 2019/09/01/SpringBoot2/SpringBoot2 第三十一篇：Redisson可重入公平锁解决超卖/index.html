@@ -554,7 +554,7 @@
 <li><strong>解铃还须系铃人</strong>：加解锁<strong>必须</strong>是同一个客户端</li>
 <li><strong>可重入性</strong>：同一个客户端获得锁后可递归调用</li>
 <li><strong>支持阻塞和非阻塞</strong>：和 <strong>ReentrantLock</strong> 一样支持 lock(阻塞) 和 trylock(非阻塞)</li>
-<li><strong>支持公平锁和非公平锁（可选）</strong>：<strong>公平锁</strong>，多个客户端同时请求加锁时，<strong>优先分配给先发出的线程</strong>；<strong>非公平锁</strong>，相比公平锁而言，它是无序的，<strong>不存在什么先来后到</strong></li>
+<li><strong>支持公平锁和非公平锁（可选）</strong>：<strong>公平锁</strong>，多个客户端同时请求加锁时，<strong>优先分配给先发出请求的线程</strong>；<strong>非公平锁</strong>，相比公平锁而言，它是无序的，<strong>不存在什么先来后到</strong></li>
 </ul>
 <p>当然，<strong>Redisson</strong> 就具有这些特点。</p>
 <h2 id="Redisson"><a href="#Redisson" class="headerlink" title="Redisson"></a>Redisson</h2><p>​       <code>Redisson</code> 是一个具有内存数据网格的 <strong>Redis Java Client</strong>。它为使用 Redis  提供了更方便、最简单的方法。它提供了关注点分离，是你能集中精力去处理业务逻辑。<code>Redisson</code> 底层是采用 <code>Netty</code> 框架。支持 <code>Redis 2.8</code> 以上版本，支持 <code>Java 1.6</code> 以上版本。<code>Redisson</code> 提供了很多很强大的功能，详细可以看<a href="https://github.com/redisson/redisson/wiki/%E7%9B%AE%E5%BD%95" target="_blank" rel="noopener">官网Wiki目录</a>。其中，分布式锁就有很多种，而这里选择的是<strong>公平锁</strong>。其它的锁也可以使用，看需求，看场景，选择合适即可。:satisfied:</p>
