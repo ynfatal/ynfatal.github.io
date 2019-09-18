@@ -589,7 +589,7 @@
 <p><strong>析：</strong>消息正确地没有到达了交换机，触发了 <code>ConfirmRollback</code> ，ack 为 <code>false</code>；交换机都错了，所以没有路由操作，自然也不存在路由失败与成功，所以 <code>ReturnRollbak</code> 不被触发。</p>
 <h2 id="笔记"><a href="#笔记" class="headerlink" title="笔记"></a>笔记</h2><h3 id="基础概念"><a href="#基础概念" class="headerlink" title="基础概念"></a>基础概念</h3><p><strong>Broker：</strong>简单来说就是消息队列服务器实体<br><strong>Exchange：</strong>消息交换机，它指定消息按什么规则，路由到哪个队列<br><strong>Queue：</strong>消息队列载体，每个消息都会被投入到一个或多个队列<br><strong>Binding：</strong>绑定，它的作用就是把<code>exchange</code>和<code>queue</code>按照路由规则绑定起来，在绑定的时候一定会指定一个绑定键“<code>Binding Key</code>”<br><strong>Routing Key：</strong>路由关键字，<code>exchange</code>根据这个关键字进行消息投递<br><strong>vhost：</strong>虚拟主机，一个<code>broker</code>里可以开设多个<code>vhost</code>，用作不同用户的权限分离<br><strong>producer：</strong>消息生产者，就是投递消息的程序<br><strong>consumer：</strong>消息消费者，就是接受消息的程序<br><strong>channel：</strong>消息通道，在客户端的每个连接里，可建立多个<code>channel</code>，每个<code>channel</code>代表一个会话任务</p>
 <h3 id="ConfirmRollback-和-ReturnRollback"><a href="#ConfirmRollback-和-ReturnRollback" class="headerlink" title="ConfirmRollback 和 ReturnRollback"></a>ConfirmRollback 和 ReturnRollback</h3><ul>
-<li>消息到达 <code>exchange</code>，则 <code>ConfirmCallback</code> 回调，返回 true</li>
+<li>消息到达 <code>exchange</code>，则 <code>ConfirmCallback</code> 回调，返回 <code>true</code></li>
 <li>消息没有到达 <code>exchange</code>，则 <code>ConfirmCallback</code> 回调，返回 <code>false</code></li>
 <li>消息路由成功，则不回调 <code>ReturnCallback</code></li>
 <li>消息路由失败，则回调 <code>ReturnCallback</code></li>
