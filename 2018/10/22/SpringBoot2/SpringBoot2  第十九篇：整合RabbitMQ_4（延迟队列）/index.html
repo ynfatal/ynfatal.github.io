@@ -550,6 +550,13 @@
 <p><img src="/images/SpringBoot2/SpringBoot整合RabbitMQ/1562890837061.png" alt="1562890837061"></p>
 <h2 id="Time-To-Live-Extensions"><a href="#Time-To-Live-Extensions" class="headerlink" title="Time-To-Live Extensions"></a>Time-To-Live Extensions</h2><p>​        <strong>RabbitMQ支持为队列或者消息设置TTL（time to live 存活时间）</strong>。TTL表明了一条消息可在队列中存活的最大时间。当某条消息被设置了TTL或者当某条消息进入了设置了TTL的队列时，这条消息会在TTL时间后<strong>死亡成为Dead Letter</strong>。==如果既配置了消息的TTL，又配置了队列的TTL，那么较小的那个值会被取用==（一般情况下只需要设置其中一个就行了）。</p>
 <h2 id="Dead-Letter-Exchange"><a href="#Dead-Letter-Exchange" class="headerlink" title="Dead Letter Exchange"></a>Dead Letter Exchange</h2><p>​        <strong>死信交换机</strong>，上文中提到设置了 TTL 的消息或队列最终会成为<code>Dead Letter</code>。如果为队列设置了<code>Dead Letter Exchange（DLX）</code>，那么这些<code>Dead Letter</code>就会被重新发送到<code>Dead Letter Exchange</code>中，然后通过<code>Dead Letter Exchange</code>路由到其他队列，即可实现延迟队列的功能。</p>
+<p><strong>消息变成死信一般由一下三种情况：</strong></p>
+<ul>
+<li>消息被拒绝（<code>Basic.Reject</code>/<code>Basic.Nack</code>），并设置 <code>requeue</code> 参数为 <strong>false</strong></li>
+<li>消息过期</li>
+<li>队列达到最大长度</li>
+</ul>
+<p>这篇笔记用的是<strong>消息过时</strong>，下一篇用的是<strong>消息过时 + 消息被拒绝</strong>。</p>
 <h2 id="环境-版本一览："><a href="#环境-版本一览：" class="headerlink" title="环境/版本一览："></a>环境/版本一览：</h2><ul>
 <li>开发工具：Intellij IDEA 2018.2.2</li>
 <li>springboot： <strong>2.0.6.RELEASE</strong></li>
@@ -948,7 +955,7 @@
 
 <!-- <div class="theme-info">
   <div class="powered-by"></div>
-  <span class="post-count">博客全站共114.9k字</span>
+  <span class="post-count">博客全站共115k字</span>
 </div> --> 
 
         
