@@ -557,7 +557,7 @@
 </ul>
 <h2 id="全文搜索引擎"><a href="#全文搜索引擎" class="headerlink" title="全文搜索引擎"></a>全文搜索引擎</h2><p>根据百度百科中的定义，全文搜索引擎是目前广泛应用的<strong>主流搜索引擎</strong>。它的工作原理是通过扫描文章中的每一个词，<strong>对每一次词建立一个索引</strong>，指明该词在文章中出现的次数和位置，当用户查询时，检索程序<strong>根据索引进行查找</strong>，并将结果反馈给用户。常见的搜索引擎有 <strong>Lucene</strong>、<strong>Solr</strong>、<code>Elasticsearch</code>。</p>
 <h2 id="Elasticsearch-的优点"><a href="#Elasticsearch-的优点" class="headerlink" title="Elasticsearch 的优点"></a>Elasticsearch 的优点</h2><ul>
-<li><strong>分布式</strong>：<strong>Elasticsearch</strong> 的横向扩展非常灵活，当数据规模比较小的时候可以使用小规模的集群。随着数据的增长，需要更大的容量和更高的性能，此时<strong>只需添加更多的节点</strong>，<strong>Elasticsearch</strong> 的<strong>自动发现机制</strong>会<strong>识别新增的节点</strong>并<strong>重新平衡地分配数据</strong>。</li>
+<li><strong>可扩展</strong>：<strong>Elasticsearch</strong> 的横向扩展非常灵活，当数据规模比较小的时候可以使用小规模的集群。随着数据的增长，需要更大的容量和更高的性能，此时<strong>只需添加更多的节点</strong>，<strong>Elasticsearch</strong> 的<strong>自动发现机制</strong>会<strong>识别新增的节点</strong>并<strong>重新平衡地分配数据</strong>。</li>
 <li><strong>全文检索</strong>：<strong>Elasticsearch</strong> 在后台使用 <strong>Lucene</strong> 来提供最强大的全文检索功能。</li>
 <li><strong>近实时的搜索和分析</strong>：数据进入 <strong>Elasticsearch</strong>，可以达到近实时搜索。除了搜索，<strong>Elasticsearch</strong>也可以进行聚合分析操作。</li>
 <li><strong>高可用</strong>：高可用主要体现在容错机制上，<strong>Elasticsearch</strong> 集群会<strong>自动</strong>发现新的或失败的节点，<strong>重组</strong>和重新平衡数据，确保数据是安全的和可访问的。</li>
