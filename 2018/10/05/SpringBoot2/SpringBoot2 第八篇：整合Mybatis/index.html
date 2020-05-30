@@ -103,7 +103,7 @@
   <meta name="description" content="springboot终于迎来了2.0版本，很多新的特性让springboot更加强大，之前使用1.5.6版本整合了Mybatis，现在2.0版本就已经不适用了，所以，在摸索中搭建了2.0版本整合Mybatis  [TOC] 环境/版本一览： 开发工具：Intellij IDEA 2018.2.2 springboot： 2.0.5.RELEASE jdk：1.8.0_171 maven：3.3.">
 <meta name="keywords" content="SpringBoot2,Mybatis">
 <meta property="og:type" content="article">
-<meta property="og:title" content="SpringBoot2 |第八篇：整合Mybatis">
+<meta property="og:title" content="SpringBoot2 | 第八篇：整合Mybatis">
 <meta property="og:url" content="https://ynfatal.github.io/2018/10/05/SpringBoot2/SpringBoot2 第八篇：整合Mybatis/index.html">
 <meta property="og:site_name" content="Fatal&#39;s Blog">
 <meta property="og:description" content="springboot终于迎来了2.0版本，很多新的特性让springboot更加强大，之前使用1.5.6版本整合了Mybatis，现在2.0版本就已经不适用了，所以，在摸索中搭建了2.0版本整合Mybatis  [TOC] 环境/版本一览： 开发工具：Intellij IDEA 2018.2.2 springboot： 2.0.5.RELEASE jdk：1.8.0_171 maven：3.3.">
@@ -119,7 +119,7 @@
 <meta property="og:image" content="https://ynfatal.github.io/images/SpringBoot2/SpringBoot整合Mybatis/1538628768244.png">
 <meta property="og:updated_time" content="2018-10-05T12:33:10.000Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="SpringBoot2 |第八篇：整合Mybatis">
+<meta name="twitter:title" content="SpringBoot2 | 第八篇：整合Mybatis">
 <meta name="twitter:description" content="springboot终于迎来了2.0版本，很多新的特性让springboot更加强大，之前使用1.5.6版本整合了Mybatis，现在2.0版本就已经不适用了，所以，在摸索中搭建了2.0版本整合Mybatis  [TOC] 环境/版本一览： 开发工具：Intellij IDEA 2018.2.2 springboot： 2.0.5.RELEASE jdk：1.8.0_171 maven：3.3.">
 <meta name="twitter:image" content="https://ynfatal.github.io/images/SpringBoot2/SpringBoot整合Mybatis/1538643571840.png">
 
@@ -139,7 +139,7 @@
   };
 </script>
 
-  <title>SpringBoot2 |第八篇：整合Mybatis | Fatal's Blog</title>
+  <title>SpringBoot2 | 第八篇：整合Mybatis | Fatal's Blog</title>
   
 
 
@@ -446,7 +446,7 @@
 
         
         
-          <h1 class="post-title" itemprop="name headline">SpringBoot2 |第八篇：整合Mybatis
+          <h1 class="post-title" itemprop="name headline">SpringBoot2 | 第八篇：整合Mybatis
 
               
             
@@ -589,7 +589,7 @@
 <p><a href="https://blog.csdn.net/Winter_chen001/article/details/80010967" target="_blank" rel="noopener">springboot Mybatis 整合</a></p>
 <h2 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h2><p>总共就几步：</p>
 <p><strong>1、properties、yml配置</strong></p>
-<figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"># yml为例</span><br><span class="line">mybatis:</span><br><span class="line">  mapper-locations: classpath:mapper/*.xml  # 注意：一定要对应 mapper 映射xml文件的所在路径</span><br><span class="line">  type-aliases-package: com.example.entity  # 注意：对应实体类的路径</span><br><span class="line">  configuration:</span><br><span class="line">    log-impl: org.apache.ibatis.logging.stdout.StdOutImpl  # 可以自控制台上输出 sql 语句</span><br></pre></td></tr></table></figure>
+<figure class="highlight yml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># yml为例</span></span><br><span class="line"><span class="attr">mybatis:</span></span><br><span class="line"><span class="attr">  mapper-locations:</span> <span class="attr">classpath:mapper/*.xml</span>  <span class="comment"># 注意：一定要对应 mapper 映射xml文件的所在路径</span></span><br><span class="line"><span class="attr">  type-aliases-package:</span> <span class="string">com.example.entity</span>  <span class="comment"># 注意：对应实体类的路径</span></span><br><span class="line"><span class="attr">  configuration:</span></span><br><span class="line"><span class="attr">    log-impl:</span> <span class="string">org.apache.ibatis.logging.stdout.StdOutImpl</span>  <span class="comment"># 可以自控制台上输出 sql 语句</span></span><br></pre></td></tr></table></figure>
 <p><strong>2、Mapper 配置文件扫描</strong></p>
 <p><strong>@MapperScan(“Mapper接口所在的包的路径”)</strong>  </p>
 <p>作用：扫描指定包下的所有 <code>Mapper 接口</code> ，并将其交给 Spring 容器管理</p>
@@ -662,8 +662,8 @@
 
           <div class="post-nav-prev post-nav-item">
             
-              <a href="/2018/10/05/SpringBoot2/SpringBoot2 第九篇：整合Mybatis通用Mapper和分页插件/" rel="prev" title="SpringBoot2 |第九篇：整合Mybatis通用Mapper和分页插件">
-                SpringBoot2 |第九篇：整合Mybatis通用Mapper和分页插件 <i class="fa fa-chevron-right"></i>
+              <a href="/2018/10/05/SpringBoot2/SpringBoot2 第九篇：整合Mybatis通用Mapper和分页插件/" rel="prev" title="SpringBoot2 | 第九篇：整合Mybatis通用Mapper和分页插件">
+                SpringBoot2 | 第九篇：整合Mybatis通用Mapper和分页插件 <i class="fa fa-chevron-right"></i>
               </a>
             
           </div>
@@ -951,7 +951,7 @@
     <footer id="footer" class="footer">
       <div class="footer-inner">
         <script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
-<div class="copyright">&copy; <span itemprop="copyrightYear">2019</span>
+<div class="copyright">&copy; <span itemprop="copyrightYear">2020</span>
   <span class="with-love" id="animate">
     <i class="fa fa-user"></i>
   </span>
@@ -980,7 +980,7 @@
 
 <!-- <div class="theme-info">
   <div class="powered-by"></div>
-  <span class="post-count">博客全站共119.2k字</span>
+  <span class="post-count">博客全站共119.5k字</span>
 </div> --> 
 
         
