@@ -42,6 +42,8 @@
           
           <category> SpringBoot2 </category>
           
+          <category> Redisson </category>
+          
       </categories>
       
       
