@@ -496,7 +496,6 @@ body {
   position: relative;
   overflow: hidden;
   border-radius: 5px;
-  box-shadow: 0 10px 30px 0px rgba(0,0,0,0.4);
 }
 .highlight-wrap ::-webkit-scrollbar {
   height: 10px;
@@ -1883,7 +1882,7 @@ pre .javascript .function {
   width: 4px;
   height: 4px;
   border-radius: 50%;
-  background: #ffba4e;
+  background: #eb3261;
 }
 .feed-link,
 .chat {
