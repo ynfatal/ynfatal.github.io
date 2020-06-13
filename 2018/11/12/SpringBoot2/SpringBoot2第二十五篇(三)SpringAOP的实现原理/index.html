@@ -571,7 +571,7 @@
 </ul>
 <h4 id="动态代理怎么体现动态？"><a href="#动态代理怎么体现动态？" class="headerlink" title="动态代理怎么体现动态？"></a>动态代理怎么体现动态？</h4><p>以 <strong>jdk 代理</strong>为例子</p>
 <p>这里有一个参数，把它设置为 true 后，运行后会把 jdk 代理生成的 class 文件保存下来</p>
-<div class="highlight-wrap"><figure class="iseeu highlight /java"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">System.getProperties().put(<span class="string">"sun.misc.ProxyGenerator.saveGeneratedFiles"</span>, <span class="string">"true"</span>);</span><br></pre></td></tr></table></figure></div>
+<div class="highlight-wrap-higher"><div class="highlight-wrap"><figure class="iseeu highlight /java"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">System.getProperties().put(<span class="string">"sun.misc.ProxyGenerator.saveGeneratedFiles"</span>, <span class="string">"true"</span>);</span><br></pre></td></tr></table></figure></div></div>
 <p>运行后可以看到项目的跟目录多了个文件夹</p>
 <p><img src="/images/SpringBoot2/SpringBoot使用SpringAOP/1542094527397.png" alt="1542094527397"></p>
 <p>打开这个文件，可以看到，该代理类对被代理类的每个方法都进行了增强操作。</p>
