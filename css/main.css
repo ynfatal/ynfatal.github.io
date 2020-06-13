@@ -492,6 +492,9 @@ body {
     width: 73%;
   }
 }
+.highlight-wrap-higher {
+  margin-bottom: 15px;
+}
 .highlight-wrap {
   position: relative;
   overflow: hidden;
@@ -1883,7 +1886,7 @@ pre .javascript .function {
   width: 4px;
   height: 4px;
   border-radius: 50%;
-  background: #be0d2f;
+  background: #b6524b;
 }
 .feed-link,
 .chat {
